@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=10 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_t2vgi"]
@@ -21,6 +21,12 @@ albedo_color = Color(1, 1, 0.0823529, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_e2ix8"]
 material = SubResource("StandardMaterial3D_314gx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkcti"]
+albedo_color = Color(1, 0, 0.0823529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3ptg6"]
+material = SubResource("StandardMaterial3D_pkcti")
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_t2vgi")
@@ -46,7 +52,7 @@ mesh = SubResource("BoxMesh_e2ix8")
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -7.22399, -0.474249, 0)
 use_collision = true
-mesh = SubResource("BoxMesh_e2ix8")
+mesh = SubResource("BoxMesh_3ptg6")
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn")

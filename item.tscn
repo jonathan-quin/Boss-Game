@@ -1,0 +1,46 @@
+[gd_scene load_steps=7 format=3 uid="uid://s8kppoty8cvl"]
+
+[ext_resource type="Script" path="res://scripts/item.cs" id="1_0ltv6"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]
+radius = 0.1
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psld5"]
+albedo_color = Color(0.639216, 0.360784, 0.211765, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_mjs6n"]
+material = SubResource("StandardMaterial3D_psld5")
+radius = 0.1
+height = 0.6
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_f6xs6"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_805b7"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[node name="item" type="RigidBody3D"]
+freeze = true
+script = ExtResource("1_0ltv6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_gg14j")
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh"]
+mesh = SubResource("CapsuleMesh_mjs6n")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh"]
+transform = Transform3D(0.154023, 0, 0, 0, -4.37114e-08, -0.269771, 0, 1, -1.1792e-08, -0.0933353, 0.355683, 0)
+mesh = SubResource("PlaneMesh_f6xs6")
+skeleton = NodePath("../..")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_805b7")

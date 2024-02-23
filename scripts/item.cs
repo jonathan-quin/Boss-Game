@@ -18,6 +18,7 @@ public partial class item : Node
 	public override void _Ready()
 	{
 		GD.Print("hey");
+		GD.Print("gosh");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

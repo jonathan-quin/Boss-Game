@@ -1,15 +1,12 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.7.34031.279
-MinimumVisualStudioVersion = 10.0.40219.1
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Boss Game", "Boss Game.csproj", "{83388E5A-C33E-4E25-9A66-B9A4CE263AF5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		ExportDebug|Any CPU = ExportDebug|Any CPU
-		ExportRelease|Any CPU = ExportRelease|Any CPU
+	Debug|Any CPU = Debug|Any CPU
+	ExportDebug|Any CPU = ExportDebug|Any CPU
+	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{83388E5A-C33E-4E25-9A66-B9A4CE263AF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -18,11 +15,5 @@ Global
 		{83388E5A-C33E-4E25-9A66-B9A4CE263AF5}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
 		{83388E5A-C33E-4E25-9A66-B9A4CE263AF5}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
 		{83388E5A-C33E-4E25-9A66-B9A4CE263AF5}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {F4595508-6115-4E6D-897E-7C6A00E0478D}
 	EndGlobalSection
 EndGlobal

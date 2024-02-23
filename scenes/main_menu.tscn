@@ -1,0 +1,97 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtl2yof5vuh1s"]
+
+[ext_resource type="Script" path="res://scripts/Main Menu.gd" id="1_uweat"]
+[ext_resource type="PackedScene" uid="uid://c2s751ht1xoxv" path="res://scenes/world.tscn" id="2_vp37k"]
+
+[node name="Main Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_uweat")
+gameScene = ExtResource("2_vp37k")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="CenterContainer"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Port Label" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Port"
+horizontal_alignment = 1
+
+[node name="port" type="SpinBox" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+allow_greater = true
+
+[node name="Adress Label" type="Label" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Address"
+horizontal_alignment = 1
+
+[node name="address" type="LineEdit" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="host button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Host
+"
+
+[node name="join button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Join"
+
+[node name="quit button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 80
+text = "Boss Horror Game"
+horizontal_alignment = 1
+
+[node name="Message" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -110.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 20
+text = "Boss Horror Game"
+horizontal_alignment = 1
+
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/host button" to="." method="_on_host_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/join button" to="." method="_on_join_button_pressed"]
+[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/quit button" to="." method="_on_quit_button_pressed"]

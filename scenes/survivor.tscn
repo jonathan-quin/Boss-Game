@@ -1,0 +1,63 @@
+[gd_scene load_steps=9 format=3 uid="uid://bf4q3p0st5kda"]
+
+[ext_resource type="Script" path="res://scripts/survivor.gd" id="1_gjn0t"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_twvqh"]
+albedo_color = Color(1, 0.415686, 0.466667, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3bsst"]
+material = SubResource("StandardMaterial3D_twvqh")
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pi7n1"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_ohyin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gm0uj"]
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_eyp1h"]
+material = SubResource("StandardMaterial3D_gm0uj")
+radius = 0.1
+height = 0.2
+
+[node name="survivor" type="CharacterBody3D"]
+script = ExtResource("1_gjn0t")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_ro0dl")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_3bsst")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_pi7n1")
+
+[node name="neck" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845512, 0)
+
+[node name="head" type="Node3D" parent="neck"]
+
+[node name="Camera" type="Camera3D" parent="neck/head"]
+unique_name_in_owner = true
+
+[node name="headMesh" type="MeshInstance3D" parent="neck/head"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.429025)
+mesh = SubResource("SphereMesh_ohyin")
+
+[node name="leftEye" type="MeshInstance3D" parent="neck/head/headMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.258, 0.21, -0.367975)
+mesh = SubResource("SphereMesh_eyp1h")
+skeleton = NodePath("../..")
+
+[node name="rightEye" type="MeshInstance3D" parent="neck/head/headMesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0.21, -0.368)
+mesh = SubResource("SphereMesh_eyp1h")
+skeleton = NodePath("../..")

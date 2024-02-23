@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
+
+[ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
+[ext_resource type="Script" path="res://scripts/lobby.gd" id="1_t2vgi"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5npu2"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_y78xr"]
+sky_material = SubResource("ProceduralSkyMaterial_5npu2")
+
+[sub_resource type="Environment" id="Environment_4l018"]
+background_mode = 2
+sky = SubResource("Sky_y78xr")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_314gx"]
+albedo_color = Color(1, 1, 0.0823529, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e2ix8"]
+material = SubResource("StandardMaterial3D_314gx")
+
+[node name="world" type="Node3D"]
+script = ExtResource("1_t2vgi")
+surviorScene = ExtResource("1_iiks1")
+
+[node name="PlayerSpawnRoot" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_4l018")
+
+[node name="CSGMesh3D" type="CSGMesh3D" parent="Environment"]
+transform = Transform3D(101.651, 0, 0, 0, 0.999998, 0, 0, 0, 145.36, 0, -1.32909, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_e2ix8")
+
+[node name="CSGMesh3D2" type="CSGMesh3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -7.22399, -0.474249, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_e2ix8")
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn")
+spawn_path = NodePath("../PlayerSpawnRoot")

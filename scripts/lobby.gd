@@ -40,7 +40,7 @@ func create_player(id = 1):
 	var player = surviorScene.instantiate()
 	player.name = str(id)
 	
-	player.position = Vector3.UP * 4
+	player.position = Vector3.UP
 	
 	var objectHolder = %PlayerSpawnRoot
 	objectHolder.call_deferred("add_child",player)

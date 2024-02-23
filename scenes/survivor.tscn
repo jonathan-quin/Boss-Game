@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=11 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/survivor.gd" id="1_gjn0t"]
+[ext_resource type="PackedScene" uid="uid://basmsn6nxa7d2" path="res://scenes/torch.tscn" id="2_ij7w2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -9,6 +10,28 @@ albedo_color = Color(1, 0.415686, 0.466667, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3bsst"]
 material = SubResource("StandardMaterial3D_twvqh")
+
+[sub_resource type="CSharpScript" id="CSharpScript_03q5v"]
+script/source = "using Godot;
+using System;
+
+public partial class StupidColorChanger : MeshInstance3D
+{
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		if (Multiplayer.IsServer())
+		{
+			GetNode<MeshInstance3D>(\"%MeshInetsnace3D\").GetActiveMaterial(0).;
+		}
+	}
+
+	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	public override void _Process(double delta)
+	{
+	}
+}
+"
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pi7n1"]
 properties/0/path = NodePath(".:position")
@@ -38,7 +61,9 @@ script = ExtResource("1_gjn0t")
 shape = SubResource("CapsuleShape3D_ro0dl")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
 mesh = SubResource("CapsuleMesh_3bsst")
+script = SubResource("CSharpScript_03q5v")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_pi7n1")
@@ -64,3 +89,7 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0.21, -0.368)
 mesh = SubResource("SphereMesh_eyp1h")
 skeleton = NodePath("../..")
+
+[node name="Torch" parent="neck/head" instance=ExtResource("2_ij7w2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.559761, -0.640966, -1.36675)
+skeleton = NodePath("../../..")

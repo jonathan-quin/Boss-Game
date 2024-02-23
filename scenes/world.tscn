@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_t2vgi"]
+[ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5npu2"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -16,17 +17,8 @@ sky = SubResource("Sky_y78xr")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_314gx"]
-albedo_color = Color(1, 1, 0.0823529, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_e2ix8"]
-material = SubResource("StandardMaterial3D_314gx")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkcti"]
-albedo_color = Color(1, 0, 0.0823529, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_3ptg6"]
-material = SubResource("StandardMaterial3D_pkcti")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmrqj"]
+albedo_color = Color(0, 0, 0, 1)
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_t2vgi")
@@ -38,22 +30,265 @@ unique_name_in_owner = true
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0.458811, 0)
+visible = false
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_4l018")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Environment"]
-transform = Transform3D(101.651, 0, 0, 0, 0.999998, 0, 0, 0, 145.36, 0, -1.32909, 0)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Environment"]
 use_collision = true
-mesh = SubResource("BoxMesh_e2ix8")
 
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -7.22399, -0.474249, 0)
-use_collision = true
-mesh = SubResource("BoxMesh_3ptg6")
+[node name="Floor" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+flip_faces = true
+size = Vector3(100, 20, 100)
+material = SubResource("StandardMaterial3D_kmrqj")
+
+[node name="Wall01" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 35.004, 8, -13.0494)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 10.3377)
+
+[node name="Wall02" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -18.0273, 8, -14.3188)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 64.0026)
+
+[node name="Wall03" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 26.7625, 8, -25.1395)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 26.8207)
+
+[node name="Wall04" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 31.9027, 8, -37.4984)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 16.5402)
+
+[node name="Wall05" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.6916, 8, -43.9653)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 11.9351)
+
+[node name="Wall06" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8499, 8, -37.784)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 24.2979)
+
+[node name="Wall07" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.65764, 8, -25.1472)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 20.6831)
+
+[node name="Wall08" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.6256, 8, -25.1343)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 20.6574)
+
+[node name="Wall09" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -14.2916, 8, -35.95)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 24.2882)
+
+[node name="Wall10" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.5015, 8, -26.318)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 23.0248)
+
+[node name="Wall11" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -43.0071, 8, -37.4102)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 13.9912)
+
+[node name="Wall12" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -43.0071, 8, -25.5222)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 13.9912)
+
+[node name="Wall13" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.4984, 8, -4.34815)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 34.3462)
+
+[node name="Wall14" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 10.4984, 8, 17.7441)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 34.3462)
+
+[node name="Wall15" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17303, 8, 6.68906)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 23.0627)
+
+[node name="Wall16" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1945, 8, 6.68906)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 23.0627)
+
+[node name="Wall17" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9963, 8, 18.0998)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 63.8996)
+
+[node name="Wall18" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -35.2407, 8, 14.9263)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 29.5246)
+
+[node name="Wall19" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -35.2407, 8, 33.9883)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 29.5246)
+
+[node name="Wall20" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.6564, 8, 42.2394)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 15.5426)
+
+[node name="Wall21" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -26.1297, 8, 45.0504)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 9.92055)
+
+[node name="Wall22" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(0.997011, 0, 0.0772585, 0, 1, 0, -0.0772585, 0, 0.997011, -47.5777, 8, 9.88843)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 47.4383)
+
+[node name="Wall23" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -23.0564, 8, 40.5911)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 5.15588)
+
+[node name="Wall24" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -13.2608, 8, 34.894)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 12.4808)
+
+[node name="Wall25" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.52943, 8, 28.1772)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 12.4808)
+
+[node name="Wall26" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -32.4208, 8, 39.1302)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 9.32414)
+
+[node name="Wall27" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.35918, 8, 38.8924)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 22.4111)
+
+[node name="Wall28" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 18.604, 8, 28.1666)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 21.5807)
+
+[node name="Wall29" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.5101, 8, 42.5782)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 15.0396)
+
+[node name="Wall30" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.5573, 8, 25.3675)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 21.3475)
+
+[node name="Wall31" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 38.0283, 8, 35.5716)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 8.0862)
+
+[node name="Wall32" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 47.0959, 8, 15.209)
+operation = 2
+flip_faces = true
+size = Vector3(1, 20, 8.0862)
+
+[node name="Door01" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.17303, 0.382454, 8.46116)
+flip_faces = true
+size = Vector3(1, 4.76491, 4.28954)
+
+[node name="Door02" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12.5827, 0.382454, -14.3161)
+flip_faces = true
+size = Vector3(1.00769, 4.76491, 4.28954)
+
+[node name="Door03" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -47.6174, 0.382454, -37.4125)
+flip_faces = true
+size = Vector3(1.00769, 4.76491, 4.28954)
+
+[node name="Door04" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -39.7649, 0.382454, -25.5213)
+flip_faces = true
+size = Vector3(1.00769, 4.76491, 4.28954)
+
+[node name="Door05" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -46.9858, 0.382454, -14.3159)
+flip_faces = true
+size = Vector3(1.00769, 4.76491, 4.28954)
+
+[node name="Door06" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0223, 0.382454, -0.974185)
+flip_faces = true
+size = Vector3(1.11523, 4.76491, 4.28954)
+
+[node name="Door07" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -31.9652, 0.382454, 14.9225)
+flip_faces = true
+size = Vector3(1.00769, 4.76491, 4.28954)
+
+[node name="Door08" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -35.8417, 0.382454, 34.0112)
+flip_faces = true
+size = Vector3(1.06195, 4.76491, 4.28954)
+
+[node name="Door09" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9734, 0.382454, 37.6671)
+flip_faces = true
+size = Vector3(1.06195, 4.76491, 4.28954)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn")
 spawn_path = NodePath("../PlayerSpawnRoot")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(13, 0, 0, 0, -5.68248e-07, -13, 0, 13, -5.68248e-07, 0, 0, 0)
+visible = false
+flip_h = true
+texture = ExtResource("3_8xo3k")

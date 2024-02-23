@@ -7,7 +7,7 @@ albedo_color = Color(0.603922, 0.266667, 0, 1)
 material = SubResource("StandardMaterial3D_11qqi")
 radius = 0.25
 
-[node name="Node3D" type="MeshInstance3D"]
+[node name="Torch" type="MeshInstance3D"]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_kvx2b")
 

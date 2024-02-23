@@ -66,5 +66,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0.21, -0.368)
 mesh = SubResource("SphereMesh_eyp1h")
 skeleton = NodePath("../..")
 
-[node name="Node3D" parent="." instance=ExtResource("2_ij7w2")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.559761, 0.204546, -1.36675)
+[node name="Torch" parent="neck/head" instance=ExtResource("2_ij7w2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.559761, -0.640966, -1.36675)
+skeleton = NodePath("../../..")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=7 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_t2vgi"]
@@ -16,11 +16,8 @@ sky = SubResource("Sky_y78xr")
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_314gx"]
-albedo_color = Color(1, 1, 0.0823529, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_e2ix8"]
-material = SubResource("StandardMaterial3D_314gx")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmrqj"]
+albedo_color = Color(1, 1, 0, 1)
 
 [node name="world" type="Node3D"]
 script = ExtResource("1_t2vgi")
@@ -32,26 +29,26 @@ unique_name_in_owner = true
 [node name="Environment" type="Node3D" parent="."]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0.458811, 0)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_4l018")
 
-[node name="CSGMesh3D" type="CSGMesh3D" parent="Environment"]
-transform = Transform3D(101.651, 0, 0, 0, 0.999998, 0, 0, 0, 145.36, 0, -1.32909, 0)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Environment"]
 use_collision = true
-mesh = SubResource("BoxMesh_e2ix8")
 
-[node name="CSGMesh3D3" type="CSGMesh3D" parent="Environment"]
-transform = Transform3D(101.651, 0, 0, 0, 0.999998, 0, 0, 0, 145.36, 0, 20.1638, 0)
-use_collision = true
-mesh = SubResource("BoxMesh_e2ix8")
+[node name="Floor" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.6458, 0)
+flip_faces = true
+size = Vector3(200, 30.2915, 200)
+material = SubResource("StandardMaterial3D_kmrqj")
 
-[node name="CSGMesh3D2" type="CSGMesh3D" parent="Environment"]
-transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -7.22399, -0.474249, 0)
-use_collision = true
-mesh = SubResource("BoxMesh_e2ix8")
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.871643, 4.08093)
+operation = 2
+flip_faces = true
+size = Vector3(1, 2.74329, 1)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn")

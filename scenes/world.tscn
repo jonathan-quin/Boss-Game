@@ -43,6 +43,11 @@ transform = Transform3D(101.651, 0, 0, 0, 0.999998, 0, 0, 0, 145.36, 0, -1.32909
 use_collision = true
 mesh = SubResource("BoxMesh_e2ix8")
 
+[node name="CSGMesh3D3" type="CSGMesh3D" parent="Environment"]
+transform = Transform3D(101.651, 0, 0, 0, 0.999998, 0, 0, 0, 145.36, 0, 20.1638, 0)
+use_collision = true
+mesh = SubResource("BoxMesh_e2ix8")
+
 [node name="CSGMesh3D2" type="CSGMesh3D" parent="Environment"]
 transform = Transform3D(1, 0, 0, 0, 10, 0, 0, 0, 1, -7.22399, -0.474249, 0)
 use_collision = true

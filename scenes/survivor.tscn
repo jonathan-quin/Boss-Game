@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=10 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/survivor.gd" id="1_gjn0t"]
+[ext_resource type="PackedScene" uid="uid://basmsn6nxa7d2" path="res://scenes/torch.tscn" id="2_ij7w2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -64,3 +65,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0.21, -0.368)
 mesh = SubResource("SphereMesh_eyp1h")
 skeleton = NodePath("../..")
+
+[node name="Node3D" parent="." instance=ExtResource("2_ij7w2")]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.559761, 0.204546, -1.36675)

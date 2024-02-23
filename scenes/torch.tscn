@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://basmsn6nxa7d2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11qqi"]
+albedo_color = Color(0.603922, 0.266667, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kvx2b"]
+material = SubResource("StandardMaterial3D_11qqi")
+radius = 0.25
+
+[node name="Node3D" type="MeshInstance3D"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("CapsuleMesh_kvx2b")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.992603, 0)
+light_energy = 5.0
+omni_range = 40.0
+omni_shadow_mode = 0

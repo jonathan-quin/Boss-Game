@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/survivor.gd" id="1_gjn0t"]
-[ext_resource type="PackedScene" uid="uid://basmsn6nxa7d2" path="res://scenes/torch.tscn" id="2_ij7w2"]
+[ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/torch.tscn" id="2_ij7w2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 

@@ -1,19 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=6 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/lobby.gd" id="1_t2vgi"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5npu2"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_y78xr"]
-sky_material = SubResource("ProceduralSkyMaterial_5npu2")
-
 [sub_resource type="Environment" id="Environment_4l018"]
-background_mode = 2
-sky = SubResource("Sky_y78xr")
+ambient_light_source = 1
 tonemap_mode = 2
 glow_enabled = true
 
@@ -28,11 +20,6 @@ surviorScene = ExtResource("1_iiks1")
 unique_name_in_owner = true
 
 [node name="Environment" type="Node3D" parent="."]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="Environment"]
-transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0.458811, 0)
-visible = false
-shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_4l018")
@@ -287,7 +274,7 @@ size = Vector3(1.06195, 4.76491, 4.28954)
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn")
 spawn_path = NodePath("../PlayerSpawnRoot")
 
-[node name="Sprite3D" type="Sprite3D" parent="."]
+[node name="map reference" type="Sprite3D" parent="."]
 transform = Transform3D(13, 0, 0, 0, -5.68248e-07, -13, 0, 13, -5.68248e-07, 0, 0, 0)
 visible = false
 flip_h = true

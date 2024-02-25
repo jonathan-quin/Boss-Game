@@ -60,7 +60,7 @@ public partial class Survivor : CharacterBody3D
 
 	public void Move(double delta){
 		if (! IsOnFloor()){
-			Velocity = Velocity - (Vector3.Down * (float)GRAVITY);
+			Velocity = Velocity + (Vector3.Down * (float)(GRAVITY * delta));
 		}
 
 		//Handle Jump
@@ -71,7 +71,7 @@ public partial class Survivor : CharacterBody3D
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 input_dir = Input.GetVector("left", "right", "forward", "backward");
 		//we set the forward direction to where the body is facing.
-		Vector3 direction = (Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized();
+		Vector3 direction = (Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
 		if (direction != Vector3.Zero){
 			// Y is up and down, so we don't want to change it.
 			
@@ -106,13 +106,13 @@ public partial class Survivor : CharacterBody3D
 
 			Node3D head = GetNode<Node3D>("neck/head");
 
-			head.RotateX((float)(newEvent.Relative.Y * SENSITIVITY));
+			head.RotateX((float)(-newEvent.Relative.Y * SENSITIVITY));
 
 
 			RotateY((float)(-newEvent.Relative.X * SENSITIVITY));
 			
 			//Clamp head lookup and down
-			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y,head.Rotation.Z); 
+			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y, head.Rotation.Z); 
 
 		}
     }

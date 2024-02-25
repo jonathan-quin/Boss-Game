@@ -3,6 +3,10 @@ using System;
 
 public partial class item : Node
 {
+
+	[Export]
+	public PackedScene heldForm;
+
 	private dynamic Globals;
 	public override void _EnterTree()
 	{
@@ -25,4 +29,11 @@ public partial class item : Node
 	public override void _Process(double delta)
 	{
 	}
+
+	public void giveToPlayer(dynamic player){
+
+	}
+
+
+
 }

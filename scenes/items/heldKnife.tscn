@@ -1,0 +1,117 @@
+[gd_scene load_steps=12 format=3 uid="uid://cwp4yn37wcho0"]
+
+[ext_resource type="Script" path="res://scripts/items/held_item.cs" id="1_0qwx5"]
+[ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_dt2i6"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xc0vy"]
+render_priority = 0
+shader = ExtResource("2_dt2i6")
+shader_parameter/disabled = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 37.77
+shader_parameter/shine_speed = 0.25
+shader_parameter/shine_width = 19.888
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tj4m"]
+next_pass = SubResource("ShaderMaterial_xc0vy")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psld5"]
+albedo_color = Color(0.639216, 0.360784, 0.211765, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_li834"]
+material = SubResource("StandardMaterial3D_psld5")
+radius = 0.1
+height = 0.6
+
+[sub_resource type="BoxMesh" id="BoxMesh_ane4t"]
+
+[sub_resource type="Animation" id="Animation_xxs8q"]
+resource_name = "slash"
+length = 0.4
+step = 0.01
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.23, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.633355, 0.469853, -0.357874), Vector3(-1.80647, -0.219177, -0.147669), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.14, 0.23, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.227106, 0.409962, -0.280385), Vector3(0, 0, 1.46456), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_4oqbp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_meysg"]
+_data = {
+"RESET": SubResource("Animation_4oqbp"),
+"slash": SubResource("Animation_xxs8q")
+}
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_20knd"]
+properties/0/path = NodePath("AnimationPlayer:current_animation")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="HeldItem" type="Node3D"]
+script = ExtResource("1_0qwx5")
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh"]
+material_overlay = SubResource("StandardMaterial3D_8tj4m")
+mesh = SubResource("CapsuleMesh_li834")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh/MeshInstance3D"]
+transform = Transform3D(0.287955, 0, 0, 0, 0.63585, 0, 0, 0, -0.0202559, -0.0882324, 0.391626, 0)
+mesh = SubResource("BoxMesh_ane4t")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_meysg")
+}
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_20knd")

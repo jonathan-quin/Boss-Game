@@ -12,4 +12,10 @@ public partial class Knife : HeldItem
 	public override void _Process(double delta)
 	{
 	}
+
+	public override Use(){
+		GetNode<AnimationPlayer>("%AnimationPlayer").Play("slash");
+
+	}
+
 }

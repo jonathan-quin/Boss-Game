@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://cwp4yn37wcho0"]
+
+[ext_resource type="Shader" path="res://scripts/item.gdshader" id="1_kojjc"]
+[ext_resource type="Script" path="res://held_item.cs" id="1_xo7yl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xc0vy"]
+render_priority = 0
+shader = ExtResource("1_kojjc")
+shader_parameter/disabled = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 37.77
+shader_parameter/shine_speed = 0.25
+shader_parameter/shine_width = 19.888
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tj4m"]
+next_pass = SubResource("ShaderMaterial_xc0vy")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psld5"]
+albedo_color = Color(0.639216, 0.360784, 0.211765, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_li834"]
+material = SubResource("StandardMaterial3D_psld5")
+radius = 0.1
+height = 0.6
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sqoh5"]
+
+[node name="HeldItem" type="Node3D"]
+script = ExtResource("1_xo7yl")
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh"]
+material_overlay = SubResource("StandardMaterial3D_8tj4m")
+mesh = SubResource("CapsuleMesh_li834")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh/MeshInstance3D"]
+transform = Transform3D(0.154023, 0, 0, 0, -4.37114e-08, -0.269771, 0, 1, -1.1792e-08, -0.0933353, 0.355683, 0)
+mesh = SubResource("PlaneMesh_sqoh5")
+skeleton = NodePath("../../..")

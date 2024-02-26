@@ -12,12 +12,7 @@ public partial class ItemPickupCast : RayCast3D
 	public override void _Process(double delta)
 	{
 
-		if (IsColliding()){
-			FloorItem item = GetCollider() as FloorItem;
-
-			
-
-		}
+		
 
 	}
 }

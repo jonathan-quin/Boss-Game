@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/Survivor.cs" id="1_lofjr"]
-[ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/torch.tscn" id="2_ij7w2"]
+[ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/items/torch.tscn" id="2_ij7w2"]
 [ext_resource type="Script" path="res://scripts/ItemPickupCast.cs" id="3_2sptm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
@@ -73,6 +73,7 @@ skeleton = NodePath("../../..")
 
 [node name="ItemPickupCast" type="RayCast3D" parent="neck/head"]
 target_position = Vector3(2.08165e-12, 2.08165e-12, -4)
+collision_mask = 16
 script = ExtResource("3_2sptm")
 
 [node name="ItemHolder" type="Node3D" parent="neck/head"]

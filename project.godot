@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Boss Game"
-run/main_scene="res://scenes/main_menu.tscn"
+run/main_scene="res://scenes/UI/main_menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -87,3 +87,11 @@ rightClick={
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(434, 18),"global_position":Vector2(442, 98),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
 ]
 }
+
+[layer_names]
+
+3d_physics/layer_1="everything"
+3d_physics/layer_2="walls"
+3d_physics/layer_3="survivors"
+3d_physics/layer_4="boss"
+3d_physics/layer_5="floorItem"

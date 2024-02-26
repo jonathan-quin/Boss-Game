@@ -30,7 +30,7 @@ public partial class FloorItem : Node
 	{
 	}
 
-	public void giveToPlayer(dynamic player){
+	public void giveToPlayer(Survivor player){
 
 	}
 

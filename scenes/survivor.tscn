@@ -5,7 +5,7 @@
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="PackedScene" uid="uid://ckrr4axox86e5" path="res://scenes/items/hand.tscn" id="5_kbr3s"]
-[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://PlayerUI.tscn" id="5_mq18f"]
+[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -87,4 +87,4 @@ script = ExtResource("4_8ox0w")
 
 [node name="Hand" parent="neck/head/ItemHolder" instance=ExtResource("5_kbr3s")]
 
-[node name="PlayerUI" parent="." instance=ExtResource("5_mq18f")]
+[node name="PlayerUI" parent="." instance=ExtResource("6_okpqg")]

@@ -14,6 +14,9 @@ public partial class Knife : HeldItem
 	}
 
 	public override void Use(){
+
+		GD.Print("slash");
+
 		GetNode<AnimationPlayer>("AnimationPlayer").Play("slash");
 
 	}

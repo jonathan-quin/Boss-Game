@@ -8,14 +8,28 @@ public partial class ItemPickupCast : RayCast3D
 	{
 	}
 
+	FloorItem lastItemLookedAt = null;
+
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 
+		if (lastItemLookedAt != null)
+		{
+            lastItemLookedAt.shouldShimmer = false;
+        }
+        
+        
 		if (IsColliding()){
-			FloorItem item = GetCollider() as FloorItem;
-
 			
+            lastItemLookedAt = GetCollider() as FloorItem;
+            lastItemLookedAt.shouldShimmer = true;
+
+
+            if (Input.IsActionJustPressed("leftClick"))
+			{
+                lastItemLookedAt.giveToSurvivor(GetMultiplayerAuthority());
+			}
 
 		}
 

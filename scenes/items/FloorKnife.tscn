@@ -87,6 +87,7 @@ heldFormPath = "res://scenes/items/heldKnife.tscn"
 shape = SubResource("CapsuleShape3D_gg14j")
 
 [node name="mesh" type="Node3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="mesh"]
 material_overlay = SubResource("StandardMaterial3D_acrj4")
@@ -98,6 +99,7 @@ transform = Transform3D(0.287955, 0, 0, 0, 0.63585, 0, 0, 0, -0.0202559, -0.0882
 mesh = SubResource("BoxMesh_47phb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="mesh"]
+unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_7ab4i")
 }

@@ -17,8 +17,9 @@ public partial class Survivor : CharacterBody3D
 	bool freeMouse = true;
 
 	ItemHolder itemHolder;
+    ItemPickupCast itemPickupCast;
 
-	public override void _EnterTree(){
+    public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
 		survivors[GetMultiplayerAuthority()] = this;
 	}
@@ -48,8 +49,10 @@ public partial class Survivor : CharacterBody3D
 		camera = GetNode<Camera3D>("neck/head/Camera");
 		itemHolder = GetNode<ItemHolder>("%ItemHolder");
 		itemHolder.SetMultiplayerAuthority(GetMultiplayerAuthority());
+        itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
+        itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
-		if (IsMultiplayerAuthority()){
+        if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 		}
 

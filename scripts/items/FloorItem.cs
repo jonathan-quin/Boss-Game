@@ -7,7 +7,7 @@ public partial class FloorItem : RigidBody3D
 	[Export]
 	public String heldFormPath;
 
-
+	public bool shouldShimmer = false;
 
 	public override void _EnterTree()
 	{
@@ -31,17 +31,27 @@ public partial class FloorItem : RigidBody3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+        AnimationPlayer animPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
+        if (shouldShimmer)
+		{
+            
+			animPlayer.Play("shine");
+        } else
+		{
+            animPlayer.Play("RESET");
+        }
 	}
 
 
 	bool pickedUp = false;
-	public void giveToSurvivor(Survivor survivor){
+	public void giveToSurvivor(long survivorID){
 		
-		RpcId(Constants.SERVER_HOST_ID,"_giveToSurvivor",survivor.GetMultiplayerAuthority());
+		RpcId(Constants.SERVER_HOST_ID,"_giveToSurvivor", survivorID);
 	}
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void _giveToSurvivor(long survivorID){
+
 
 		if (pickedUp) return;
 		pickedUp = true;

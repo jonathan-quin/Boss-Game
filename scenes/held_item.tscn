@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://cwp4yn37wcho0"]
 
-[ext_resource type="Shader" path="res://scripts/item.gdshader" id="1_kojjc"]
-[ext_resource type="Script" path="res://held_item.cs" id="1_xo7yl"]
+[ext_resource type="Script" path="res://scripts/items/held_item.cs" id="1_7jfcp"]
+[ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_kf5wm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xc0vy"]
 render_priority = 0
-shader = ExtResource("1_kojjc")
+shader = ExtResource("2_kf5wm")
 shader_parameter/disabled = true
 shader_parameter/shine_color = Color(1, 1, 1, 1)
 shader_parameter/cycle_interval = 37.77
@@ -28,7 +28,7 @@ height = 0.6
 [sub_resource type="BoxMesh" id="BoxMesh_ane4t"]
 
 [node name="HeldItem" type="Node3D"]
-script = ExtResource("1_xo7yl")
+script = ExtResource("1_7jfcp")
 
 [node name="mesh" type="Node3D" parent="."]
 

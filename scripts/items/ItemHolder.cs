@@ -4,6 +4,8 @@ using System;
 public partial class ItemHolder : HeldItem
 {
 	
+    
+
 	HeldItem selectedItem;
 
     public override void _Ready()
@@ -63,13 +65,14 @@ public partial class ItemHolder : HeldItem
         int currentSelection = GetChildren().IndexOf(selectedItem);
 
         int newSelection = currentSelection + amount;
+        int childCount = GetChildCount();
 
-        if (newSelection > GetChildCount() - 1) {
-            newSelection = 0;
+        if (newSelection >= childCount) {
+            newSelection -= childCount;
         }
-        if (newSelection < GetChildCount())
+        if (newSelection < 0)
         {
-            newSelection = GetChildCount() - 1;
+            newSelection = childCount - 1;
         }
 
         selectedItem = GetChild(newSelection) as HeldItem;

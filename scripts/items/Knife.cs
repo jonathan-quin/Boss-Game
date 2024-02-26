@@ -13,8 +13,8 @@ public partial class Knife : HeldItem
 	{
 	}
 
-	public override Use(){
-		GetNode<AnimationPlayer>("%AnimationPlayer").Play("slash");
+	public override void Use(){
+		GetNode<AnimationPlayer>("AnimationPlayer").Play("slash");
 
 	}
 

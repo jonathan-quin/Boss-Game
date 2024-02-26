@@ -7,6 +7,8 @@ public partial class FloorItem : Node
 	[Export]
 	public PackedScene heldForm;
 
+
+
 	private dynamic Globals;
 	public override void _EnterTree()
 	{
@@ -21,8 +23,6 @@ public partial class FloorItem : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print("hey");
-		GD.Print("gosh");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -30,10 +30,22 @@ public partial class FloorItem : Node
 	{
 	}
 
-	public void giveToPlayer(Survivor player){
 
+	bool pickedUp = false;
+	public void giveToSurvivor(Survivor survivor){
+		
+		RpcId(Constants.SERVER_HOST_ID,"_giveToSurvivor",survivor.GetMultiplayerAuthority());
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void _giveToSurvivor(long survivorID){
+
+		if (pickedUp) return;
+		pickedUp = true;
+
+		Survivor.GetSurvivor(survivorID).TakeItem(heldForm);
+		QueueFree();
+	}
 
 
 }

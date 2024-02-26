@@ -1,8 +1,11 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class Survivor : CharacterBody3D
 {
+
+	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
 
 	const float SPEED = 5.0f;
 	const float ACCEL = 6.0f;
@@ -13,9 +16,27 @@ public partial class Survivor : CharacterBody3D
 
 	bool freeMouse = true;
 
+	ItemHolder itemHolder;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
+		survivors[GetMultiplayerAuthority()] = this;
+	}
+
+	public static Survivor GetSurvivor(long authority){
+
+		foreach (KeyValuePair<long, Survivor> kvp in survivors)
+		{
+			if (!IsInstanceValid(kvp.Value))
+				survivors.Remove(kvp.Key);
+		}
+
+		if (!survivors.ContainsKey(authority)){
+			return null;
+		}
+
+		return survivors[authority];
+
 	}
 	
 	
@@ -25,7 +46,8 @@ public partial class Survivor : CharacterBody3D
 	public override void _Ready()
 	{
 		camera = GetNode<Camera3D>("neck/head/Camera");
-
+		itemHolder = GetNode<ItemHolder>("%ItemHolder");
+		itemHolder.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
 		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
@@ -117,6 +139,14 @@ public partial class Survivor : CharacterBody3D
 		}
     }
 		
+	/// <summary>
+	/// Called from floor items by the server.
+	/// Adds the child to the inventory on the host instance which syncs with the client instance through the multiplayer spawner.
+	/// </summary>
+	/// <param name="item"></param>
+	public void TakeItem(PackedScene item){
+		itemHolder.TakeItem(item);
+	}
 		
 
 

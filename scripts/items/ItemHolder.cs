@@ -3,13 +3,24 @@ using System;
 
 public partial class ItemHolder : Node3D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
+	
+	HeldItem selectedItem;
+
+	public void TakeItem(PackedScene ItemScene){
+		HeldItem item = ItemScene.Instantiate() as HeldItem;
+		item.SetMultiplayerAuthority(GetMultiplayerAuthority());
+		AddChild(item);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public void _PhysicsProcess(){
+		if (Input.IsActionJustPressed("leftClick")){
+			selectedItem.Use();
+		}
+
+		if (Input.IsActionJustPressed("drop")){
+			
+		}
+
 	}
+
 }

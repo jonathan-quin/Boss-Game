@@ -9,13 +9,11 @@ public partial class FloorItem : RigidBody3D
 
 
 
-	private dynamic Globals;
 	public override void _EnterTree()
 	{
-		Globals = GetNode<Node>("/root/Globals");
 
 		
-		SetMultiplayerAuthority(Globals.serverHostID);
+		SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 
 		if (IsMultiplayerAuthority())
 		{

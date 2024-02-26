@@ -6,8 +6,10 @@ public partial class ItemHolder : Node3D
 	
 	HeldItem selectedItem;
 
-	public void TakeItem(PackedScene ItemScene){
-		HeldItem item = ItemScene.Instantiate() as HeldItem;
+	public void TakeItem(string itemPath)
+    {
+
+		HeldItem item = GD.Load<PackedScene>(itemPath).Instantiate() as HeldItem;
 		item.SetMultiplayerAuthority(GetMultiplayerAuthority());
 		AddChild(item);
 	}

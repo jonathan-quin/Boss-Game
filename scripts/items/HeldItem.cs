@@ -4,7 +4,7 @@ using System;
 public partial class HeldItem : Node3D
 {
 	[Export]
-	public PackedScene heldForm;
+	public PackedScene floorForm;
 
 	public void Drop(){
 		

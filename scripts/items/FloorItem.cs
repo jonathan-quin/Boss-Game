@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public partial class FloorItem : Node
+public partial class FloorItem : RigidBody3D
 {
 
 	[Export]
-	public PackedScene heldForm;
+	public String heldFormPath;
 
 
 
@@ -16,6 +16,11 @@ public partial class FloorItem : Node
 
 		
 		SetMultiplayerAuthority(Globals.serverHostID);
+
+		if (IsMultiplayerAuthority())
+		{
+			Freeze = false;
+		}
 		
 		
 	}
@@ -43,7 +48,7 @@ public partial class FloorItem : Node
 		if (pickedUp) return;
 		pickedUp = true;
 
-		Survivor.GetSurvivor(survivorID).TakeItem(heldForm);
+		Survivor.GetSurvivor(survivorID).TakeItem(heldFormPath);
 		QueueFree();
 	}
 

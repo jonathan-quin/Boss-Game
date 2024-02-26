@@ -1,8 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://s8kppoty8cvl"]
+[gd_scene load_steps=13 format=3 uid="uid://s8kppoty8cvl"]
 
 [ext_resource type="Script" path="res://scripts/items/FloorItem.cs" id="1_0ltv6"]
 [ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_7g80e"]
-[ext_resource type="PackedScene" uid="uid://cwp4yn37wcho0" path="res://scenes/items/heldKnife.tscn" id="2_qr22m"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]
 radius = 0.1
@@ -82,7 +81,7 @@ collision_layer = 17
 collision_mask = 3
 freeze = true
 script = ExtResource("1_0ltv6")
-heldForm = ExtResource("2_qr22m")
+heldFormPath = "res://scenes/items/heldKnife.tscn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_gg14j")

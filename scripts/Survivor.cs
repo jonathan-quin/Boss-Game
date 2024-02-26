@@ -144,8 +144,8 @@ public partial class Survivor : CharacterBody3D
 	/// Adds the child to the inventory on the host instance which syncs with the client instance through the multiplayer spawner.
 	/// </summary>
 	/// <param name="item"></param>
-	public void TakeItem(PackedScene item){
-		itemHolder.TakeItem(item);
+	public void TakeItem(string itemPath){
+		itemHolder.TakeItem(itemPath);
 	}
 		
 

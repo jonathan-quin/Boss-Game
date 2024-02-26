@@ -36,6 +36,7 @@ public partial class Lobby : Node
 	}
 	public void ServerDisconnected(){
 		//don't know what to put here for now
+		Multiplayer.MultiplayerPeer.Close();
 	}
 
 
@@ -73,7 +74,8 @@ public partial class Lobby : Node
 		}
 	}
 
-	[Rpc(MultiplayerApi.RpcMode.AnyPeer)]
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+
 	public void _DeletePlayer(long id){
 
 		GD.Print("Received the RPC");

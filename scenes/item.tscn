@@ -1,10 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://s8kppoty8cvl"]
+[gd_scene load_steps=13 format=3 uid="uid://s8kppoty8cvl"]
 
 [ext_resource type="Script" path="res://scripts/item.cs" id="1_0ltv6"]
+[ext_resource type="Shader" path="res://scenes/item.gdshader" id="2_7g80e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]
 radius = 0.1
 height = 0.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xc0vy"]
+render_priority = 0
+shader = ExtResource("2_7g80e")
+shader_parameter/disabled = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 37.77
+shader_parameter/shine_speed = 0.25
+shader_parameter/shine_width = 19.888
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_acrj4"]
+next_pass = SubResource("ShaderMaterial_xc0vy")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psld5"]
 albedo_color = Color(0.639216, 0.360784, 0.211765, 1)
@@ -15,6 +30,43 @@ radius = 0.1
 height = 0.6
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f6xs6"]
+
+[sub_resource type="Animation" id="Animation_eda2g"]
+resource_name = "shine"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_d7ybi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ab4i"]
+_data = {
+"RESET": SubResource("Animation_d7ybi"),
+"shine": SubResource("Animation_eda2g")
+}
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_805b7"]
 properties/0/path = NodePath(".:position")
@@ -34,13 +86,19 @@ shape = SubResource("CapsuleShape3D_gg14j")
 [node name="mesh" type="Node3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="mesh"]
+material_overlay = SubResource("StandardMaterial3D_acrj4")
 mesh = SubResource("CapsuleMesh_mjs6n")
 skeleton = NodePath("../..")
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="mesh/MeshInstance3D"]
 transform = Transform3D(0.154023, 0, 0, 0, -4.37114e-08, -0.269771, 0, 1, -1.1792e-08, -0.0933353, 0.355683, 0)
 mesh = SubResource("PlaneMesh_f6xs6")
-skeleton = NodePath("../..")
+skeleton = NodePath("../../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="mesh"]
+libraries = {
+"": SubResource("AnimationLibrary_7ab4i")
+}
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_805b7")

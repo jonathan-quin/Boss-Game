@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class item : Node
+public partial class FloorItem : Node
 {
 
 	[Export]

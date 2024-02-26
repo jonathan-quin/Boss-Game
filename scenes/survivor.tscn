@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/Survivor.cs" id="1_lofjr"]
 [ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/torch.tscn" id="2_ij7w2"]
-[ext_resource type="Script" path="res://scenes/ItemPickupCast.cs" id="3_cjsm6"]
+[ext_resource type="Script" path="res://scripts/ItemPickupCast.cs" id="3_2sptm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -72,6 +72,7 @@ transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.559761, -0.640966, -
 skeleton = NodePath("../../..")
 
 [node name="ItemPickupCast" type="RayCast3D" parent="neck/head"]
-script = ExtResource("3_cjsm6")
+target_position = Vector3(2.08165e-12, 2.08165e-12, -4)
+script = ExtResource("3_2sptm")
 
 [node name="ItemHolder" type="Node3D" parent="neck/head"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://s8kppoty8cvl"]
 
-[ext_resource type="Script" path="res://scripts/item.cs" id="1_0ltv6"]
-[ext_resource type="Shader" path="res://scenes/item.gdshader" id="2_7g80e"]
+[ext_resource type="Script" path="res://scripts/FloorItem.cs" id="1_0ltv6"]
+[ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_7g80e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]
 radius = 0.1
@@ -31,6 +31,21 @@ height = 0.6
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_f6xs6"]
 
+[sub_resource type="Animation" id="Animation_d7ybi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
 [sub_resource type="Animation" id="Animation_eda2g"]
 resource_name = "shine"
 length = 0.1
@@ -45,21 +60,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_d7ybi"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ab4i"]

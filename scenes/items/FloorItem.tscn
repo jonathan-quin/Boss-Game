@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://s8kppoty8cvl"]
 
-[ext_resource type="Script" path="res://scripts/FloorItem.cs" id="1_0ltv6"]
+[ext_resource type="Script" path="res://scripts/items/FloorItem.cs" id="1_0ltv6"]
 [ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_7g80e"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]

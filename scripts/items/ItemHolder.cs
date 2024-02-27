@@ -1,12 +1,14 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class ItemHolder : HeldItem
 {
 	
     
 
-	HeldItem selectedItem;
+	baseItem selectedItem;
+    List<baseItem> inventory = new List<baseItem>();
 
     //includes the hand
     const int MAX_ITEMS = 3 + 1;
@@ -17,6 +19,11 @@ public partial class ItemHolder : HeldItem
 
     }
 
+    /// <summary>
+    /// only called on the client
+    /// </summary>
+    /// <param name="itemPath"></param>
+    /// <returns></returns>
     public bool TakeItem(string itemPath)
     {
         if (GetChildCount() >= MAX_ITEMS)
@@ -60,9 +67,9 @@ public partial class ItemHolder : HeldItem
             selectedItem.Use();
         }
 
-        if (Input.IsActionJustPressed("drop") && selectedItem.floorForm != null)
+        if (Input.IsActionJustPressed("drop") && selectedItem.pathToSelf != null)
         {
-            FloorItem newItem = selectedItem.floorForm.Instantiate() as FloorItem;
+            FloorItem newItem = GD.Load<PackedScene>(selectedItem.pathToSelf).Instantiate() as FloorItem;
 
             newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 
@@ -84,7 +91,7 @@ public partial class ItemHolder : HeldItem
     }
 
     public void throwItem(){
-        
+
     }
 
     public void shiftSelection(int amount)

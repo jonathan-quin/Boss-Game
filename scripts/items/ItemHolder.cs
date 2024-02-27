@@ -28,6 +28,7 @@ public partial class ItemHolder : HeldItem
 		item.SetMultiplayerAuthority(GetMultiplayerAuthority());
 		AddChild(item);
 
+        selectedItem = item;
 
         return true;
 	}

@@ -66,6 +66,7 @@ radius = 0.1
 height = 0.8
 
 [node name="floorTorch" type="RigidBody3D"]
+collision_layer = 17
 script = ExtResource("1_upxmr")
 heldFormPath = "res://scenes/items/torch.tscn"
 

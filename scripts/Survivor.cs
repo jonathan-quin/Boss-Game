@@ -16,10 +16,10 @@ public partial class Survivor : CharacterBody3D
 
 	bool freeMouse = true;
 
-	ItemHolder itemHolder;
-    ItemPickupCast itemPickupCast;
+	public ItemHolder itemHolder;
+	ItemPickupCast itemPickupCast;
 
-    public override void _EnterTree(){
+	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
 		survivors[GetMultiplayerAuthority()] = this;
 	}
@@ -49,10 +49,10 @@ public partial class Survivor : CharacterBody3D
 		camera = GetNode<Camera3D>("neck/head/Camera");
 		itemHolder = GetNode<ItemHolder>("%ItemHolder");
 		itemHolder.SetMultiplayerAuthority(GetMultiplayerAuthority());
-        itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
-        itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
+		itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
+		itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
-        if (IsMultiplayerAuthority()){
+		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 		}
 
@@ -72,15 +72,15 @@ public partial class Survivor : CharacterBody3D
 
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-        if (!IsMultiplayerAuthority())return;
+	public override void _PhysicsProcess(double delta)
+	{
+		if (!IsMultiplayerAuthority())return;
 
 		HandleMouseModeInputs();
 		Move(delta);
 
 
-    }
+	}
 
 
 	public void Move(double delta){
@@ -101,16 +101,16 @@ public partial class Survivor : CharacterBody3D
 			// Y is up and down, so we don't want to change it.
 			
 			Velocity = new Vector3(
-                            (float)Mathf.Lerp(Velocity.X,direction.X,ACCEL * delta),
+							(float)Mathf.Lerp(Velocity.X,direction.X,ACCEL * delta),
 							Velocity.Y,
-                            (float)Mathf.Lerp(Velocity.Z,direction.Z,ACCEL * delta)
+							(float)Mathf.Lerp(Velocity.Z,direction.Z,ACCEL * delta)
 							);
 		}
 		else {
 			Velocity = new Vector3(
-                            (float)Mathf.Lerp(Velocity.X,direction.X,DEACCEL * delta),
+							(float)Mathf.Lerp(Velocity.X,direction.X,DEACCEL * delta),
 							Velocity.Y,
-                            (float)Mathf.Lerp(Velocity.Z,direction.Z,DEACCEL * delta)
+							(float)Mathf.Lerp(Velocity.Z,direction.Z,DEACCEL * delta)
 							);
 		}
 		
@@ -120,8 +120,8 @@ public partial class Survivor : CharacterBody3D
 	const double SENSITIVITY = 0.0015f;
 
 
-    public override void _Input(InputEvent @event)
-    {
+	public override void _Input(InputEvent @event)
+	{
 		//don't move camera if mouse is captive or we're not the authority
 		if (!IsMultiplayerAuthority() || freeMouse){return;}
 		
@@ -140,15 +140,16 @@ public partial class Survivor : CharacterBody3D
 			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y, head.Rotation.Z); 
 
 		}
-    }
+	}
 		
 	/// <summary>
 	/// Called from floor items by the server.
 	/// Adds the child to the inventory on the host instance which syncs with the client instance through the multiplayer spawner.
 	/// </summary>
 	/// <param name="item"></param>
-	public void TakeItem(string itemPath){
-		itemHolder.TakeItem(itemPath);
+	public ItemHolder GetItemHolder()
+	{
+		return itemHolder;
 	}
 		
 

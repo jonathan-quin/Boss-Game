@@ -23,12 +23,17 @@ public partial class ItemPickupCast : RayCast3D
 		if (IsColliding()){
 			
             lastItemLookedAt = GetCollider() as FloorItem;
-            lastItemLookedAt.shouldShimmer = true;
+
+			if (lastItemLookedAt != null)
+			{
+                lastItemLookedAt.shouldShimmer = true;
+            }
+            
 
 
             if (Input.IsActionJustPressed("leftClick"))
 			{
-                lastItemLookedAt.giveToSurvivor(GetMultiplayerAuthority());
+                lastItemLookedAt.giveToSurvivor();
 			}
 
 		}

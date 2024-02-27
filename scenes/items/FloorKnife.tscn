@@ -78,7 +78,7 @@ properties/1/replication_mode = 1
 
 [node name="item" type="RigidBody3D"]
 collision_layer = 17
-collision_mask = 3
+collision_mask = 2
 freeze = true
 script = ExtResource("1_0ltv6")
 heldFormPath = "res://scenes/items/heldKnife.tscn"

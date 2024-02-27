@@ -6,12 +6,12 @@ public partial class Lobby : Node
 	[Export]
 	public PackedScene SurviorScene;
 
-    public override void _Ready()
-    {
-        //print("I am " + str(multiplayer.get_unique_id()))
+	public override void _Ready()
+	{
+		//print("I am " + str(multiplayer.get_unique_id()))
 		
+		Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
 
-		
 		//all players have these signals connected for debugging
 		Multiplayer.ConnectedToServer += ConnectedToServer;
 		Multiplayer.ConnectionFailed += FailedToConnect;
@@ -26,7 +26,7 @@ public partial class Lobby : Node
 		else{
 			Multiplayer.ServerDisconnected += ServerDisconnected;
 		}
-    }
+	}
 
 	public void ConnectedToServer(){
 		GD.Print("Connected! " + Multiplayer.GetUniqueId());
@@ -40,11 +40,11 @@ public partial class Lobby : Node
 	}
 
 
-    /**
+	/**
 	Used only by server
 	Spawns a player. The MultiplayerSpawner will automatically replicate the instance on all clients.
 	**/
-    public void CreatePlayer(long id = 1){
+	public void CreatePlayer(long id = 1){
 		GD.Print("made a player");
 	
 		Survivor player = SurviorScene.Instantiate() as Survivor;
@@ -52,9 +52,9 @@ public partial class Lobby : Node
 		
 		player.Position = Vector3.Up * 1.5f;
 		
-		var objectHolder = GetNode<Node3D>("%PlayerSpawnRoot"); 
+		
 		//objectHolder.CallDeferred("AddChild",player);
-		objectHolder.AddChild(player);
+		Globals.objectHolder.AddChild(player);
 		
 
 	}
@@ -80,8 +80,7 @@ public partial class Lobby : Node
 
 		GD.Print("Received the RPC");
 
-		Node objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
-		objectHolder.GetNode<Node>(id.ToString()).QueueFree();
+		Globals.objectHolder.GetNode<Node>(id.ToString()).QueueFree();
 	}
 
 }

@@ -1,12 +1,12 @@
 [gd_scene load_steps=15 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/Survivor.cs" id="1_lofjr"]
-[ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/items/torch.tscn" id="2_ij7w2"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="PackedScene" uid="uid://ckrr4axox86e5" path="res://scenes/items/hand.tscn" id="5_kbr3s"]
+[ext_resource type="PackedScene" uid="uid://s8kppoty8cvl" path="res://scenes/items/FloorKnife.tscn" id="5_xtxyd"]
+[ext_resource type="PackedScene" uid="uid://y2ogl6uh2u6p" path="res://scenes/items/floorTorch.tscn" id="6_gd8r3"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
-[ext_resource type="PackedScene" uid="uid://cwp4yn37wcho0" path="res://scenes/items/heldKnife.tscn" id="6_pfo1t"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -84,9 +84,9 @@ script = ExtResource("4_8ox0w")
 
 [node name="Hand" parent="neck/head/ItemHolder" instance=ExtResource("5_kbr3s")]
 
-[node name="Torch" parent="neck/head/ItemHolder" instance=ExtResource("2_ij7w2")]
+[node name="item" parent="neck/head/ItemHolder" instance=ExtResource("5_xtxyd")]
 
-[node name="HeldItem" parent="neck/head/ItemHolder" instance=ExtResource("6_pfo1t")]
+[node name="floorTorch" parent="neck/head/ItemHolder" instance=ExtResource("6_gd8r3")]
 
 [node name="PlayerUI" parent="." instance=ExtResource("6_okpqg")]
 

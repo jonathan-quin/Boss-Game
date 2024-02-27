@@ -1,33 +1,36 @@
-[gd_scene load_steps=9 format=3 uid="uid://dimm557je6esf"]
+[gd_scene load_steps=11 format=3 uid="uid://y2ogl6uh2u6p"]
 
-[ext_resource type="Script" path="res://scripts/items/FloorItem.cs" id="1_11y6c"]
+[ext_resource type="Script" path="res://scripts/items/floorTorch.cs" id="1_upxmr"]
+[ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_gq1wq"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xu5r3"]
+render_priority = 0
+shader = ExtResource("2_gq1wq")
+shader_parameter/disabled = true
+shader_parameter/shine_color = Color(1, 1, 1, 1)
+shader_parameter/cycle_interval = 37.77
+shader_parameter/shine_speed = 0.25
+shader_parameter/shine_width = 19.888
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6x0wv"]
+next_pass = SubResource("ShaderMaterial_xu5r3")
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11qqi"]
+albedo_color = Color(0.603922, 0.266667, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nqdbm"]
+material = SubResource("StandardMaterial3D_11qqi")
 radius = 0.1
-height = 1.0
+height = 0.8
 
-[sub_resource type="Animation" id="Animation_d7ybi"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-
-[sub_resource type="Animation" id="Animation_eda2g"]
+[sub_resource type="Animation" id="Animation_1amp0"]
 resource_name = "shine"
-length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/path = NodePath("Torch:material_overlay:next_pass:shader_parameter/disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -37,56 +40,54 @@ tracks/0/keys = {
 "values": [false]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_7ab4i"]
-_data = {
-"RESET": SubResource("Animation_d7ybi"),
-"shine": SubResource("Animation_eda2g")
+[sub_resource type="Animation" id="Animation_ru2ip"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Torch:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
 }
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11qqi"]
-albedo_color = Color(0.603922, 0.266667, 0, 1)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_oifku"]
+_data = {
+"RESET": SubResource("Animation_ru2ip"),
+"shine": SubResource("Animation_1amp0")
+}
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_xpgsj"]
-material = SubResource("StandardMaterial3D_11qqi")
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mljok"]
 radius = 0.1
-height = 1.0
-
-[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_805b7"]
-properties/0/path = NodePath(".:position")
-properties/0/spawn = true
-properties/0/replication_mode = 1
-properties/1/path = NodePath(".:rotation")
-properties/1/spawn = true
-properties/1/replication_mode = 1
+height = 0.8
 
 [node name="floorTorch" type="RigidBody3D"]
 collision_layer = 17
-collision_mask = 2
-freeze = true
-script = ExtResource("1_11y6c")
+script = ExtResource("1_upxmr")
 heldFormPath = "res://scenes/items/torch.tscn"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_gg14j")
-
 [node name="mesh" type="Node3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="mesh"]
-unique_name_in_owner = true
-libraries = {
-"": SubResource("AnimationLibrary_7ab4i")
-}
 
 [node name="Torch" type="MeshInstance3D" parent="mesh"]
-mesh = SubResource("CapsuleMesh_xpgsj")
+material_overlay = SubResource("StandardMaterial3D_6x0wv")
+mesh = SubResource("CapsuleMesh_nqdbm")
 skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="mesh/Torch"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.571096, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.730207, 0)
 light_energy = 5.0
 omni_range = 40.0
 omni_shadow_mode = 0
 
-[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
-replication_config = SubResource("SceneReplicationConfig_805b7")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="mesh"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_oifku")
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_mljok")

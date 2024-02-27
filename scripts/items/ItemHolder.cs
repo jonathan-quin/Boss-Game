@@ -101,8 +101,6 @@ public partial class ItemHolder : HeldItem
             newSelection = childCount - 1;
         }
 
-        GD.Print(newSelection);
-
         selectedItem = GetChild(newSelection) as HeldItem;
     }
 

@@ -41,7 +41,7 @@ public partial class FloorItem : RigidBody3D
             animPlayer.Play("RESET");
         }
 
-		//GD.Print(Time.GetTicksMsec());
+		GD.Print(Time.GetTicksMsec());
 
 	}
 

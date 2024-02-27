@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://y2ogl6uh2u6p"]
+[gd_scene load_steps=12 format=3 uid="uid://y2ogl6uh2u6p"]
 
 [ext_resource type="Script" path="res://scripts/items/floorTorch.cs" id="1_upxmr"]
 [ext_resource type="Shader" path="res://scripts/item.gdshader" id="2_gq1wq"]
@@ -65,8 +65,17 @@ _data = {
 radius = 0.1
 height = 0.8
 
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_xiqmq"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath(".:rotation")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+
 [node name="floorTorch" type="RigidBody3D"]
 collision_layer = 17
+freeze = true
 script = ExtResource("1_upxmr")
 heldFormPath = "res://scenes/items/torch.tscn"
 
@@ -91,3 +100,6 @@ libraries = {
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_mljok")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_xiqmq")

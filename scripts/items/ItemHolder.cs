@@ -64,6 +64,8 @@ public partial class ItemHolder : HeldItem
         {
             FloorItem newItem = selectedItem.floorForm.Instantiate() as FloorItem;
 
+            newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
+
             Globals.objectHolder.AddChild(newItem);
 
             newItem.GlobalPosition = GlobalPosition + GlobalTransform.Basis.Z * -0.5f;
@@ -79,6 +81,10 @@ public partial class ItemHolder : HeldItem
 
         }
 
+    }
+
+    public void throwItem(){
+        
     }
 
     public void shiftSelection(int amount)

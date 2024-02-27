@@ -5,7 +5,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_gg14j"]
 radius = 0.1
-height = 0.5
+height = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xc0vy"]
 render_priority = 0
@@ -36,7 +36,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/path = NodePath("Torch:material_overlay:next_pass:shader_parameter/disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -49,17 +49,18 @@ tracks/0/keys = {
 [sub_resource type="Animation" id="Animation_eda2g"]
 resource_name = "shine"
 length = 0.1
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/path = NodePath("Torch:material_overlay:next_pass:shader_parameter/disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [null]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_7ab4i"]

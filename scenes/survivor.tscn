@@ -1,7 +1,6 @@
-[gd_scene load_steps=14 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=13 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/Survivor.cs" id="1_lofjr"]
-[ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/items/torch.tscn" id="2_ij7w2"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="PackedScene" uid="uid://ckrr4axox86e5" path="res://scenes/items/hand.tscn" id="5_kbr3s"]
@@ -69,10 +68,6 @@ skeleton = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0.21, -0.368)
 mesh = SubResource("SphereMesh_eyp1h")
 skeleton = NodePath("../..")
-
-[node name="Torch" parent="neck/head" instance=ExtResource("2_ij7w2")]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -0.559761, -0.640966, -1.36675)
-skeleton = NodePath("../../..")
 
 [node name="ItemPickupCast" type="RayCast3D" parent="neck/head"]
 unique_name_in_owner = true

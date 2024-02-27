@@ -86,7 +86,7 @@ public partial class ItemHolder : HeldItem
 
         if (amount == 0) return;
 
-        //GD.Print("shift");
+        GD.Print("shift");
 
         int currentSelection = GetChildren().IndexOf(selectedItem);
 

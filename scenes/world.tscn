@@ -1,10 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=6 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
-[ext_resource type="PackedScene" uid="uid://s8kppoty8cvl" path="res://scenes/items/FloorKnife.tscn" id="3_0m0mp"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
-[ext_resource type="PackedScene" uid="uid://y2ogl6uh2u6p" path="res://scenes/items/floorTorch.tscn" id="4_ay0a5"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
@@ -273,12 +271,6 @@ size = Vector3(1.06195, 4.76491, 4.28954)
 
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true
-
-[node name="item" parent="PlayerSpawnRoot" instance=ExtResource("3_0m0mp")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.5976)
-
-[node name="floorTorch" parent="PlayerSpawnRoot" instance=ExtResource("4_ay0a5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.54969)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/FloorKnife.tscn", "res://scenes/items/heldKnife.tscn", "res://scenes/items/floorTorch.tscn", "res://scenes/items/torch.tscn")

@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://y2ogl6uh2u6p"]
+
+[ext_resource type="Script" path="res://scripts/items/floorTorch.cs" id="1_upxmr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11qqi"]
+albedo_color = Color(0.603922, 0.266667, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_nqdbm"]
+material = SubResource("StandardMaterial3D_11qqi")
+radius = 0.1
+height = 0.8
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mljok"]
+radius = 0.1
+height = 0.8
+
+[node name="floorTorch" type="RigidBody3D"]
+script = ExtResource("1_upxmr")
+heldFormPath = "res://scenes/items/torch.tscn"
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="Torch" type="MeshInstance3D" parent="mesh"]
+mesh = SubResource("CapsuleMesh_nqdbm")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="mesh/Torch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.730207, 0)
+light_energy = 5.0
+omni_range = 40.0
+omni_shadow_mode = 0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="mesh"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_mljok")

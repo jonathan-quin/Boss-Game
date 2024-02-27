@@ -1,26 +1,28 @@
-[gd_scene load_steps=4 format=3 uid="uid://btivxst01ncud"]
+[gd_scene load_steps=5 format=3 uid="uid://btivxst01ncud"]
 
 [ext_resource type="Script" path="res://scripts/items/torch.cs" id="1_www1d"]
+[ext_resource type="PackedScene" uid="uid://y2ogl6uh2u6p" path="res://scenes/items/floorTorch.tscn" id="2_51k8l"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_11qqi"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dle7s"]
 albedo_color = Color(0.603922, 0.266667, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_kvx2b"]
-material = SubResource("StandardMaterial3D_11qqi")
-radius = 0.25
+material = SubResource("StandardMaterial3D_dle7s")
+radius = 0.1
+height = 0.8
 
 [node name="Torch" type="Node3D"]
 script = ExtResource("1_www1d")
+floorForm = ExtResource("2_51k8l")
 
 [node name="mesh" type="Node3D" parent="."]
 
 [node name="Torch" type="MeshInstance3D" parent="mesh"]
-transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_kvx2b")
 skeleton = NodePath("../..")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="mesh/Torch"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.992603, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.730207, 0)
 light_energy = 5.0
 omni_range = 40.0
 omni_shadow_mode = 0

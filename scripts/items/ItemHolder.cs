@@ -44,6 +44,22 @@ public partial class ItemHolder : HeldItem
     {
         if (!IsMultiplayerAuthority()) return;
 
+        handleItem();
+
+        
+
+    }
+
+    public void handleItem(){
+
+        if (inventory.Count <= 0){
+            return;
+        }
+
+        if (selectedItem == null){
+            selectedItem = inventory[0];
+        }
+
         int shift = 0; 
         if (Input.IsActionJustPressed("itemSelectForward")){
             shift += 1;
@@ -87,7 +103,6 @@ public partial class ItemHolder : HeldItem
             itemToDelete.QueueFree();
 
         }
-
     }
 
     public void throwItem(){

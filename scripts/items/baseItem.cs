@@ -35,7 +35,10 @@ public partial class baseItem : RigidBody3D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
-        AnimationPlayer animPlayer = GetNode<AnimationPlayer>("%AnimationPlayer");
+
+		if (heldByPlayer) return;
+
+        AnimationPlayer animPlayer = GetNode<AnimationPlayer>("%LocalAnimationPlayer");
         if (shouldShimmer)
 		{
             
@@ -52,41 +55,40 @@ public partial class baseItem : RigidBody3D
 
 	//Step one is asking the server if the item is available
 	//PickedUp only ever gets changed on the server.
-	bool pickedUp = false;
+	bool claimed = false;
 	public void giveToSurvivor(){
 		//GD.Print("gts");
 		RpcId(Constants.SERVER_HOST_ID, "_giveToSurvivorStep1", GetMultiplayerAuthority());
 	}
 
+	//called by client; runs on server
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void _giveToSurvivorStep1(long survivorID){
-		//GD.Print("1");
-		if (pickedUp) return;
-		pickedUp = true;
-        //GD.Print("2");
-        RpcId(survivorID, "_giveToSurvivorStep2", survivorID);
-	}
-	//step 2 is called by the server and run by the client again
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-    public void _giveToSurvivorStep2(long survivorID)
-    {
-		bool playerTookItem = Survivor.GetSurvivor(survivorID).GetItemHolder().TakeItem(heldFormPath);
-        GD.Print("3");
-        RpcId(Constants.SERVER_HOST_ID, "_finalize", playerTookItem);
-    }
-	//run on the server, called by the client
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-    public void _finalize(bool pickedUp)
-    {
-        //GD.Print("4");
-        if (pickedUp)
-		{
-			QueueFree();
-		}
-		else
-		{
-			pickedUp = false;
-		}
-    }
+		if (claimed) return;
 
+		//if player has all it's items, return
+
+		claimed = true;
+
+		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
+
+		newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
+
+		Globals.objectHolder.AddChild(newItem);
+
+		newItem.GlobalPosition = GlobalPosition;
+		newItem.GlobalRotation = GlobalRotation;
+
+		newItem.heldByPlayer = true;
+		newItem.claimed = true;
+
+		QueueFree();
+
+        
+	}
+
+    public virtual void Use()
+    {
+        GetNode<AnimationPlayer>("%LocalAnimationPlayer").Play("swing");
+    }
 }

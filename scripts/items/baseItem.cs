@@ -26,7 +26,7 @@ public partial class baseItem : RigidBody3D
 		} else if (IsMultiplayerAuthority()){
 
 			//GD.Print("heyo");
-
+			GD.Print("my authority is ", GetMultiplayerAuthority());
 			Survivor.GetSurvivor(GetMultiplayerAuthority()).GetItemHolder().TakeItem(this);
 		}
 		
@@ -87,7 +87,6 @@ public partial class baseItem : RigidBody3D
 
 		GD.Print(newItem);
 
-		newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 
 		newItem.heldByPlayer = true;
 		newItem.claimed = true;

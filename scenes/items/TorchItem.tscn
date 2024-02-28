@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://scripts/items/baseItem.cs" id="1_ximil"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_saugb"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("1_n880p")
 shader_parameter/disabled = true

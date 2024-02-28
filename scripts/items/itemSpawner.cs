@@ -3,13 +3,29 @@ using System;
 
 public partial class itemSpawner : Node3D
 {
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
+
+	[Export]
+	public String pathToItem;
+
+	public override void _EnterTree()
 	{
+		SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
-	}
+	bool placedItem = false;
+
+    // Called when the node enters the scene tree for the first time.
+    public override void _Process(double delta)
+    {
+        if (!placedItem && IsMultiplayerAuthority()){
+			placedItem = true;
+
+			baseItem newItem = GD.Load<PackedScene>(pathToItem).Instantiate() as baseItem;
+			Globals.objectHolder.AddChild(newItem,true);
+			newItem.GlobalTransform = GlobalTransform;
+
+			
+		}
+    }
+
 }

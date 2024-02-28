@@ -30,7 +30,7 @@ public partial class ItemHolder : HeldItem
             return false;
         }
 
-        GD.Print("we get here");
+        //GD.Print("we get here");
 
 		inventory.Add(item);
 
@@ -59,7 +59,7 @@ public partial class ItemHolder : HeldItem
             return;
         }
 
-        GD.Print("inventory is not empty");
+        //GD.Print("inventory is not empty");
 
 
         if (selectedItem == null){
@@ -82,7 +82,7 @@ public partial class ItemHolder : HeldItem
         {
             item.Visible = false;
             item.GlobalTransform = GlobalTransform;
-            GD.Print("yes we are syncing the position");
+            //GD.Print("yes we are syncing the position");
         }
 
         selectedItem.Visible = true;
@@ -133,9 +133,9 @@ public partial class ItemHolder : HeldItem
             selectedItem = null;
         }
 
-         itemToThrow.throwSelf(GlobalTransform);
+        itemToThrow.throwSelf(GlobalTransform);
         
-        GD.Print("removed it ",inventory.Count);
+        //GD.Print("removed it ",inventory.Count);
         
     }
 
@@ -144,7 +144,7 @@ public partial class ItemHolder : HeldItem
         
         if (amount == 0) return;
 
-        GD.Print("shift");
+        //GD.Print("shift");
 
         int currentSelection = 0;
         

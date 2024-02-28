@@ -10,6 +10,7 @@ public partial class Lobby : Node
 	{
 		//print("I am " + str(multiplayer.get_unique_id()))
 		
+		
 		Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
 
 		//all players have these signals connected for debugging

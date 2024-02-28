@@ -288,6 +288,7 @@ pathToItem = "res://scenes/items/TorchItem.tscn"
 unique_name_in_owner = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/KnifeItem.tscn", "res://scenes/items/TorchItem.tscn")
 spawn_path = NodePath("../PlayerSpawnRoot")
 

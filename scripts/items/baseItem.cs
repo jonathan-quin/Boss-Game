@@ -15,9 +15,13 @@ public partial class baseItem : RigidBody3D
 	public override void _EnterTree()
 	{
 
-		SetMultiplayerAuthority((int)targetMultiplayerAuthority);
+		Constants.loadDataFromName(this, Name);
 
-		if (!heldByPlayer)
+        
+        SetMultiplayerAuthority((int)targetMultiplayerAuthority);
+        GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
+
+        if (!heldByPlayer)
 		{
 			
 
@@ -41,7 +45,7 @@ public partial class baseItem : RigidBody3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		GD.Print("yes we print");
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -93,13 +97,17 @@ public partial class baseItem : RigidBody3D
 
 
 		newItem.heldByPlayer = true;
-		newItem.claimed = true;
-		newItem.SetMultiplayerAuthority((int)survivorID);
+		//newItem.SetMultiplayerAuthority((int)survivorID);
+
 
 		newItem.targetMultiplayerAuthority = (int)survivorID;
 		GD.Print("the survivor id should be: ",survivorID);
 
-		Globals.objectHolder.AddChild(newItem,true);
+		newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
+
+
+        Globals.objectHolder.AddChild(newItem);
+		//Globals.multiplayerSpawner.Spawn(newItem);
 
 		newItem.GlobalPosition = GlobalPosition;
 		newItem.GlobalRotation = GlobalRotation;
@@ -111,11 +119,15 @@ public partial class baseItem : RigidBody3D
         
 	}
 
-	/// <summary>
-	/// tells the server to throw and delete the item
-	/// </summary>
-	/// <param name="startTransform">The global transform from which to start</param>
-	public void throwSelf(Transform3D startTransform){
+
+
+	
+
+        /// <summary>
+        /// tells the server to throw and delete the item
+        /// </summary>
+        /// <param name="startTransform">The global transform from which to start</param>
+        public void throwSelf(Transform3D startTransform){
 		RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
 	}
 

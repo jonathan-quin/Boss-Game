@@ -8,13 +8,13 @@ public partial class Lobby : Node
 
 	public override void _Ready()
 	{
-		//print("I am " + str(multiplayer.get_unique_id()))
-		
-		
-		Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
+        //print("I am " + str(multiplayer.get_unique_id()))
+        Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
+        Globals.multiplayerSpawner = GetNode<MultiplayerSpawner>("%MultiplayerSpawner");
+        
 
-		//all players have these signals connected for debugging
-		Multiplayer.ConnectedToServer += ConnectedToServer;
+        //all players have these signals connected for debugging
+        Multiplayer.ConnectedToServer += ConnectedToServer;
 		Multiplayer.ConnectionFailed += FailedToConnect;
 	
 		if (Multiplayer.IsServer()){

@@ -10,12 +10,16 @@ public partial class baseItem : RigidBody3D
 	public bool shouldShimmer = false;
 	public bool heldByPlayer = false;
 
+	public int targetMultiplayerAuthority = (int)Constants.SERVER_HOST_ID;
+
 	public override void _EnterTree()
 	{
 
+		SetMultiplayerAuthority((int)targetMultiplayerAuthority);
+
 		if (!heldByPlayer)
 		{
-			SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
+			
 
 			if (IsMultiplayerAuthority())
 			{
@@ -71,7 +75,7 @@ public partial class baseItem : RigidBody3D
 	bool claimed = false;
 	public void giveToSurvivor(){
 		//GD.Print("gts");
-		RpcId(Constants.SERVER_HOST_ID, "_giveToSurvivorStep1", GetMultiplayerAuthority());
+		RpcId(Constants.SERVER_HOST_ID, "_giveToSurvivorStep1", Multiplayer.GetUniqueId());
 	}
 
 	//called by client; runs on server
@@ -91,6 +95,9 @@ public partial class baseItem : RigidBody3D
 		newItem.heldByPlayer = true;
 		newItem.claimed = true;
 		newItem.SetMultiplayerAuthority((int)survivorID);
+
+		newItem.targetMultiplayerAuthority = (int)survivorID;
+		GD.Print("the survivor id should be: ",survivorID);
 
 		Globals.objectHolder.AddChild(newItem,true);
 
@@ -121,7 +128,7 @@ public partial class baseItem : RigidBody3D
 
 		//GD.Print(newItem);
 
-		newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
+		
 
 		newItem.heldByPlayer = false;
 		newItem.claimed = false;

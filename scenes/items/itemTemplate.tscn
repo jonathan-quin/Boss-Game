@@ -37,21 +37,6 @@ properties/2/path = NodePath("SyncedAnimationPlayer:current_animation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
 
-[sub_resource type="Animation" id="Animation_da0ex"]
-resource_name = "shine"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("mesh/placeholder:material_overlay:next_pass:shader_parameter/disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="Animation" id="Animation_jrjx8"]
 length = 0.001
 tracks/0/type = "value"
@@ -67,10 +52,52 @@ tracks/0/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_da0ex"]
+resource_name = "shine"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh/placeholder:material_overlay:next_pass:shader_parameter/disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gd0l5"]
 _data = {
 "RESET": SubResource("Animation_jrjx8"),
 "shine": SubResource("Animation_da0ex")
+}
+
+[sub_resource type="Animation" id="Animation_3bhw2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("mesh:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_2h8dj"]
@@ -102,33 +129,6 @@ tracks/1/keys = {
 "values": [Vector3(0, 0, 0), Vector3(-6.90019e-09, 0.354668, -0.386782), Vector3(0, 0, 1.52228), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_3bhw2"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("mesh:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("mesh:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_0pjs7"]
 _data = {
 "RESET": SubResource("Animation_3bhw2"),
@@ -140,7 +140,6 @@ collision_layer = 17
 freeze = true
 
 [node name="mesh" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="placeholder" type="MeshInstance3D" parent="mesh"]
 material_overlay = SubResource("StandardMaterial3D_d67tf")

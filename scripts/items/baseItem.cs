@@ -36,17 +36,21 @@ public partial class baseItem : RigidBody3D
 	public override void _Process(double delta)
 	{
 
-		if (heldByPlayer) return;
+		if (!heldByPlayer) {
+			AnimationPlayer animPlayer = GetNode<AnimationPlayer>("%LocalAnimationPlayer");
+			if (shouldShimmer)
+			{
+				
+				animPlayer.Play("shine");
+			} else
+			{
+				animPlayer.Play("RESET");
+			}
+		} else {
 
-        AnimationPlayer animPlayer = GetNode<AnimationPlayer>("%LocalAnimationPlayer");
-        if (shouldShimmer)
-		{
-            
-			animPlayer.Play("shine");
-        } else
-		{
-            animPlayer.Play("RESET");
-        }
+		}
+
+        
 
 		//GD.Print(Time.GetTicksMsec());
 
@@ -81,6 +85,7 @@ public partial class baseItem : RigidBody3D
 
 		newItem.heldByPlayer = true;
 		newItem.claimed = true;
+		newItem.SetMultiplayerAuthority((int)survivorID);
 
 		QueueFree();
 

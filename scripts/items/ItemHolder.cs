@@ -7,7 +7,7 @@ public partial class ItemHolder : HeldItem
 	
     
 
-	baseItem selectedItem;
+	baseItem selectedItem = null;
     List<baseItem> inventory = new List<baseItem>();
 
     //includes the hand
@@ -15,8 +15,7 @@ public partial class ItemHolder : HeldItem
 
     public override void _Ready()
     {
-        selectedItem = GetChild(0) as HeldItem;
-
+        
     }
 
     /// <summary>
@@ -24,16 +23,14 @@ public partial class ItemHolder : HeldItem
     /// </summary>
     /// <param name="itemPath"></param>
     /// <returns></returns>
-    public bool TakeItem(string itemPath)
+    public bool TakeItem(baseItem item)
     {
         if (GetChildCount() >= MAX_ITEMS)
         {
             return false;
         }
 
-		HeldItem item = GD.Load<PackedScene>(itemPath).Instantiate() as HeldItem;
-		item.SetMultiplayerAuthority(GetMultiplayerAuthority());
-		AddChild(item);
+		inventory.Add(item);
 
         selectedItem = item;
 
@@ -85,7 +82,7 @@ public partial class ItemHolder : HeldItem
 
         if (Input.IsActionJustPressed("drop") && selectedItem.pathToSelf != null)
         {
-            FloorItem newItem = GD.Load<PackedScene>(selectedItem.pathToSelf).Instantiate() as FloorItem;
+            baseItem newItem = GD.Load<PackedScene>(selectedItem.pathToSelf).Instantiate() as baseItem;
 
             newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 
@@ -97,7 +94,7 @@ public partial class ItemHolder : HeldItem
             float throwForce = 5f;
             newItem.ApplyImpulse(GlobalTransform.Basis.Z * -throwForce);
 
-            HeldItem itemToDelete = selectedItem;
+            baseItem itemToDelete = selectedItem;
 
             shiftSelection(1);
             itemToDelete.QueueFree();
@@ -111,25 +108,25 @@ public partial class ItemHolder : HeldItem
 
     public void shiftSelection(int amount)
     {
-
+        
         if (amount == 0) return;
 
         GD.Print("shift");
 
-        int currentSelection = GetChildren().IndexOf(selectedItem);
+        int currentSelection = inventory.IndexOf(selectedItem);
 
         int newSelection = currentSelection + amount;
-        int childCount = GetChildCount();
+        int totalItems = inventory.Count;
 
-        if (newSelection >= childCount) {
-            newSelection -= childCount;
+        if (newSelection >= totalItems) {
+            newSelection -= totalItems;
         }
         if (newSelection < 0)
         {
-            newSelection = childCount - 1;
+            newSelection = totalItems - 1;
         }
 
-        selectedItem = GetChild(newSelection) as HeldItem;
+        selectedItem = inventory[newSelection];
     }
 
 

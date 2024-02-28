@@ -146,6 +146,7 @@ _data = {
 collision_layer = 17
 freeze = true
 script = ExtResource("1_dsfn2")
+pathToSelf = "res://scenes/items/KnifeItem.tscn"
 
 [node name="mesh" type="Node3D" parent="."]
 

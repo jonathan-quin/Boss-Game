@@ -30,6 +30,8 @@ public partial class ItemHolder : HeldItem
             return false;
         }
 
+        GD.Print("we get here");
+
 		inventory.Add(item);
 
         selectedItem = item;
@@ -40,6 +42,8 @@ public partial class ItemHolder : HeldItem
     public override void _PhysicsProcess(double delta)
     {
         if (!IsMultiplayerAuthority()) return;
+
+
 
         handleItem();
 
@@ -70,6 +74,8 @@ public partial class ItemHolder : HeldItem
         foreach (Node3D child in GetChildren())
         {
             child.Visible = false;
+            child.GlobalTransform = GlobalTransform;
+            GD.Print("yes we are syncing the position");
         }
 
         selectedItem.Visible = true;

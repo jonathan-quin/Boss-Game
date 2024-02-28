@@ -21,6 +21,12 @@ public partial class baseItem : RigidBody3D
 			{
 				Freeze = false;
 			}
+
+			GD.Print("created");
+		} else {
+
+			GD.Print("heyo");
+			Survivor.GetSurvivor(GetMultiplayerAuthority()).GetItemHolder().TakeItem(this);
 		}
 		
 		
@@ -30,6 +36,7 @@ public partial class baseItem : RigidBody3D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		GD.Print("yes we print");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,16 +83,20 @@ public partial class baseItem : RigidBody3D
 
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 
+		GD.Print(newItem);
+
 		newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
-
-		Globals.objectHolder.AddChild(newItem);
-
-		newItem.GlobalPosition = GlobalPosition;
-		newItem.GlobalRotation = GlobalRotation;
 
 		newItem.heldByPlayer = true;
 		newItem.claimed = true;
 		newItem.SetMultiplayerAuthority((int)survivorID);
+
+		Globals.objectHolder.AddChild(newItem,true);
+
+		newItem.GlobalPosition = GlobalPosition;
+		newItem.GlobalRotation = GlobalRotation;
+
+		
 
 		QueueFree();
 

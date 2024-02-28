@@ -1,26 +1,33 @@
-[gd_scene load_steps=13 format=3 uid="uid://bww5e3fovsksm"]
+[gd_scene load_steps=16 format=3 uid="uid://c6was2j21cpfx"]
 
-[ext_resource type="Shader" path="res://scripts/item.gdshader" id="1_dfkcu"]
+[ext_resource type="Script" path="res://scripts/items/baseItem.cs" id="1_dsfn2"]
+[ext_resource type="Shader" path="res://scripts/item.gdshader" id="1_gi0x0"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_saugb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8p2tg"]
 render_priority = 0
-shader = ExtResource("1_dfkcu")
+shader = ExtResource("1_gi0x0")
 shader_parameter/disabled = true
 shader_parameter/shine_color = Color(1, 1, 1, 1)
 shader_parameter/cycle_interval = 37.77
 shader_parameter/shine_speed = 0.25
 shader_parameter/shine_width = 19.888
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d67tf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fael7"]
 resource_local_to_scene = true
-next_pass = SubResource("ShaderMaterial_saugb")
+next_pass = SubResource("ShaderMaterial_8p2tg")
 transparency = 1
 albedo_color = Color(1, 1, 1, 0)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_277kq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ghced"]
+albedo_color = Color(0.52549, 0.192157, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gdp7s"]
 resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ghced")
 radius = 0.1
 height = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_7lbhv"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qkwgo"]
 radius = 0.1
@@ -135,15 +142,20 @@ _data = {
 "swing": SubResource("Animation_2h8dj")
 }
 
-[node name="ItemTemplate" type="RigidBody3D"]
+[node name="KnifeItem" type="RigidBody3D"]
 collision_layer = 17
 freeze = true
+script = ExtResource("1_dsfn2")
 
 [node name="mesh" type="Node3D" parent="."]
 
 [node name="placeholder" type="MeshInstance3D" parent="mesh"]
-material_overlay = SubResource("StandardMaterial3D_d67tf")
-mesh = SubResource("CapsuleMesh_277kq")
+material_overlay = SubResource("StandardMaterial3D_fael7")
+mesh = SubResource("CapsuleMesh_gdp7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="mesh/placeholder"]
+transform = Transform3D(0.287955, 0, 0, 0, 0.63585, 0, 0, 0, -0.0202559, -0.0882324, 0.391626, 0)
+mesh = SubResource("BoxMesh_7lbhv")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_qkwgo")

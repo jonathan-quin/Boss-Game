@@ -1,11 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=7 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
-[ext_resource type="PackedScene" uid="uid://ckrr4axox86e5" path="res://scenes/items/hand.tscn" id="3_vo43y"]
-[ext_resource type="PackedScene" uid="uid://btivxst01ncud" path="res://scenes/items/torch.tscn" id="4_1n320"]
-[ext_resource type="PackedScene" uid="uid://cwp4yn37wcho0" path="res://scenes/items/heldKnife.tscn" id="5_yynnm"]
+[ext_resource type="PackedScene" uid="uid://c6was2j21cpfx" path="res://scenes/items/KnifeItem.tscn" id="3_oxxkc"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
@@ -275,17 +273,11 @@ size = Vector3(1.06195, 4.76491, 4.28954)
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Hand" parent="PlayerSpawnRoot" instance=ExtResource("3_vo43y")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6.75051)
-
-[node name="Torch" parent="PlayerSpawnRoot" instance=ExtResource("4_1n320")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.3052)
-
-[node name="heldKnife" parent="PlayerSpawnRoot" instance=ExtResource("5_yynnm")]
-transform = Transform3D(-4.37114e-08, -3.48787e-16, -1, 3.48787e-16, 1, -3.48787e-16, 1, -3.48787e-16, -4.37114e-08, 0, 0, 9.8988)
+[node name="KnifeItem" parent="PlayerSpawnRoot" instance=ExtResource("3_oxxkc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.92129)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
-_spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/FloorKnife.tscn", "res://scenes/items/heldKnife.tscn", "res://scenes/items/floorTorch.tscn", "res://scenes/items/torch.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/FloorKnife.tscn", "res://scenes/items/heldKnife.tscn", "res://scenes/items/floorTorch.tscn", "res://scenes/items/torch.tscn", "res://scenes/items/KnifeItem.tscn")
 spawn_path = NodePath("../PlayerSpawnRoot")
 
 [node name="map reference" type="Sprite3D" parent="."]

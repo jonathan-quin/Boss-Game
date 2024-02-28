@@ -66,9 +66,9 @@ public partial class FloorItem : RigidBody3D
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void _giveToSurvivorStep2(long survivorID)
     {
-		bool playerTookItem = Survivor.GetSurvivor(survivorID).GetItemHolder().TakeItem(heldFormPath);
-        GD.Print("3");
-        RpcId(Constants.SERVER_HOST_ID, "_finalize", playerTookItem);
+		//bool playerTookItem = Survivor.GetSurvivor(survivorID).GetItemHolder().TakeItem(heldFormPath);
+        //GD.Print("3");
+        //RpcId(Constants.SERVER_HOST_ID, "_finalize", playerTookItem);
     }
 	//run on the server, called by the client
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]

@@ -8,7 +8,7 @@ public partial class ItemPickupCast : RayCast3D
 	{
 	}
 
-	FloorItem lastItemLookedAt = null;
+	baseItem lastItemLookedAt = null;
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
@@ -22,7 +22,7 @@ public partial class ItemPickupCast : RayCast3D
         
 		if (IsColliding()){
 			
-            lastItemLookedAt = GetCollider() as FloorItem;
+            lastItemLookedAt = GetCollider() as baseItem;
 
 			if (lastItemLookedAt != null)
 			{

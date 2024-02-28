@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://dxtiw0s2ivbd7"]
+
+[ext_resource type="Script" path="res://scripts/items/torch.cs" id="1_www1d"]
+[ext_resource type="PackedScene" path="res://scenes/items/floorTorch.tscn" id="2_51k8l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dle7s"]
+albedo_color = Color(0.603922, 0.266667, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kvx2b"]
+material = SubResource("StandardMaterial3D_dle7s")
+radius = 0.1
+height = 0.8
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vgkex"]
+emission_shape_offset = Vector3(0, 0.5, 0)
+emission_shape = 1
+emission_sphere_radius = 0.25
+angle_min = -5.0
+angle_max = 5.0
+gravity = Vector3(0, 9.8, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l2nqx"]
+albedo_color = Color(1, 0.509804, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_8cy58"]
+material = SubResource("StandardMaterial3D_l2nqx")
+radius = 0.125
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nt6ch"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_4wvuw"]
+material = SubResource("StandardMaterial3D_nt6ch")
+radius = 0.125
+height = 0.25
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grchh"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_0jp0m"]
+material = SubResource("StandardMaterial3D_grchh")
+radius = 0.125
+height = 0.25
+
+[node name="Torch" type="Node3D"]
+script = ExtResource("1_www1d")
+floorForm = ExtResource("2_51k8l")
+
+[node name="mesh" type="Node3D" parent="."]
+
+[node name="Torch" type="MeshInstance3D" parent="mesh"]
+mesh = SubResource("CapsuleMesh_kvx2b")
+skeleton = NodePath("../..")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="mesh/Torch"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.730207, 0)
+light_energy = 5.0
+omni_range = 40.0
+omni_shadow_mode = 0
+
+[node name="Orange" type="GPUParticles3D" parent="."]
+amount = 3
+lifetime = 0.25
+speed_scale = 0.4
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_vgkex")
+draw_pass_1 = SubResource("SphereMesh_8cy58")
+
+[node name="White" type="GPUParticles3D" parent="."]
+amount = 1
+lifetime = 0.25
+speed_scale = 0.4
+process_material = SubResource("ParticleProcessMaterial_vgkex")
+draw_pass_1 = SubResource("SphereMesh_4wvuw")
+
+[node name="Yellow" type="GPUParticles3D" parent="."]
+amount = 2
+lifetime = 0.25
+speed_scale = 0.4
+process_material = SubResource("ParticleProcessMaterial_vgkex")
+draw_pass_1 = SubResource("SphereMesh_0jp0m")

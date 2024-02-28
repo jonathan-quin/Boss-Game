@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cmpi2sjp2micf"]
+
+[ext_resource type="Script" path="res://scripts/items/itemSpawner.cs" id="1_vvd8e"]
+
+[node name="ItemSpawner" type="Node3D"]
+script = ExtResource("1_vvd8e")

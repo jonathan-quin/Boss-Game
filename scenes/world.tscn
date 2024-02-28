@@ -1,15 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=9 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
-[ext_resource type="PackedScene" uid="uid://c6was2j21cpfx" path="res://scenes/items/KnifeItem.tscn" id="3_oxxkc"]
-[ext_resource type="PackedScene" uid="uid://b5o8y5365dfa2" path="res://scenes/items/TorchItem.tscn" id="4_np3p2"]
+[ext_resource type="PackedScene" path="res://scenes/items/KnifeItem.tscn" id="3_oxxkc"]
+[ext_resource type="PackedScene" path="res://scenes/items/TorchItem.tscn" id="4_np3p2"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
+reflected_light_source = 1
 tonemap_mode = 2
-glow_enabled = true
+fog_light_color = Color(0, 0, 0, 1)
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.02
+volumetric_fog_albedo = Color(0.368627, 0.368627, 0.368627, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d1cpy"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmrqj"]
 albedo_color = Color(0, 0, 0, 1)
@@ -24,6 +31,7 @@ SurviorScene = ExtResource("1_iiks1")
 environment = SubResource("Environment_4l018")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="Environment"]
+material_override = SubResource("StandardMaterial3D_d1cpy")
 use_collision = true
 collision_layer = 3
 collision_mask = 3

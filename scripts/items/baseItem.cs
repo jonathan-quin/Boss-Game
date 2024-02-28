@@ -22,10 +22,11 @@ public partial class baseItem : RigidBody3D
 				Freeze = false;
 			}
 
-			GD.Print("created");
-		} else {
+			//GD.Print("created");
+		} else if (IsMultiplayerAuthority()){
 
-			GD.Print("heyo");
+			//GD.Print("heyo");
+
 			Survivor.GetSurvivor(GetMultiplayerAuthority()).GetItemHolder().TakeItem(this);
 		}
 		
@@ -54,6 +55,7 @@ public partial class baseItem : RigidBody3D
 				animPlayer.Play("RESET");
 			}
 		} else {
+			GetNode<AnimationPlayer>("%LocalAnimationPlayer").Play("RESET");
 
 		}
 
@@ -103,8 +105,45 @@ public partial class baseItem : RigidBody3D
         
 	}
 
+	/// <summary>
+	/// tells the server to throw and delete the item
+	/// </summary>
+	/// <param name="startTransform">The global transform from which to start</param>
+	public void throwSelf(Transform3D startTransform){
+		RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
+	}
+
+	//called by client; runs on server. Pass in global transform
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void _throwSelf(Transform3D startTransform){
+
+		//GD.Print("instance child");
+		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
+
+		//GD.Print(newItem);
+
+		newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
+
+		newItem.heldByPlayer = false;
+		newItem.claimed = false;
+		newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
+
+
+		//GD.Print("add child");
+		Globals.objectHolder.AddChild(newItem,true);
+
+		
+		newItem.GlobalTransform = startTransform;
+		newItem.GlobalPosition += startTransform.Basis.Z * -0.5f;
+
+		float throwForce = 5f;
+		newItem.ApplyImpulse(GlobalTransform.Basis.Z * -throwForce);
+
+		QueueFree();
+	}
+
     public virtual void Use()
     {
-        GetNode<AnimationPlayer>("%LocalAnimationPlayer").Play("swing");
+        GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
     }
 }

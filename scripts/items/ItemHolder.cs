@@ -44,7 +44,6 @@ public partial class ItemHolder : HeldItem
         if (!IsMultiplayerAuthority()) return;
 
 
-
         handleItem();
 
         
@@ -52,10 +51,16 @@ public partial class ItemHolder : HeldItem
     }
 
     public void handleItem(){
+        
+        
 
         if (inventory.Count <= 0){
+            selectedItem = null;
             return;
         }
+
+        GD.Print("inventory is not empty");
+
 
         if (selectedItem == null){
             selectedItem = inventory[0];
@@ -71,10 +76,12 @@ public partial class ItemHolder : HeldItem
         }
         shiftSelection(shift);
 
-        foreach (Node3D child in GetChildren())
+        
+
+        foreach (baseItem item in inventory)
         {
-            child.Visible = false;
-            child.GlobalTransform = GlobalTransform;
+            item.Visible = false;
+            item.GlobalTransform = GlobalTransform;
             GD.Print("yes we are syncing the position");
         }
 
@@ -88,7 +95,11 @@ public partial class ItemHolder : HeldItem
 
         if (Input.IsActionJustPressed("drop") && selectedItem.pathToSelf != null)
         {
-            baseItem newItem = GD.Load<PackedScene>(selectedItem.pathToSelf).Instantiate() as baseItem;
+
+            throwItem();
+            
+
+            /*baseItem newItem = GD.Load<PackedScene>(selectedItem.pathToSelf).Instantiate() as baseItem;
 
             newItem.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 
@@ -103,13 +114,29 @@ public partial class ItemHolder : HeldItem
             baseItem itemToDelete = selectedItem;
 
             shiftSelection(1);
-            itemToDelete.QueueFree();
+            itemToDelete.QueueFree();*/
 
         }
     }
 
-    public void throwItem(){
 
+
+    public void throwItem(){
+       
+       baseItem itemToThrow = selectedItem;
+       
+        if (inventory.Count > 1){
+            shiftSelection(1);
+            inventory.Remove(itemToThrow);
+        }else{
+            inventory.Remove(itemToThrow);
+            selectedItem = null;
+        }
+
+         itemToThrow.throwSelf(GlobalTransform);
+        
+        GD.Print("removed it ",inventory.Count);
+        
     }
 
     public void shiftSelection(int amount)
@@ -119,7 +146,12 @@ public partial class ItemHolder : HeldItem
 
         GD.Print("shift");
 
-        int currentSelection = inventory.IndexOf(selectedItem);
+        int currentSelection = 0;
+        
+        if (inventory.Count > 0){
+          currentSelection = inventory.IndexOf(selectedItem);
+        }
+         
 
         int newSelection = currentSelection + amount;
         int totalItems = inventory.Count;

@@ -20,7 +20,7 @@ public partial class itemSpawner : Node3D
         if (!placedItem && IsMultiplayerAuthority()){
 			placedItem = true;
 
-			baseItem newItem = _itemToSpawn.Instantiate() as baseItem;
+			baseItem newItem = (baseItem)_itemToSpawn.Instantiate();
 			Globals.objectHolder.AddChild(newItem,true);
 			newItem.GlobalTransform = GlobalTransform;
 		}

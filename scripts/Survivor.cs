@@ -81,8 +81,6 @@ public partial class Survivor : CharacterBody3D
 
 		HandleMouseModeInputs();
 		Move(delta);
-
-
 	}
 
 

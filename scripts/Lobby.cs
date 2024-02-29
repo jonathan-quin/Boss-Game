@@ -50,13 +50,9 @@ public partial class Lobby : Node
 		Survivor player = SurviorScene.Instantiate() as Survivor;
 		player.Name = id.ToString();
 		
-		player.Position = Vector3.Up * 1.5f;
-		
-		
-		//objectHolder.CallDeferred("AddChild",player);
 		Globals.objectHolder.AddChild(player);
 		
-
+		//player.Position = GetNode<Node3D>("%PlayerSpawnRoot").GlobalPosition;
 	}
 	
 	

@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://beclvf6kyp4f6"]
+
+[ext_resource type="PackedScene" uid="uid://b7j1fbnyxyvm5" path="res://3D models/bossMonsterRigged.glb" id="1_aejn7"]
+
+[node name="bossMonsterRigged" instance=ExtResource("1_aejn7")]
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/2/rotation = Quaternion(0.000474975, 0.000474975, 0.093475, 0.999475)
+
+[node name="FR IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="1"]
+process_priority = 1
+root_bone = &"FR shoulder"
+tip_bone = &"FR tip"
+use_magnet = true
+magnet = Vector3(5, 5, 5)
+target_node = NodePath("../FR target")
+
+[node name="FR target" type="Marker3D" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.54317, -0.983856, 3.2235)

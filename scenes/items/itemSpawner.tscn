@@ -1,8 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://cmpi2sjp2micf"]
+[gd_scene load_steps=4 format=3 uid="uid://cmpi2sjp2micf"]
 
 [ext_resource type="Script" path="res://scripts/items/itemSpawner.cs" id="1_vvd8e"]
+[ext_resource type="Texture2D" uid="uid://c0ve0rwke5cf4" path="res://placeholders/item.png" id="2_thayp"]
+[ext_resource type="Script" path="res://scripts/editor/ItemSpawnerDisplay.cs" id="3_6s3qi"]
 
 [node name="ItemSpawner" type="Node3D"]
 script = ExtResource("1_vvd8e")
 
 [node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.05, 0, 0, 0, 0.05, 0, 0, 0, 0.05, 0, 0, 0)
+texture = ExtResource("2_thayp")
+script = ExtResource("3_6s3qi")

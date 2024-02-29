@@ -4,8 +4,7 @@ using System;
 public partial class baseItem : RigidBody3D
 {
 	
-	[Export]
-	public String pathToSelf;
+	[Export] public String pathToSelf;
 
 	public bool shouldShimmer = false;
 	public bool heldByPlayer = false;

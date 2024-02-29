@@ -4,8 +4,8 @@ using System;
 public partial class itemSpawner : Node3D
 {
 
-	[Export]
-	public String pathToItem;
+	//[Export] public String pathToItem;
+	[Export] private PackedScene _itemToSpawn;
 
 	public override void _EnterTree()
 	{
@@ -20,11 +20,9 @@ public partial class itemSpawner : Node3D
         if (!placedItem && IsMultiplayerAuthority()){
 			placedItem = true;
 
-			baseItem newItem = GD.Load<PackedScene>(pathToItem).Instantiate() as baseItem;
+			baseItem newItem = _itemToSpawn.Instantiate() as baseItem;
 			Globals.objectHolder.AddChild(newItem,true);
 			newItem.GlobalTransform = GlobalTransform;
-
-			
 		}
     }
 

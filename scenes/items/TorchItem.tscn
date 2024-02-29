@@ -158,6 +158,8 @@ mesh = SubResource("CapsuleMesh_uxi6b")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="mesh/placeholder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.713389, 0)
+light_energy = 5.0
+omni_range = 40.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_qkwgo")

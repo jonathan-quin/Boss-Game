@@ -1,14 +1,19 @@
-[gd_scene load_steps=7 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=10 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
+[ext_resource type="PackedScene" uid="uid://c6was2j21cpfx" path="res://scenes/items/KnifeItem.tscn" id="4_y832o"]
+[ext_resource type="PackedScene" uid="uid://b5o8y5365dfa2" path="res://scenes/items/TorchItem.tscn" id="5_easv8"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vsa35"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kmrqj"]
 albedo_color = Color(0, 0, 0, 1)
@@ -23,6 +28,7 @@ SurviorScene = ExtResource("1_iiks1")
 environment = SubResource("Environment_4l018")
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="Environment"]
+material_override = SubResource("StandardMaterial3D_vsa35")
 use_collision = true
 collision_layer = 3
 collision_mask = 3
@@ -274,15 +280,15 @@ size = Vector3(1.06195, 4.76491, 4.28954)
 
 [node name="ItemSpawner" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
+_itemToSpawn = ExtResource("4_y832o")
 
 [node name="ItemSpawner2" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
+_itemToSpawn = ExtResource("4_y832o")
 
 [node name="ItemSpawner3" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
-pathToItem = "res://scenes/items/TorchItem.tscn"
+_itemToSpawn = ExtResource("5_easv8")
 
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true

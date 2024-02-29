@@ -3,8 +3,7 @@ using System;
 
 public partial class Lobby : Node
 {
-	[Export]
-	public PackedScene SurviorScene;
+	[Export] public PackedScene SurviorScene;
 
 	public override void _Ready()
 	{
@@ -23,7 +22,7 @@ public partial class Lobby : Node
 			Multiplayer.PeerDisconnected += DeletePlayer;
 
 			CreatePlayer();
-			}
+		}
 		else{
 			Multiplayer.ServerDisconnected += ServerDisconnected;
 		}

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://gh1p6y3h51un"]
+
+[ext_resource type="Texture2D" uid="uid://qht0ayjx6h7s" path="res://placeholders/player.jpg" id="1_r7fb1"]
+[ext_resource type="Script" path="res://scripts/editor/ItemSpawnerDisplay.cs" id="2_7etau"]
+
+[node name="Player Spawn Point" type="Node3D"]
+
+[node name="Marker3D" type="Marker3D" parent="."]
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+texture = ExtResource("1_r7fb1")
+script = ExtResource("2_7etau")

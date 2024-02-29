@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=17 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://c6was2j21cpfx" path="res://scenes/items/KnifeItem.tscn" id="4_y832o"]
 [ext_resource type="Script" path="res://scripts/StartButton.cs" id="5_708sr"]
 [ext_resource type="PackedScene" uid="uid://b5o8y5365dfa2" path="res://scenes/items/TorchItem.tscn" id="5_easv8"]
+[ext_resource type="PackedScene" uid="uid://gh1p6y3h51un" path="res://scenes/player_spawn_point.tscn" id="9_limhl"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
@@ -344,6 +345,20 @@ _itemToSpawn = ExtResource("4_y832o")
 [node name="ItemSpawner3" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
 _itemToSpawn = ExtResource("5_easv8")
+
+[node name="Player Spawns" type="Node3D" parent="."]
+
+[node name="Player Spawn Point 1" parent="Player Spawns" instance=ExtResource("9_limhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.432049, 0, 13.4381)
+
+[node name="Player Spawn Point 2" parent="Player Spawns" instance=ExtResource("9_limhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -41.5147, 0, 19.6937)
+
+[node name="Player Spawn Point 3" parent="Player Spawns" instance=ExtResource("9_limhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.2903, 0, -31.0135)
+
+[node name="Player Spawn Point 4" parent="Player Spawns" instance=ExtResource("9_limhl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -45.6204, 0, -20.8457)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true

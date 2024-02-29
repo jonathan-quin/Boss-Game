@@ -8,4 +8,10 @@ public partial class StartButton : Button
 	{
 		Visible = Multiplayer.IsServer();
 	}
+
+	public override void _Pressed()
+	{
+		base._Pressed();
+		Visible = false;
+	}
 }

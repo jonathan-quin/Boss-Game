@@ -52,8 +52,11 @@ public partial class Survivor : CharacterBody3D
 		itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
 		itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
+		
+
 		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
+			GetNode<Node3D>("%headMesh").Visible = false;
 		}
 
 		HandleMouseModeInputs();

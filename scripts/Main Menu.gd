@@ -16,7 +16,7 @@ func _ready():
 		"Windows":
 			%address.text = IP.resolve_hostname(str(OS.get_environment("COMPUTERNAME")),1)
 		"macOS":
-			%address.text = "10.135.16.136"
+			%address.text = "192.168.1.28" #"10.135.16.136"
 			
 	
 	multiplayer.connected_to_server.connect(connectedToServer)

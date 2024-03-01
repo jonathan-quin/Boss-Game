@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://drrgv6d0nrlf8"]
+[gd_scene load_steps=7 format=3 uid="uid://drrgv6d0nrlf8"]
 
-[ext_resource type="Script" path="res://scripts/Survivor.cs" id="1_rkith"]
-[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="2_al15b"]
+[ext_resource type="PackedScene" uid="uid://ep1be17adwxb" path="res://scenes/BossMonsterModel.tscn" id="1_6otgn"]
+[ext_resource type="Script" path="res://scripts/boss.cs" id="1_atbsp"]
+[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="2_pmoxq"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -18,16 +19,8 @@ properties/2/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_ohyin"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gm0uj"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_eyp1h"]
-material = SubResource("StandardMaterial3D_gm0uj")
-radius = 0.1
-height = 0.2
-
 [node name="boss" type="CharacterBody3D"]
-script = ExtResource("1_rkith")
+script = ExtResource("1_atbsp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ro0dl")
@@ -42,27 +35,20 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845512, 0)
 
 [node name="Camera" type="Camera3D" parent="neck/head"]
 unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.64898)
 
 [node name="headMesh" type="MeshInstance3D" parent="neck/head"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.1, -0.3)
 mesh = SubResource("SphereMesh_ohyin")
 
-[node name="leftEye" type="MeshInstance3D" parent="neck/head/headMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.258, 0.21, -0.367975)
-mesh = SubResource("SphereMesh_eyp1h")
-skeleton = NodePath("../..")
+[node name="bossMonsterRigged" parent="neck/head" instance=ExtResource("1_6otgn")]
+transform = Transform3D(-4.37114e-08, 3.48787e-16, 1, 3.48787e-16, 1, -3.48787e-16, -1, 3.48787e-16, -4.37114e-08, 0, 0, 0)
 
-[node name="rightEye" type="MeshInstance3D" parent="neck/head/headMesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.258, 0.21, -0.368)
-mesh = SubResource("SphereMesh_eyp1h")
-skeleton = NodePath("../..")
-
-[node name="PlayerUI" parent="." instance=ExtResource("2_al15b")]
+[node name="PlayerUI" parent="." instance=ExtResource("2_pmoxq")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)
-visible = false
 light_energy = 5.0
 omni_range = 40.0
 omni_shadow_mode = 0

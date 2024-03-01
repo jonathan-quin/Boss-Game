@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://ep1be17adwxb"]
+[gd_scene load_steps=4 format=3 uid="uid://bjjodkbo6jfy4"]
 
 [ext_resource type="PackedScene" uid="uid://b7j1fbnyxyvm5" path="res://3D models/bossMonsterRigged.glb" id="1_aejn7"]
 [ext_resource type="Script" path="res://scripts/BossMonsterModel.cs" id="2_lqblq"]

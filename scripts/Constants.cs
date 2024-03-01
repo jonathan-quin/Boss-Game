@@ -13,6 +13,8 @@ public partial class Constants : Node
 
     private static string endJSON = "ENDJSONSTRING_gjdsfgjlkdsfjlkepowrjogts";
 
+    private static int jsonCount = 0;
+
 
     public static string createName(object obj, params string[] properties)
 	{
@@ -45,7 +47,8 @@ public partial class Constants : Node
 		string json_string = JsonSerializer.Serialize(nodeData);
         GD.Print("just made: ", json_string);
 
-        json_string += endJSON + DateTime.Now.Millisecond.ToString() + DateTime.Now.ToShortTimeString();
+        json_string += endJSON + jsonCount.ToString();
+        jsonCount += 1;
 
         json_string = json_string.ReplaceN( "\",\"" , "___");
         json_string = json_string.ReplaceN("\":\"", "____");

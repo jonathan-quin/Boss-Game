@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="1_iiks1"]
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
-[ext_resource type="PackedScene" uid="uid://beclvf6kyp4f6" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
+[ext_resource type="PackedScene" uid="uid://ep1be17adwxb" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
 

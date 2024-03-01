@@ -63,11 +63,11 @@ public partial class boss : CharacterBody3D
 		Move(delta);
 
 		float targetRotation = (float)(new Vector2(Velocity.Z, Velocity.X).Angle() + Mathf.DegToRad(-90.0));
-
         float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
 
         bossMesh.Rotation = new Vector3(0, newRotation , 0);
-		GD.Print(bossMesh.RotationDegrees);
+
+		
 
 		if (Input.IsActionJustPressed("leftClick"))
 		{

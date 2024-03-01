@@ -24,7 +24,7 @@ properties/2/replication_mode = 1
 script = ExtResource("1_atbsp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.798889, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.598991, 0)
 shape = SubResource("SphereShape3D_7sjmr")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
@@ -53,5 +53,6 @@ mesh = SubResource("SphereMesh_ohyin")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)
 light_energy = 5.0
+shadow_enabled = true
+shadow_reverse_cull_face = true
 omni_range = 40.0
-omni_shadow_mode = 0

@@ -1,22 +1,173 @@
-[gd_scene load_steps=4 format=3 uid="uid://bjjodkbo6jfy4"]
+[gd_scene load_steps=8 format=3 uid="uid://bjjodkbo6jfy4"]
 
 [ext_resource type="PackedScene" uid="uid://b7j1fbnyxyvm5" path="res://3D models/bossMonsterRigged.glb" id="1_aejn7"]
 [ext_resource type="Script" path="res://scripts/BossMonsterModel.cs" id="2_lqblq"]
 [ext_resource type="Script" path="res://scripts/MonsterSkeleton.gd" id="3_bukfj"]
 
+[sub_resource type="Animation" id="Animation_wxak5"]
+resource_name = "idle"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.126343, 0)]
+}
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:Bone.002")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.000474975, 0.000474975, -0.011525, 0.999475, 1, 1, 0.000474975, 0.000474975, 0.102475, 0.994475)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton3D:tail 1")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, -0.0618876, -7.13114e-08, 7.38035e-08, 0.998083, 1, 1, 0.054475, 0.000474975, 0.000474975, 0.998475)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton3D:tail 2")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0.390177, 5.69052e-08, 1.02837e-08, 0.92074, 1, 1, 0.166475, 0.000474975, 0.000474975, 0.986475)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton3D:Bone.003")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, 0.00047486, 0.00047486, -0.323447, 0.946246, 1, 1, 0.000474975, 0.000474975, -0.323525, 0.946475)
+
+[sub_resource type="Animation" id="Animation_n24ws"]
+length = 0.001
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:Bone.003")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.000474975, 0.000474975, -0.323525, 0.946475)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:Bone.002")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0, -0.001, 0.835, -0.705)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton3D/monster:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton3D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Skeleton3D:tail 1")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -0.0618876, -7.13114e-08, 7.38035e-08, 0.998083)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Skeleton3D:tail 2")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, 0.390177, 5.69052e-08, 1.02837e-08, 0.92074)
+
+[sub_resource type="Animation" id="Animation_hfora"]
+resource_name = "bite"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Skeleton3D:Bone.003")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, 0.000474975, 0.000474975, -0.323525, 0.946475, 0.2, 1, 0.000474975, 0.000474975, -0.707525, 0.706475, 0.4, 1, 0.000474975, 0.000474975, -0.428525, 0.903475, 1, 1, 0.000474975, 0.000474975, -0.323525, 0.946475)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Skeleton3D:Bone.002")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.000474975, 0.000474975, -0.011525, 0.999475, 0.2, 1, 0.000474975, 0.000474975, 0.011475, 0.999475, 0.4, 1, 0.000474975, 0.000474975, -0.237525, 0.971475, 1, 1, 0.000474975, 0.000474975, -0.011525, 0.999475)
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Skeleton3D/monster:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Skeleton3D:position")
+tracks/3/interp = 2
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.4, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.80399, -0.319535, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wldir"]
+_data = {
+"RESET": SubResource("Animation_n24ws"),
+"bite": SubResource("Animation_hfora"),
+"idle": SubResource("Animation_wxak5")
+}
+
 [node name="bossMonsterRigged" instance=ExtResource("1_aejn7")]
 script = ExtResource("2_lqblq")
 
 [node name="Skeleton3D" parent="Armature" index="0"]
-bones/2/rotation = Quaternion(0.000474975, 0.000474975, 0.093475, 0.999475)
+bones/1/rotation = Quaternion(0.000474975, 0.000474975, 0.022475, 0.999475)
+bones/2/rotation = Quaternion(1.37654e-08, 1.53462e-10, -0.0114205, 0.999935)
+bones/3/rotation = Quaternion(0.00047486, 0.00047486, -0.323447, 0.946246)
+bones/14/rotation = Quaternion(0.390177, 5.69052e-08, 1.02837e-08, 0.92074)
 script = ExtResource("3_bukfj")
 
 [node name="FR IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="1"]
 process_priority = 1
-root_bone = &"FR shoulder"
+root_bone = &"FR upper arm"
 tip_bone = &"FR tip"
 use_magnet = true
-magnet = Vector3(5, 5, 5)
+magnet = Vector3(5, 0, 5)
 target_node = NodePath("../FR target")
 
 [node name="FR target" type="Marker3D" parent="Armature/Skeleton3D" index="2"]
@@ -29,10 +180,10 @@ collision_mask = 3
 
 [node name="FL IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="4"]
 process_priority = 1
-root_bone = &"FR shoulder.001"
+root_bone = &"FR upper arm.001"
 tip_bone = &"FR tip.001"
 use_magnet = true
-magnet = Vector3(5, 5, -5)
+magnet = Vector3(5, 0, -5)
 target_node = NodePath("../FL target")
 
 [node name="FL target" type="Marker3D" parent="Armature/Skeleton3D" index="5"]
@@ -45,10 +196,10 @@ collision_mask = 3
 
 [node name="BR IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="7"]
 process_priority = 1
-root_bone = &"BR pevis"
+root_bone = &"BR thigh"
 tip_bone = &"BR tip"
 use_magnet = true
-magnet = Vector3(-5, 5, 5)
+magnet = Vector3(-5, 0, 5)
 target_node = NodePath("../BR target")
 
 [node name="BR target" type="Marker3D" parent="Armature/Skeleton3D" index="8"]
@@ -61,10 +212,10 @@ collision_mask = 3
 
 [node name="BL IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="10"]
 process_priority = 1
-root_bone = &"BR pevis.001"
+root_bone = &"BR thigh.001"
 tip_bone = &"BR tip.001"
 use_magnet = true
-magnet = Vector3(-5, 5, -5)
+magnet = Vector3(-5, 0, -5)
 target_node = NodePath("../BL target")
 
 [node name="BL target" type="Marker3D" parent="Armature/Skeleton3D" index="11"]
@@ -74,3 +225,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.15605, -2.12684, -3.46201)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.08165e-12, -3)
 target_position = Vector3(2.08165e-12, -3, 2.08165e-12)
 collision_mask = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Armature" index="1"]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_wldir")
+}
+playback_default_blend_time = 0.4

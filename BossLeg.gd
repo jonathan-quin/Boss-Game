@@ -3,9 +3,14 @@ extends Node
 class_name BossLeg
 
 var stepLength = 3
+
 var stepHeight = 1
 
-var stepDuration = 0.5
+var stepDuration = 0.3
+
+#force step
+var forceStepLength = 6
+var forceStepDuration = 0.1
 
 var raycast : RayCast3D
 var target : Marker3D
@@ -27,6 +32,7 @@ func _init(raycast,target,allLegs):
 func setBuddy(buddy):
 	
 	self.buddy = buddy;
+	buddy.buddy = self;
 	
 
 func setTargetPosition():
@@ -36,40 +42,70 @@ func setTargetPosition():
 	
 	
 
-func operate(tree):
-	if raycast.is_colliding() and raycast.get_collision_point().distance_to(target.global_position) > stepLength:
+func operate(tree,velocity:Vector3):
+	if raycast.is_colliding() and raycast.get_collision_point().distance_to(target.global_position) > stepLength and !stepping:
 		
-		var shouldStep = false
+		var shouldStep = true
 		
+		#print("checking")
 		for leg in allLegs:
-			if leg.stepping == false and leg != buddy:
-				shouldStep = true
-				break
+			#print(leg)
+			if leg.stepping and leg != buddy:
+				shouldStep = false
+				#break
 		
-		buddy.step(tree)
-		step(tree)
+		if shouldStep:
+			buddy.step(tree,velocity)
+			step(tree,velocity)
+		#else:
+			#print("can't step")
 		
+	
+	if raycast.is_colliding() and raycast.get_collision_point().distance_to(target.global_position) > forceStepLength:
+		forceStep(tree,velocity)
 	
 	setTargetPosition()
 	
 
 var tween : Tween
 
-func step(tree):
+#velocity needs to be in meters per second
+func step(tree,velocity):
 	
 	if (tween != null and tween.is_valid()):
 		tween.kill()
 	
 	tween = tree.create_tween();
 	
-	var newLegPos = raycast.get_collision_point()
+	var newLegPos = raycast.get_collision_point() + velocity * stepDuration 
+	#print(velocity)
+	
 	var midPos = (target.global_position + newLegPos)/2 + stepHeight * Vector3.UP
 	
+	stepping = true
 	tween.tween_property(target,"global_position",midPos,stepDuration/2)
 	tween.tween_property(target,"global_position",newLegPos,stepDuration/2)
+	tween.tween_property(self,"stepping",false,0.01)
 	
 	targetPosition = newLegPos
 	
 	pass
+
+func forceStep(tree,velocity):
+	print("force stepping")
+	if (tween != null and tween.is_valid()):
+		tween.kill()
+	stepping = false;
+	
+	tween = tree.create_tween();
+	
+	var newLegPos = raycast.get_collision_point() + velocity * stepDuration 
+	print(velocity)
+	
+	var midPos = (target.global_position + newLegPos)/2 + stepHeight * Vector3.UP
+	tween.tween_property(target,"global_position",midPos,stepDuration/2)
+	tween.tween_property(target,"global_position",newLegPos,stepDuration/2)
+	targetPosition = newLegPos
+	
 
 pass

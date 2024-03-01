@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
-[ext_resource type="PackedScene" path="res://scenes/boss.tscn" id="2_to6qp"]
-[ext_resource type="PackedScene" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
+[ext_resource type="PackedScene" uid="uid://cwcgao5u40ash" path="res://scenes/boss.tscn" id="2_to6qp"]
+[ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
 

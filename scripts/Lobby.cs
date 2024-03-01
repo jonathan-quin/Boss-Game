@@ -48,7 +48,7 @@ public partial class Lobby : Node
 	public void CreatePlayer(long id = 1){
 		GD.Print("made a player");
 	
-		Survivor player = SurviorScene.Instantiate() as Survivor;
+		var player = SurviorScene.Instantiate() as Node3D;// as Survivor;
 		player.Name = id.ToString();
 		
 		player.Position = Vector3.Up * 1.5f;

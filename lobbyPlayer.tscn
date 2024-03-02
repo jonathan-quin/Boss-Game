@@ -1,0 +1,35 @@
+[gd_scene load_steps=2 format=3 uid="uid://dpm4bcux6j02j"]
+
+[ext_resource type="Script" path="res://lobbyPlayer.cs" id="1_r1kew"]
+
+[node name="lobbyPlayer" type="Panel"]
+custom_minimum_size = Vector2(500, 50)
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -1420.0
+offset_bottom = 50.0
+grow_horizontal = 2
+script = ExtResource("1_r1kew")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Id"
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+placeholder_text = "name"
+
+[node name="CheckBox" type="CheckBox" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Boss"

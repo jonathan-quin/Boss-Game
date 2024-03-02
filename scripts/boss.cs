@@ -7,17 +7,20 @@ public partial class boss : CharacterBody3D
 
 	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
 
-	const float SPEED = 5.0f;
-	const float ACCEL = 6.0f;
-	const float DEACCEL = 8.0f;
-	const float JUMP_VELOCITY = 4.5f;
+	const float SPEED = 12.0f;
+	const float ACCEL = 0.7f;
+	const float DEACCEL = 1.0f;
+	const float JUMP_VELOCITY = 3f;
 
 	const float GRAVITY = 10f;
 
 	bool freeMouse = true;
 
+	public static boss currentBoss;
+
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
+		currentBoss = this;
 	}
 
 	

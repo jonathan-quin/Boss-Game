@@ -104,3 +104,5 @@ drop={
 3d_physics/layer_3="survivors"
 3d_physics/layer_4="boss"
 3d_physics/layer_5="floorItem"
+3d_physics/layer_6="surviorHurtBox"
+3d_physics/layer_7="monsterHurtBox"

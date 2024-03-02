@@ -297,7 +297,7 @@ _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scene
 spawn_path = NodePath("../PlayerSpawnRoot")
 
 [node name="map reference" type="Sprite3D" parent="."]
-transform = Transform3D(13, 0, 0, 0, -5.68248e-07, -13, 0, 13, -5.68248e-07, 0, 0, 0)
+transform = Transform3D(13, 0, 0, 0, -5.68248e-07, -13, 0, 13, -5.68248e-07, 2.08165e-12, -1.99, 2.08165e-12)
 visible = false
 flip_h = true
 texture = ExtResource("3_8xo3k")

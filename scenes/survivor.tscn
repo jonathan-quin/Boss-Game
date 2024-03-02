@@ -23,6 +23,9 @@ properties/1/replication_mode = 1
 properties/2/path = NodePath("neck/head:rotation")
 properties/2/spawn = true
 properties/2/replication_mode = 1
+properties/3/path = NodePath("nameTag:text")
+properties/3/spawn = true
+properties/3/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_ohyin"]
 
@@ -87,3 +90,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)
 light_energy = 5.0
 omni_range = 40.0
 omni_shadow_mode = 0
+
+[node name="nameTag" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86486, 0)
+billboard = 1
+text = "Player name"

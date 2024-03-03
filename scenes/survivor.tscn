@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://bf4q3p0st5kda"]
 
-[ext_resource type="Script" path="res://scripts/Survivor.cs" id="1_lofjr"]
+[ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]

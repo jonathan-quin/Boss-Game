@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cwcgao5u40ash"]
 
 [ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="1_6otgn"]
-[ext_resource type="Script" path="res://scripts/boss.cs" id="1_atbsp"]
+[ext_resource type="Script" path="res://scripts/players/boss.cs" id="1_atbsp"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="2_pmoxq"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7sjmr"]

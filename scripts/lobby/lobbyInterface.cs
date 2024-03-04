@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class lobbyInterface : Node
+public partial class lobbyInterface : Control
 {
 	[Export]
 	public PackedScene lobbyPlayerScene;
@@ -14,11 +14,13 @@ public partial class lobbyInterface : Node
 
 	public bool gameInProgress = false;
 
+	public PauseMenu pauseMenu;
+
 	public override void _Ready()
 	{
         lobby = GetParent() as Lobby;
 		playerContainer = GetNode<Container>("%playerVboxContainer");
-
+		pauseMenu = GetNode<PauseMenu>("%pauseMenu");
         startGameButton = GetNode<Button>("%startGameButton");
 		startGameButton.Pressed += StartGame;
 
@@ -35,6 +37,7 @@ public partial class lobbyInterface : Node
 			}
 		else{
 			Multiplayer.ServerDisconnected += ServerDisconnected;
+			startGameButton.Disabled = true;
 		}
 	}
 
@@ -64,7 +67,6 @@ public partial class lobbyInterface : Node
 		gameStartRequest startRequest = new gameStartRequest(configList,gameStartRequest.GameMode.REQUEST_BOSS);
 
 
-        GD.Print("requesting boss 1");
         lobby.StartGame(startRequest);
 
 	}
@@ -97,7 +99,29 @@ public partial class lobbyInterface : Node
             lobbyPlayers.Remove(player);
             player.QueueFree();
             
+
+			lobby.DeletePlayer(id);
         }
+	}
+
+	/// <summary>
+	/// Used for swapping between the paused state and the captured mouse state.
+	/// 
+	/// 
+	/// </summary>
+	public void HandleMouseModeInputs(){
+		if (Input.IsActionJustPressed("pause")){
+			Globals.freeMouse = !Globals.freeMouse;
+
+			if (Globals.freeMouse){
+				Visible = true;
+			} else{
+				Visible = false;
+			}
+
+			Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
+		}
+
 	}
 
 }

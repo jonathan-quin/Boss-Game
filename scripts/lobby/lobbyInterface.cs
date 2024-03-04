@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public partial class lobbyInterface : Node
 {
@@ -7,14 +8,19 @@ public partial class lobbyInterface : Node
 	public PackedScene lobbyPlayerScene;
 
 	public Container playerContainer;
+    public Button startGameButton;
 
-	public Lobby lobby;
+    public Lobby lobby;
+
+	public bool gameInProgress = false;
 
 	public override void _Ready()
 	{
         lobby = GetParent() as Lobby;
 		playerContainer = GetNode<Container>("%playerVboxContainer");
 
+        startGameButton = GetNode<Button>("%startGameButton");
+		startGameButton.Pressed += StartGame;
 
         //all players have these signals connected for debugging
         Multiplayer.ConnectedToServer += ConnectedToServer;
@@ -44,6 +50,24 @@ public partial class lobbyInterface : Node
 		Multiplayer.MultiplayerPeer.Close();
 	}
 
+	public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
+
+	public void StartGame()
+	{
+		List<PlayerConfiguration> configList = new List<PlayerConfiguration>();
+
+		foreach (lobbyPlayer player in lobbyPlayers)
+		{
+			configList.Add(player.getPlayerConfig());
+		}
+
+		gameStartRequest startRequest = new gameStartRequest(configList,gameStartRequest.GameMode.REQUEST_BOSS);
+
+
+        GD.Print("requesting boss 1");
+        lobby.StartGame(startRequest);
+
+	}
 
 	/**
 	Used only by server
@@ -52,10 +76,14 @@ public partial class lobbyInterface : Node
 	public void CreatePlayer(long id = 1){
 		GD.Print("made a player");
 	
-		var player = lobbyPlayerScene.Instantiate() as Node3D;// as Survivor;
+		var player = lobbyPlayerScene.Instantiate() as lobbyPlayer;// as Survivor;
 		player.Name = id.ToString();
 		playerContainer.AddChild(player);
-	}
+
+		lobbyPlayers.Add(player);
+
+
+    }
 	
 
 	/**
@@ -65,8 +93,11 @@ public partial class lobbyInterface : Node
 	**/
 	public void DeletePlayer(long id = 1){
 		if (id != 1){
-			playerContainer.GetNode<Node>(id.ToString()).QueueFree();
-		}
+			lobbyPlayer player = playerContainer.GetNode<Node>(id.ToString()) as lobbyPlayer;
+            lobbyPlayers.Remove(player);
+            player.QueueFree();
+            
+        }
 	}
 
 }

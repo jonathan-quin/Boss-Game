@@ -1,11 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=13 format=3 uid="uid://c2s751ht1xoxv"]
 
-[ext_resource type="Script" path="res://scripts/Lobby.cs" id="1_ow1ta"]
+[ext_resource type="Script" path="res://scripts/lobby/Lobby.cs" id="1_4koul"]
 [ext_resource type="PackedScene" uid="uid://cwcgao5u40ash" path="res://scenes/boss.tscn" id="2_to6qp"]
+[ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="2_ub1dh"]
 [ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
-[ext_resource type="Script" path="res://scripts/lobbyInterface.cs" id="6_23ubl"]
+[ext_resource type="PackedScene" uid="uid://bq413aocpru1k" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
+[ext_resource type="Script" path="res://scripts/lobby/lobbyInterface.cs" id="6_iuhp5"]
+[ext_resource type="PackedScene" uid="uid://dpm4bcux6j02j" path="res://scenes/UI/lobbyPlayer.tscn" id="9_2y1nb"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
@@ -19,8 +22,9 @@ albedo_color = Color(0, 0, 0, 1)
 default_font_size = 60
 
 [node name="world" type="Node3D"]
-script = ExtResource("1_ow1ta")
-SurviorScene = ExtResource("2_to6qp")
+script = ExtResource("1_4koul")
+SurviorScene = ExtResource("2_ub1dh")
+BossScene = ExtResource("2_to6qp")
 
 [node name="Environment" type="Node3D" parent="."]
 
@@ -292,6 +296,36 @@ pathToItem = "res://scenes/items/KnifeItem.tscn"
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
 pathToItem = "res://scenes/items/TorchItem.tscn"
 
+[node name="player spawners" type="Node3D" parent="."]
+
+[node name="spawnPoint" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8954, 0, 4.80305)
+
+[node name="spawnPoint6" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8954, 0, 10.7209)
+
+[node name="spawnPoint7" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5542, 0, 10.7209)
+
+[node name="spawnPoint8" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5542, 0, 4.75881)
+
+[node name="spawnPoint2" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959954, 0, 4.80305)
+spawnType = 0
+
+[node name="spawnPoint5" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26424, 0, 12.419)
+spawnType = 0
+
+[node name="spawnPoint3" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959954, 0, 0.36762)
+spawnType = 0
+
+[node name="spawnPoint4" parent="player spawners" instance=ExtResource("5_yfy6t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959954, 0, 9.02341)
+spawnType = 0
+
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true
 
@@ -307,7 +341,8 @@ flip_h = true
 texture = ExtResource("3_8xo3k")
 
 [node name="lobbyInterface" type="Node3D" parent="."]
-script = ExtResource("6_23ubl")
+script = ExtResource("6_iuhp5")
+lobbyPlayerScene = ExtResource("9_2y1nb")
 
 [node name="Control" type="Control" parent="lobbyInterface"]
 layout_mode = 3
@@ -318,7 +353,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_8m6xm")
 
-[node name="Button" type="Button" parent="lobbyInterface/Control"]
+[node name="startGameButton" type="Button" parent="lobbyInterface/Control"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0

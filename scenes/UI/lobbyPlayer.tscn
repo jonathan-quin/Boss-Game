@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://dpm4bcux6j02j"]
 
-[ext_resource type="Script" path="res://scripts/lobbyPlayer.cs" id="1_v5tkc"]
+[ext_resource type="Script" path="res://scripts/lobby/lobbyPlayer.cs" id="1_v5tkc"]
 
 [node name="lobbyPlayer" type="Panel"]
-custom_minimum_size = Vector2(500, 50)
+custom_minimum_size = Vector2(500, 100)
 anchors_preset = 10
 anchor_right = 1.0
 offset_right = -1420.0

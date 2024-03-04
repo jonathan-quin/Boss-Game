@@ -12,20 +12,33 @@ public partial class itemSpawner : Node3D
 		SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 	}
 
-	bool placedItem = false;
+    public override void _Ready()
+    {
+        base._Ready();
+
+		GetNode<Node3D>("Sprite3D").Visible = false;
+
+    }
+
+    bool placedItem = false;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Process(double delta)
     {
-        if (!placedItem && IsMultiplayerAuthority()){
+        if (!placedItem && IsMultiplayerAuthority() && Globals.objectHolder != null){
 			placedItem = true;
 
-			baseItem newItem = GD.Load<PackedScene>(pathToItem).Instantiate() as baseItem;
-			Globals.objectHolder.AddChild(newItem,true);
+			GD.Print(pathToItem);
+
+            baseItem newItem = GD.Load<PackedScene>(pathToItem).Instantiate() as baseItem;
+            Globals.objectHolder.AddChild(newItem,true);
 			newItem.GlobalTransform = GlobalTransform;
 
 			
 		}
     }
+
+
+
 
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://b5o8y5365dfa2"]
 
-[ext_resource type="Shader" path="res://scripts/item.gdshader" id="1_n880p"]
+[ext_resource type="Shader" path="res://scripts/items/item.gdshader" id="1_n880p"]
 [ext_resource type="Script" path="res://scripts/items/baseItem.cs" id="1_ximil"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_saugb"]

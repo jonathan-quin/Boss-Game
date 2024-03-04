@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bq413aocpru1k"]
+
+[ext_resource type="Script" path="res://scripts/spawnPoint.cs" id="1_6t5is"]
+[ext_resource type="Script" path="res://scripts/misc/deleteOnEnterTree.cs" id="2_r2c0v"]
+[ext_resource type="Texture2D" uid="uid://b8mslf5s84ibj" path="res://placeholders/Volleyball20.png" id="2_ui0jn"]
+[ext_resource type="Texture2D" uid="uid://chmvwfmm20er3" path="res://placeholders/boss Screenshot 2024-03-03 125953.png" id="4_defrb"]
+
+[node name="spawnPoint" type="Node3D" groups=["spawnPoint"]]
+script = ExtResource("1_6t5is")
+spawnType = 1
+
+[node name="playerIcon" type="Sprite3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
+visible = false
+billboard = 1
+texture = ExtResource("2_ui0jn")
+script = ExtResource("2_r2c0v")
+
+[node name="bossIcon" type="Sprite3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+billboard = 1
+texture = ExtResource("4_defrb")
+script = ExtResource("2_r2c0v")

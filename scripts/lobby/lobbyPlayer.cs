@@ -36,8 +36,11 @@ public partial class lobbyPlayer : Panel
 		Constants.nameTag = nameBox.Text;
 		Constants.isBoss = checkBox.ButtonPressed;
 
+	}
 
-
+	public PlayerConfiguration getPlayerConfig()
+	{
+		return new PlayerConfiguration(isBoss, nameBox.Text, ID);
 	}
 
 

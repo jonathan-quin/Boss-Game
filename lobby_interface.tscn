@@ -1,0 +1,109 @@
+[gd_scene load_steps=4 format=3 uid="uid://nio6aeten03o"]
+
+[ext_resource type="Script" path="res://scripts/lobby/lobbyInterface.cs" id="1_7a0mp"]
+[ext_resource type="PackedScene" uid="uid://dpm4bcux6j02j" path="res://scenes/UI/lobbyPlayer.tscn" id="2_2p1j5"]
+
+[sub_resource type="Theme" id="Theme_8m6xm"]
+default_font_size = 60
+
+[node name="lobbyInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_8m6xm")
+script = ExtResource("1_7a0mp")
+lobbyPlayerScene = ExtResource("2_2p1j5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="pause menu" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(400, 2.08165e-12)
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="HBoxContainer/pause menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="HBoxContainer/pause menu/margin"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="HBoxContainer/pause menu/margin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Control" type="VBoxContainer" parent="HBoxContainer/pause menu/margin/Panel/margin"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="HBoxContainer/pause menu/margin/Panel/margin/Control"]
+layout_mode = 2
+text = "Resume"
+
+[node name="Button2" type="Button" parent="HBoxContainer/pause menu/margin/Panel/margin/Control"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="players" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/players"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HBoxContainer/players/CenterContainer"]
+custom_minimum_size = Vector2(1200, 900)
+layout_mode = 2
+
+[node name="startGameButton" type="Button" parent="HBoxContainer/players/CenterContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+offset_right = 326.0
+grow_vertical = 0
+focus_mode = 0
+text = "Start game"
+
+[node name="playerVboxContainer" type="VBoxContainer" parent="HBoxContainer/players/CenterContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 400.0
+grow_horizontal = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://scenes/UI/lobbyPlayer.tscn")
+spawn_path = NodePath("../HBoxContainer/players/CenterContainer/Panel/playerVboxContainer")

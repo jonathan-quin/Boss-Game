@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
-[ext_resource type="PackedScene" uid="uid://bq413aocpru1k" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
+[ext_resource type="PackedScene" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
 [ext_resource type="Script" path="res://scripts/lobby/lobbyInterface.cs" id="6_iuhp5"]
 [ext_resource type="PackedScene" uid="uid://dpm4bcux6j02j" path="res://scenes/UI/lobbyPlayer.tscn" id="9_2y1nb"]
 
@@ -340,12 +340,18 @@ visible = false
 flip_h = true
 texture = ExtResource("3_8xo3k")
 
-[node name="lobbyInterface" type="Node3D" parent="."]
+[node name="lobbyInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 script = ExtResource("6_iuhp5")
 lobbyPlayerScene = ExtResource("9_2y1nb")
 
-[node name="Control" type="Control" parent="lobbyInterface"]
-layout_mode = 3
+[node name="lobby interface" type="Control" parent="lobbyInterface"]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -353,29 +359,46 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_8m6xm")
 
-[node name="startGameButton" type="Button" parent="lobbyInterface/Control"]
-unique_name_in_owner = true
+[node name="CenterContainer" type="CenterContainer" parent="lobbyInterface/lobby interface"]
 layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -8.0
-offset_top = -8.0
-grow_horizontal = 0
+offset_left = 834.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="lobbyInterface/lobby interface/CenterContainer"]
+custom_minimum_size = Vector2(1000, 700)
+layout_mode = 2
+
+[node name="startGameButton" type="Button" parent="lobbyInterface/lobby interface/CenterContainer/Panel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -91.0
+offset_right = 326.0
 grow_vertical = 0
 focus_mode = 0
 text = "Start game"
 
-[node name="playerVboxContainer" type="VBoxContainer" parent="lobbyInterface/Control"]
+[node name="playerVboxContainer" type="VBoxContainer" parent="lobbyInterface/lobby interface/CenterContainer/Panel"]
 unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 400.0
+grow_horizontal = 2
+
+[node name="pause menu" type="Control" parent="lobbyInterface"]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 1184.0
+offset_right = 754.0
 grow_vertical = 2
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="lobbyInterface"]
 _spawnable_scenes = PackedStringArray("res://scenes/UI/lobbyPlayer.tscn")
-spawn_path = NodePath("../Control/playerVboxContainer")
+spawn_path = NodePath("../lobby interface/CenterContainer/Panel/playerVboxContainer")

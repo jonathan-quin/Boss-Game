@@ -365,6 +365,7 @@ offset_left = -8.0
 offset_top = -8.0
 grow_horizontal = 0
 grow_vertical = 0
+focus_mode = 0
 text = "Start game"
 
 [node name="playerVboxContainer" type="VBoxContainer" parent="lobbyInterface/Control"]
@@ -374,3 +375,7 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 1184.0
 grow_vertical = 2
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="lobbyInterface"]
+_spawnable_scenes = PackedStringArray("res://scenes/UI/lobbyPlayer.tscn")
+spawn_path = NodePath("../Control/playerVboxContainer")

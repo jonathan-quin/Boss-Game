@@ -4,7 +4,9 @@ using System;
 public partial class lobbyPlayer : Panel
 {
 
+	[Export]
 	public int ID = 1;
+	[Export]
 	public bool isBoss = false;
 
 	public override void _EnterTree(){
@@ -24,17 +26,28 @@ public partial class lobbyPlayer : Panel
 		nameBox = GetNode<LineEdit>("%LineEdit");
 		checkBox = GetNode<CheckBox>("%CheckBox");
 
-		idLabel.Text = "ID: " + Multiplayer.GetUniqueId().ToString();
+		if (IsMultiplayerAuthority())
+		{
+            idLabel.Text = "ID: " + Multiplayer.GetUniqueId().ToString();
+
+            ID = Multiplayer.GetUniqueId();
+        }
 		
-		ID = Multiplayer.GetUniqueId();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
 
-		Constants.nameTag = nameBox.Text;
-		Constants.isBoss = checkBox.ButtonPressed;
+		if (IsMultiplayerAuthority())
+		{
+            Constants.nameTag = nameBox.Text;
+            Constants.isBoss = checkBox.ButtonPressed;
+            isBoss = checkBox.ButtonPressed;
+        }
+		
+		
+		
 
 	}
 

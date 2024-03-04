@@ -57,6 +57,9 @@ public partial class Survivor : CharacterBody3D
 		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%headMesh").Visible = false;
+		} else
+		{
+			camera.ClearCurrent();
 		}
 
 		HandleMouseModeInputs();

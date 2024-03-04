@@ -19,7 +19,7 @@ public partial class baseItem : RigidBody3D
 
         
         SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-        GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
+        //GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
 
         if (!heldByPlayer)
 		{
@@ -34,7 +34,7 @@ public partial class baseItem : RigidBody3D
 		} else if (IsMultiplayerAuthority()){
 
 			//GD.Print("heyo");
-			GD.Print("my authority is ", GetMultiplayerAuthority());
+			//GD.Print("my authority is ", GetMultiplayerAuthority());
 			Survivor.GetSurvivor(GetMultiplayerAuthority()).GetItemHolder().TakeItem(this);
 		}
 		

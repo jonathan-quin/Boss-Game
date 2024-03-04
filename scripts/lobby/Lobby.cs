@@ -12,8 +12,9 @@ public partial class Lobby : Node
 
     public override void _Ready()
 	{
-        
-	}
+        Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
+        Globals.multiplayerSpawner = GetNode<MultiplayerSpawner>("%MultiplayerSpawner");
+    }
 
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
@@ -44,6 +45,7 @@ public partial class Lobby : Node
 
 				foreach (PlayerConfiguration config in gameStartRequest.playerConfigurations)
 				{
+					GD.Print(config.wantsToBeBoss);
 					CreatePlayer(config.wantsToBeBoss, config.wantsToBeBoss ? PopFront<Vector3>(bossSpawnPositions) : PopFront<Vector3>(survivorSpawnPositions), config.id);
 				}
 

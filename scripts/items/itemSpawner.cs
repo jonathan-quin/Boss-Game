@@ -28,7 +28,7 @@ public partial class itemSpawner : Node3D
         if (!placedItem && IsMultiplayerAuthority() && Globals.objectHolder != null){
 			placedItem = true;
 
-			GD.Print(pathToItem);
+			//GD.Print(pathToItem);
 
             baseItem newItem = GD.Load<PackedScene>(pathToItem).Instantiate() as baseItem;
             Globals.objectHolder.AddChild(newItem,true);

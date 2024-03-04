@@ -60,7 +60,7 @@ public partial class Constants : Node
 
 	public static void loadDataFromName(object obj, string name)
 	{
-        GD.Print(name);
+        //GD.Print(name);
         if (!name.Contains(endJSON)) return;
 
         name = name.Substring(0, name.IndexOf(endJSON));
@@ -70,7 +70,7 @@ public partial class Constants : Node
         name = name.ReplaceN("_", "\"");
 
         
-        GD.Print(name);
+        //GD.Print(name);
 
         var nodeData = JsonSerializer.Deserialize<Dictionary<string, string>>(name);
 

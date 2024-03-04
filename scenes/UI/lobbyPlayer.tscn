@@ -1,6 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpm4bcux6j02j"]
+[gd_scene load_steps=3 format=3 uid="uid://dpm4bcux6j02j"]
 
 [ext_resource type="Script" path="res://scripts/lobby/lobbyPlayer.cs" id="1_v5tkc"]
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_nc4xa"]
+properties/0/path = NodePath("HBoxContainer/Label:text")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+properties/1/path = NodePath("HBoxContainer/LineEdit:text")
+properties/1/spawn = true
+properties/1/replication_mode = 1
+properties/2/path = NodePath("HBoxContainer/CheckBox:button_pressed")
+properties/2/spawn = true
+properties/2/replication_mode = 1
+properties/3/path = NodePath(".:ID")
+properties/3/spawn = true
+properties/3/replication_mode = 1
+properties/4/path = NodePath(".:isBoss")
+properties/4/spawn = true
+properties/4/replication_mode = 1
 
 [node name="lobbyPlayer" type="Panel"]
 custom_minimum_size = Vector2(500, 100)
@@ -38,3 +55,6 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = " Boss"
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_nc4xa")

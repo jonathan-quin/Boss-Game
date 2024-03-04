@@ -63,8 +63,8 @@ public partial class lobbyInterface : Control
 	}
 
 	public void ServerDisconnected(){
-		//don't know what to put here for now
-		pauseMenu.main
+		
+		pauseMenu.goToMenu();
 
 	}
 

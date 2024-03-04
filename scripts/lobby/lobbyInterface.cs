@@ -20,7 +20,10 @@ public partial class lobbyInterface : Control
 	{
         lobby = GetParent() as Lobby;
 		playerContainer = GetNode<Container>("%playerVboxContainer");
+
 		pauseMenu = GetNode<PauseMenu>("%pauseMenu");
+		pauseMenu.lobbyInterface = this;
+
         startGameButton = GetNode<Button>("%startGameButton");
 		startGameButton.Pressed += StartGame;
 
@@ -50,7 +53,8 @@ public partial class lobbyInterface : Control
 
 	public void ServerDisconnected(){
 		//don't know what to put here for now
-		Multiplayer.MultiplayerPeer.Close();
+		pauseMenu.main
+
 	}
 
 	public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
@@ -121,8 +125,25 @@ public partial class lobbyInterface : Control
 
 			Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
 		}
-
 	}
+
+	public void resume(){
+		Globals.freeMouse = false;
+
+		Visible = false;
+			
+		Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
+	}
+	
+	public void open(){
+		Globals.freeMouse = true;
+
+		Visible = true;
+			
+		Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
+	}
+
+
 
 }
 

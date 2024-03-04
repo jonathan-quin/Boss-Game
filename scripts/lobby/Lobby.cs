@@ -18,7 +18,7 @@ public partial class Lobby : Node
 
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
-		var spawnPoints = (GetTree().GetNodesInGroup("spawnPoint"));
+		var spawnPoints = GetTree().GetNodesInGroup("spawnPoint");
 
         Random random = new Random();
         List<Vector3> survivorSpawnPositions = spawnPoints
@@ -51,6 +51,18 @@ public partial class Lobby : Node
 
                 break;
         }
+
+		var gameStartNodes = GetTree().GetNodesInGroup("callOnGameStart");
+
+		foreach (Node node in gameStartNodes){
+			
+		}
+
+	}
+
+	public void endGame(){
+
+		
 
 	}
 

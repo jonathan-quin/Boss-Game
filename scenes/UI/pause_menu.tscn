@@ -7,6 +7,7 @@ custom_minimum_size = Vector2(400, 2.08165e-12)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_3onob")
+mainMenuPath = "res://scenes/UI/main_menu.tscn"
 
 [node name="margin" type="MarginContainer" parent="."]
 layout_mode = 1

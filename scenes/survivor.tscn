@@ -37,7 +37,7 @@ material = SubResource("StandardMaterial3D_gm0uj")
 radius = 0.1
 height = 0.2
 
-[node name="survivor" type="CharacterBody3D"]
+[node name="survivor" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_lofjr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

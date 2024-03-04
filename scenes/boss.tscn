@@ -20,7 +20,7 @@ properties/2/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_ohyin"]
 
-[node name="boss" type="CharacterBody3D"]
+[node name="boss" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_5a43t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -9,12 +9,19 @@ public partial class lobbyInterface : Control
 
 	public Container playerContainer;
     public Button startGameButton;
+	public Button forceEndGameButton;
 
     public Lobby lobby;
 
 	public bool gameInProgress = false;
 
 	public PauseMenu pauseMenu;
+
+	public static lobbyInterface instance;
+
+	public void _EnterTree(){
+		instance = this;
+	}
 
 	public override void _Ready()
 	{
@@ -26,6 +33,10 @@ public partial class lobbyInterface : Control
 
         startGameButton = GetNode<Button>("%startGameButton");
 		startGameButton.Pressed += StartGame;
+
+		forceEndGameButton = GetNode<Button>("%forceEndGame");
+		forceEndGameButton.Pressed += lobby.endGame;
+
 
         //all players have these signals connected for debugging
         Multiplayer.ConnectedToServer += ConnectedToServer;

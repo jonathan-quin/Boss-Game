@@ -54,15 +54,21 @@ public partial class Lobby : Node
 
 		var gameStartNodes = GetTree().GetNodesInGroup("callOnGameStart");
 
-		foreach (Node node in gameStartNodes){
-			
+		foreach (GameStartInterface obj in gameStartNodes){
+			obj.start();
 		}
 
 	}
 
 	public void endGame(){
 
-		
+		var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");
+
+		foreach (Node obj in gameStartNodes){
+			obj.QueueFree();
+		}
+
+		lobbyInterface.instance.open();
 
 	}
 

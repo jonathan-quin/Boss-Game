@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class itemSpawner : Node3D
+public partial class itemSpawner : Node3D, GameStartInterface
 {
 
 	[Export]
@@ -25,6 +25,11 @@ public partial class itemSpawner : Node3D
     // Called when the node enters the scene tree for the first time.
     public override void _Process(double delta)
     {
+        
+    }
+
+    public void start()
+    {
         if (!placedItem && IsMultiplayerAuthority() && Globals.objectHolder != null){
 			placedItem = true;
 
@@ -37,8 +42,4 @@ public partial class itemSpawner : Node3D
 			
 		}
     }
-
-
-
-
 }

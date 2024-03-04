@@ -2,79 +2,84 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Survivor : CharacterBody3D
+public partial class boss : CharacterBody3D
 {
 
 	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
 
-	const float SPEED = 5.0f;
-	const float ACCEL = 6.0f;
-	const float DEACCEL = 8.0f;
-	const float JUMP_VELOCITY = 4.5f;
+	const float SPEED = 12.0f;
+	const float ACCEL = 0.7f;
+	const float DEACCEL = 1.0f;
+	const float JUMP_VELOCITY = 3f;
 
 	const float GRAVITY = 10f;
-
 	bool freeMouse = true;
 
-	public ItemHolder itemHolder;
-	ItemPickupCast itemPickupCast;
+	public static boss currentBoss;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
-		survivors[GetMultiplayerAuthority()] = this;
+		currentBoss = this;
 	}
 
-	public static Survivor GetSurvivor(long authority){
-
-		foreach (KeyValuePair<long, Survivor> kvp in survivors)
-		{
-			if (!IsInstanceValid(kvp.Value))
-				survivors.Remove(kvp.Key);
-		}
-
-		if (!survivors.ContainsKey(authority)){
-			return null;
-		}
-
-		return survivors[authority];
-
-	}
+	
 	
 	
 	Camera3D camera;
+	BossMonsterModel bossMesh;
+	Node3D neck;
 
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
 		camera = GetNode<Camera3D>("neck/head/Camera");
-		itemHolder = GetNode<ItemHolder>("%ItemHolder");
-		itemHolder.SetMultiplayerAuthority(GetMultiplayerAuthority());
-		itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
-		itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
+        bossMesh = GetNode<BossMonsterModel>("%bossMonsterRigged");
+        neck = GetNode<Node3D>("neck");
 
-		
-
-		if (IsMultiplayerAuthority()){
+        if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%headMesh").Visible = false;
-		} else
-		{
-			camera.ClearCurrent();
 		}
 
+		HandleMouseModeInputs();
 
 	}
 
-	
+	public void HandleMouseModeInputs(){
+		//toggle mouse being locked
+		if (Input.IsActionJustPressed("escape")){
+			freeMouse = !freeMouse;
+		}
+		else if (freeMouse && Input.IsActionJustPressed("leftClick")){
+			freeMouse = false;
+		}
+		Input.MouseMode = freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
+
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!IsMultiplayerAuthority())return;
 
+		HandleMouseModeInputs();
 		Move(delta);
 
+		float targetRotation = (float)(new Vector2(Velocity.Z, Velocity.X).Angle() + Mathf.DegToRad(-90.0));
+        float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
 
-	}
+        bossMesh.Rotation = new Vector3(0, newRotation , 0);
+
+		
+
+		if (Input.IsActionJustPressed("leftClick"))
+		{
+			bossMesh.animationPlayer.Play("bite");
+
+        }else if (!bossMesh.animationPlayer.IsPlaying()){
+            bossMesh.animationPlayer.Play("idle");
+        }
+
+    }
 
 
 	public void Move(double delta){
@@ -90,7 +95,7 @@ public partial class Survivor : CharacterBody3D
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 input_dir = Input.GetVector("left", "right", "forward", "backward");
 		//we set the forward direction to where the body is facing.
-		Vector3 direction = (Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
+		Vector3 direction = (neck.GlobalTransform.Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
 		if (direction != Vector3.Zero){
 			// Y is up and down, so we don't want to change it.
 			
@@ -124,26 +129,17 @@ public partial class Survivor : CharacterBody3D
 			InputEventMouseMotion newEvent = @event as InputEventMouseMotion;
 
 			Node3D head = GetNode<Node3D>("neck/head");
+			
 
-			head.RotateX((float)(-newEvent.Relative.Y * SENSITIVITY));
+            head.RotateX((float)(-newEvent.Relative.Y * SENSITIVITY));
 
 
-			RotateY((float)(-newEvent.Relative.X * SENSITIVITY));
+            neck.RotateY((float)(-newEvent.Relative.X * SENSITIVITY));
 			
 			//Clamp head lookup and down
 			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y, head.Rotation.Z); 
 
 		}
-	}
-		
-	/// <summary>
-	/// Called from floor items by the server.
-	/// Adds the child to the inventory on the host instance which syncs with the client instance through the multiplayer spawner.
-	/// </summary>
-	/// <param name="item"></param>
-	public ItemHolder GetItemHolder()
-	{
-		return itemHolder;
 	}
 		
 

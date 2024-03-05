@@ -15,7 +15,8 @@ public partial class Survivor : CharacterBody3D
 	const float GRAVITY = 10f;
 
 	public ItemHolder itemHolder;
-	ItemPickupCast itemPickupCast;
+    public Label3D nameTag;
+    ItemPickupCast itemPickupCast;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
@@ -50,9 +51,11 @@ public partial class Survivor : CharacterBody3D
 		itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
 		itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
-		
+        nameTag = GetNode<Label3D>("%nameTag");
+		nameTag.Text = Globals.nameTagText;
 
-		if (IsMultiplayerAuthority()){
+
+        if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%headMesh").Visible = false;
 		} else

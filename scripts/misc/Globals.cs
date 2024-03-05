@@ -10,7 +10,7 @@ public partial class Globals : Node
 
     public static bool freeMouse = true;
 
-    public static string nameTag;
+    public static string nameTagText;
     public static bool isBoss;
 
     //only correct on server

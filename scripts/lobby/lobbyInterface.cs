@@ -71,7 +71,12 @@ public partial class lobbyInterface : Control
     public override void _PhysicsProcess(double delta)
     {
 		HandlePauseInputs();
-		startGameButton.Disabled = Globals.gameInProgress;
+
+		if (Multiplayer.IsServer())
+		{
+            startGameButton.Disabled = Globals.gameInProgress;
+        }
+		
     }
 
     public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();

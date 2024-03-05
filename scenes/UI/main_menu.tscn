@@ -94,7 +94,3 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 40
 text = "Welcome"
 horizontal_alignment = 1
-
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/host button" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/join button" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/quit button" to="." method="_on_quit_button_pressed"]

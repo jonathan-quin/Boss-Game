@@ -33,6 +33,9 @@ public partial class MainMenu : Control
 
         Multiplayer.ConnectedToServer += ConnectedToServer;
         Multiplayer.ConnectionFailed += FailedToConnect;
+        GetNode<Button>("%host button").Pressed += _onHostButtonPressed;
+        GetNode<Button>("%join button").Pressed += _onJoinButtonPressed;
+        GetNode<Button>("%quit button").Pressed += _onQuitButtonPressed;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

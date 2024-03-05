@@ -1,192 +1,95 @@
 using Godot;
 using System;
-using System.Collections.Generic;
 
-public partial class lobbyInterface : Control
+public partial class MainMenu : Control
 {
-	[Export]
-	public PackedScene lobbyPlayerScene;
+    [Export] private String _gameScene;
+    private SpinBox _portInput;
+    private LineEdit _address;
+    private Label _message;
+    private int _port = 8910;
 
-	public Container playerContainer;
-    public Button startGameButton;
-	public Button forceEndGameButton;
-
-    public Lobby lobby;
-
-	public PauseMenu pauseMenu;
-
-	public static lobbyInterface instance;
-
-	public override void _EnterTree(){
-		instance = this;
-	}
-
-	public override void _Ready()
-	{
-
-        lobby = GetParent() as Lobby;
-		playerContainer = GetNode<Container>("%playerVboxContainer");
-
-		pauseMenu = GetNode<PauseMenu>("%pauseMenu");
-		pauseMenu.lobbyInterface = this;
-
-        startGameButton = GetNode<Button>("%startGameButton");
-		startGameButton.Pressed += StartGame;
-
-		forceEndGameButton = GetNode<Button>("%forceEndGame");
-		forceEndGameButton.Pressed += lobby.endGame;
-
-
-        //all players have these signals connected for debugging
-        Multiplayer.ConnectedToServer += ConnectedToServer;
-		Multiplayer.ConnectionFailed += FailedToConnect;
-	
-		if (Multiplayer.IsServer()){
-			//the server is set to create new players immediately when they join, but this behavior will be changed later to not interupt games.
-			Multiplayer.PeerConnected += CreatePlayer;
-			Multiplayer.PeerDisconnected += DeletePlayer;
-
-			CreatePlayer();
-			}
-		else{
-			Multiplayer.ServerDisconnected += ServerDisconnected;
-			startGameButton.Disabled = true;
-			forceEndGameButton.Disabled = true;
-		}
-	}
-
-	public void ConnectedToServer(){
-		GD.Print("Connected! " + Multiplayer.GetUniqueId());
-	}
-	public void FailedToConnect(){
-		GD.Print("Failed to connect. " + Multiplayer.GetUniqueId());
-	}
-
-	public void ServerDisconnected(){
-		
-		pauseMenu.goToMenu();
-
-	}
-
-    public override void _PhysicsProcess(double delta)
+    // Called when the node enters the scene tree for the first time.
+    public override void _Ready()
     {
-		HandlePauseInputs();
+        _portInput = GetNode<SpinBox>("%port");
+        _address = GetNode<LineEdit>("%address");
+        _message = GetNode<Label>("%Message");
 
-		if (Multiplayer.IsServer())
-		{
-            startGameButton.Disabled = Globals.gameInProgress;
-        }
-		
-    }
+        Input.MouseMode = Input.MouseModeEnum.Visible;
 
-    public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
+        _portInput.Value = _port;
 
-	public void StartGame()
-	{
-
-
-
-		List<PlayerConfiguration> configList = new List<PlayerConfiguration>();
-
-		foreach (lobbyPlayer player in lobbyPlayers)
-		{
-			configList.Add(player.getPlayerConfig());
-		}
-
-		gameStartRequest startRequest = new gameStartRequest(configList,gameStartRequest.GameMode.REQUEST_BOSS);
-
-
-        lobby.StartGame(startRequest);
-
-	}
-
-	/**
-	Used only by server
-	Spawns a player. The MultiplayerSpawner will automatically replicate the instance on all clients.
-	**/
-	public void CreatePlayer(long id = 1){
-		GD.Print("made a player");
-	
-		var player = lobbyPlayerScene.Instantiate() as lobbyPlayer;// as Survivor;
-		player.Name = id.ToString();
-		playerContainer.AddChild(player);
-
-		lobbyPlayers.Add(player);
-
-
-    }
-	
-
-	/**
-	Used only by server
-	Called when multiplayer detects a client has left.
-	removes the client's avatar and then syncs with all clients through multiplayer spawner.
-	**/
-	public void DeletePlayer(long id = 1){
-		if (id != 1){
-			lobbyPlayer player = playerContainer.GetNode<Node>(id.ToString()) as lobbyPlayer;
-            lobbyPlayers.Remove(player);
-            player.QueueFree();
-            
-
-			lobby.DeletePlayer(id);
-        }
-	}
-
-	/// <summary>
-	/// Used for swapping between the paused state and the captured mouse state.
-	/// 
-	/// 
-	/// </summary>
-	public void HandlePauseInputs(){
-
-
-
-		if (Input.IsActionJustPressed("pause")){
-			Globals.freeMouse = !Globals.freeMouse;
-
-			if (Globals.freeMouse){
-				Visible = true;
-			} else{
-				Visible = false;
-			}
-
-			
-		}
-
-        if (!Globals.freeMouse)
+        // Try and guess our own IP
+        switch (OS.GetName())
         {
-            var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");
-            if (gameStartNodes.Count <= 0)
-            {
-                open();
-            }
+            case "Windows":
+                _address.Text = IP.ResolveHostname(OS.GetEnvironment("COMPUTERNAME"), IP.Type.Ipv4);
+                break;
+            case "macOS":
+                _address.Text = IP.ResolveHostname(OS.GetEnvironment("HOSTNAME"), IP.Type.Ipv4);
+                break;
         }
 
-
-        Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
-
+        Multiplayer.ConnectedToServer += ConnectedToServer;
+        Multiplayer.ConnectionFailed += FailedToConnect;
+        GetNode<Button>("%host button").Pressed += _onHostButtonPressed;
+        GetNode<Button>("%join button").Pressed += _onJoinButtonPressed;
+        GetNode<Button>("%quit button").Pressed += _onQuitButtonPressed;
     }
 
-	public void resume(){
-		Globals.freeMouse = false;
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta)
+    {
+        _port = (int)_portInput.Value;
+    }
 
-		Visible = false;
-		GD.Print("resume");
-			
-		Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
-	}
-	
-	public void open(){
-		Globals.freeMouse = true;
+    private void _onJoinButtonPressed()
+    {
+        ENetMultiplayerPeer peer = new ENetMultiplayerPeer();
 
-		Visible = true;
-			
-		Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
-	}
+        Error error = peer.CreateClient(_address.Text, _port);
+        Multiplayer.MultiplayerPeer = peer;
 
+        if (error != Error.Ok)
+        {
+            GD.Print("client error " + error);
+        }
 
+        _message.Text = "Awaiting connection on port " + _port + " at " + _address.Text;
 
+        GD.Print("tried to join");
+    }
+
+    private void ConnectedToServer()
+    {
+        GD.Print("connected as client");
+        GetTree().ChangeSceneToFile(_gameScene);
+    }
+
+    private void FailedToConnect()
+    {
+        GD.Print("server does not exist");
+    }
+
+    private void _onQuitButtonPressed()
+    {
+        GetTree().Quit();
+    }
+
+    private void _onHostButtonPressed()
+    {
+        ENetMultiplayerPeer peer = new ENetMultiplayerPeer();
+
+        Error error = peer.CreateServer(_port, 16);
+
+        if (error != Error.Ok)
+        {
+            GD.Print("host error " + error);
+        }
+
+        Multiplayer.MultiplayerPeer = peer;
+
+        GetTree().ChangeSceneToFile(_gameScene);
+    }
 }
-
-

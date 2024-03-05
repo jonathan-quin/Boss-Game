@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/items/itemSpawner.cs" id="1_vvd8e"]
 [ext_resource type="Texture2D" uid="uid://45nb0ijr4yxh" path="res://placeholders/hammerdownload.jpg" id="2_l8wba"]
 
-[node name="ItemSpawner" type="Node3D"]
+[node name="ItemSpawner" type="Node3D" groups=["callOnGameStart"]]
 script = ExtResource("1_vvd8e")
 
 [node name="Marker3D" type="Marker3D" parent="."]

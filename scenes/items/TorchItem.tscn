@@ -144,7 +144,7 @@ _data = {
 "swing": SubResource("Animation_2h8dj")
 }
 
-[node name="torchItem" type="RigidBody3D"]
+[node name="torchItem" type="RigidBody3D" groups=["deleteOnGameEnd"]]
 collision_layer = 17
 freeze = true
 script = ExtResource("1_ximil")

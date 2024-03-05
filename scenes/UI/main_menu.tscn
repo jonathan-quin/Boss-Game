@@ -1,7 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://dtl2yof5vuh1s"]
+[gd_scene load_steps=3 format=3 uid="uid://dtl2yof5vuh1s"]
 
-[ext_resource type="Script" path="res://scripts/UIscripts/Main Menu.gd" id="1_uweat"]
-[ext_resource type="PackedScene" uid="uid://c2s751ht1xoxv" path="res://scenes/world.tscn" id="2_vp37k"]
+[ext_resource type="Script" path="res://scripts/UIscripts/MainMenu.cs" id="1_0xyv1"]
 
 [sub_resource type="Theme" id="Theme_bpxvq"]
 default_font_size = 40
@@ -13,8 +12,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_uweat")
-gameScene = ExtResource("2_vp37k")
+script = ExtResource("1_0xyv1")
+_gameScene = "res://scenes/world.tscn"
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -60,15 +59,18 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="host button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Host
 "
 
 [node name="join button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
 [node name="quit button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 
@@ -95,7 +97,3 @@ grow_vertical = 0
 theme_override_font_sizes/font_size = 40
 text = "Welcome"
 horizontal_alignment = 1
-
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/host button" to="." method="_on_host_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/join button" to="." method="_on_join_button_pressed"]
-[connection signal="pressed" from="CenterContainer/Panel/VBoxContainer/quit button" to="." method="_on_quit_button_pressed"]

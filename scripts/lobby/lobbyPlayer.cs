@@ -41,8 +41,8 @@ public partial class lobbyPlayer : Panel
 
 		if (IsMultiplayerAuthority())
 		{
-            Constants.nameTag = nameBox.Text;
-            Constants.isBoss = checkBox.ButtonPressed;
+            Globals.nameTagText = nameBox.Text;
+            Globals.isBoss = checkBox.ButtonPressed;
             isBoss = checkBox.ButtonPressed;
         }
 		

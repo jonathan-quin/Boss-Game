@@ -146,7 +146,7 @@ _data = {
 "swing": SubResource("Animation_2h8dj")
 }
 
-[node name="KnifeItem" type="RigidBody3D"]
+[node name="KnifeItem" type="RigidBody3D" groups=["deleteOnGameEnd"]]
 collision_layer = 17
 freeze = true
 script = ExtResource("1_dsfn2")

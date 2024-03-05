@@ -1,0 +1,51 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpcv71mtrcqxl"]
+
+[ext_resource type="Script" path="res://scripts/UIscripts/PauseMenu.cs" id="1_3onob"]
+
+[node name="pause menu" type="Control"]
+custom_minimum_size = Vector2(400, 2.08165e-12)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_3onob")
+mainMenuPath = "res://scenes/UI/main_menu.tscn"
+
+[node name="margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Panel" type="Panel" parent="margin"]
+custom_minimum_size = Vector2(100, 2.08165e-12)
+layout_mode = 2
+
+[node name="margin" type="MarginContainer" parent="margin/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="Control" type="VBoxContainer" parent="margin/Panel/margin"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="margin/Panel/margin/Control"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Resume"
+
+[node name="MainMenuButton" type="Button" parent="margin/Panel/margin/Control"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Main Menu"

@@ -14,10 +14,9 @@ public partial class Survivor : CharacterBody3D
 
 	const float GRAVITY = 10f;
 
-	bool freeMouse = true;
-
 	public ItemHolder itemHolder;
-	ItemPickupCast itemPickupCast;
+    public Label3D nameTag;
+    ItemPickupCast itemPickupCast;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
@@ -52,9 +51,11 @@ public partial class Survivor : CharacterBody3D
 		itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
 		itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
-		
+        nameTag = GetNode<Label3D>("%nameTag");
+		nameTag.Text = Globals.nameTagText;
 
-		if (IsMultiplayerAuthority()){
+
+        if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%headMesh").Visible = false;
 		} else
@@ -62,27 +63,17 @@ public partial class Survivor : CharacterBody3D
 			camera.ClearCurrent();
 		}
 
-		HandleMouseModeInputs();
+		lobbyInterface.instance.resume();
+
 
 	}
 
-	public void HandleMouseModeInputs(){
-		//toggle mouse being locked
-		if (Input.IsActionJustPressed("escape")){
-			freeMouse = !freeMouse;
-		}
-		else if (freeMouse && Input.IsActionJustPressed("leftClick")){
-			freeMouse = false;
-		}
-		Input.MouseMode = freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
-
-	}
+	
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!IsMultiplayerAuthority())return;
 
-		HandleMouseModeInputs();
 		Move(delta);
 
 
@@ -129,7 +120,7 @@ public partial class Survivor : CharacterBody3D
 	public override void _Input(InputEvent @event)
 	{
 		//don't move camera if mouse is captive or we're not the authority
-		if (!IsMultiplayerAuthority() || freeMouse){return;}
+		if (!IsMultiplayerAuthority() || Globals.freeMouse){return;}
 		
 		if (@event is InputEventMouseMotion){
 			

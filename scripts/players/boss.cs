@@ -14,8 +14,6 @@ public partial class boss : CharacterBody3D
 
 	const float GRAVITY = 10f;
 
-	bool freeMouse = true;
-
 	public static boss currentBoss;
 
 	public override void _EnterTree(){
@@ -42,27 +40,13 @@ public partial class boss : CharacterBody3D
 			GetNode<Node3D>("%headMesh").Visible = false;
 		}
 
-		HandleMouseModeInputs();
-
 	}
 
-	public void HandleMouseModeInputs(){
-		//toggle mouse being locked
-		if (Input.IsActionJustPressed("escape")){
-			freeMouse = !freeMouse;
-		}
-		else if (freeMouse && Input.IsActionJustPressed("leftClick")){
-			freeMouse = false;
-		}
-		Input.MouseMode = freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
-
-	}
 
 	public override void _PhysicsProcess(double delta)
 	{
 		if (!IsMultiplayerAuthority())return;
 
-		HandleMouseModeInputs();
 		Move(delta);
 
 		float targetRotation = (float)(new Vector2(Velocity.Z, Velocity.X).Angle() + Mathf.DegToRad(-90.0));
@@ -72,7 +56,7 @@ public partial class boss : CharacterBody3D
 
 		
 
-		if (Input.IsActionJustPressed("leftClick"))
+		if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
 		{
 			bossMesh.animationPlayer.Play("bite");
 
@@ -88,6 +72,8 @@ public partial class boss : CharacterBody3D
 			Velocity = Velocity + (Vector3.Down * (float)(GRAVITY * delta));
 		}
 
+		
+
 		//Handle Jump
 		if (Input.IsActionJustPressed("jump") && IsOnFloor()){
 			Velocity = new Vector3(Velocity.X,JUMP_VELOCITY,Velocity.Z);
@@ -95,8 +81,14 @@ public partial class boss : CharacterBody3D
 		
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 input_dir = Input.GetVector("left", "right", "forward", "backward");
-		//we set the forward direction to where the body is facing.
-		Vector3 direction = (neck.GlobalTransform.Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
+
+        if (Globals.freeMouse)
+        {
+			input_dir = Vector2.Zero;
+        }
+
+        //we set the forward direction to where the body is facing.
+        Vector3 direction = (neck.GlobalTransform.Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
 		if (direction != Vector3.Zero){
 			// Y is up and down, so we don't want to change it.
 			
@@ -123,7 +115,7 @@ public partial class boss : CharacterBody3D
 	public override void _Input(InputEvent @event)
 	{
 		//don't move camera if mouse is captive or we're not the authority
-		if (!IsMultiplayerAuthority() || freeMouse){return;}
+		if (!IsMultiplayerAuthority() || Globals.freeMouse){return;}
 		
 		if (@event is InputEventMouseMotion){
 			

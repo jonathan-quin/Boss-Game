@@ -37,7 +37,7 @@ material = SubResource("StandardMaterial3D_gm0uj")
 radius = 0.1
 height = 0.2
 
-[node name="survivor" type="CharacterBody3D"]
+[node name="survivor" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_lofjr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -54,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845512, 0)
 
 [node name="head" type="Node3D" parent="neck"]
 
-[node name="Camera" type="Camera3D" parent="neck/head"]
+[node name="Camera" type="Camera3D" parent="neck/head" groups=["camera"]]
 unique_name_in_owner = true
 
 [node name="headMesh" type="MeshInstance3D" parent="neck/head"]
@@ -92,6 +92,7 @@ omni_range = 40.0
 omni_shadow_mode = 0
 
 [node name="nameTag" type="Label3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86486, 0)
 billboard = 1
 text = "Player name"

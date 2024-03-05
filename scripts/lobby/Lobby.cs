@@ -18,7 +18,12 @@ public partial class Lobby : Node
 
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
-		var spawnPoints = (GetTree().GetNodesInGroup("spawnPoint"));
+
+		endGame();
+
+		Globals.gameInProgress = true;
+
+		var spawnPoints = GetTree().GetNodesInGroup("spawnPoint");
 
         Random random = new Random();
         List<Vector3> survivorSpawnPositions = spawnPoints
@@ -52,7 +57,27 @@ public partial class Lobby : Node
                 break;
         }
 
+		var gameStartNodes = GetTree().GetNodesInGroup("callOnGameStart");
+
+		foreach (GameStartInterface obj in gameStartNodes){
+			obj.start();
+		}
+
 	}
+
+	public void endGame(){
+
+		var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");
+
+		foreach (Node obj in gameStartNodes){
+			obj.QueueFree();
+		}
+
+		lobbyInterface.instance.open();
+
+        Globals.gameInProgress = false;
+
+    }
 
 	public static T PopFront<T>(List<T> list)
     {

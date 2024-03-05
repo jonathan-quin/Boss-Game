@@ -92,7 +92,7 @@ func step(tree,velocity):
 	pass
 
 func forceStep(tree,velocity):
-	print("force stepping")
+	#print("force stepping")
 	if (tween != null and tween.is_valid()):
 		tween.kill()
 	stepping = false;
@@ -100,7 +100,7 @@ func forceStep(tree,velocity):
 	tween = tree.create_tween();
 	
 	var newLegPos = raycast.get_collision_point() + velocity * stepDuration 
-	print(velocity)
+	#print(velocity)
 	
 	var midPos = (target.global_position + newLegPos)/2 + stepHeight * Vector3.UP
 	tween.tween_property(target,"global_position",midPos,stepDuration/2)

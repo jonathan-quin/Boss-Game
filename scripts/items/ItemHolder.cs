@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class ItemHolder : HeldItem
+public partial class ItemHolder : Node3D
 {
 	
     

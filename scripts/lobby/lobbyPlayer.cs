@@ -31,6 +31,7 @@ public partial class lobbyPlayer : Panel
             idLabel.Text = "ID: " + Multiplayer.GetUniqueId().ToString();
 
             ID = Multiplayer.GetUniqueId();
+			nameBox.Text = ID.ToString();
         }
 		
 	}

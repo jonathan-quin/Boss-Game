@@ -1,12 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=10 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="Script" path="res://scripts/lobby/Lobby.cs" id="1_4koul"]
 [ext_resource type="PackedScene" uid="uid://cwcgao5u40ash" path="res://scenes/boss.tscn" id="2_to6qp"]
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="2_ub1dh"]
-[ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="3_1ow84"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
-[ext_resource type="PackedScene" uid="uid://bq413aocpru1k" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
+[ext_resource type="PackedScene" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
 [ext_resource type="PackedScene" uid="uid://nio6aeten03o" path="res://scenes/UI/lobby_interface.tscn" id="8_xgb1f"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
@@ -26,9 +25,6 @@ BossScene = ExtResource("2_to6qp")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_4l018")
-
-[node name="bossMonsterRigged" parent="Environment" instance=ExtResource("3_1ow84")]
-transform = Transform3D(-0.908785, 0, 0.417265, 0, 1, 0, -0.417265, 0, -0.908785, 21.5834, -0.425903, 11.4706)
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="Environment"]
 use_collision = true

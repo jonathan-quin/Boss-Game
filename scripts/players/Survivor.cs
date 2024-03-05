@@ -14,6 +14,9 @@ public partial class Survivor : CharacterBody3D
 
 	const float GRAVITY = 10f;
 
+	//prevents the player from moving until the game has synced with other clients. Every frame is decreased by delta.
+	public float loadingTime = 1.0f;
+
 	public ItemHolder itemHolder;
     public Label3D nameTag;
     ItemPickupCast itemPickupCast;
@@ -72,7 +75,10 @@ public partial class Survivor : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!IsMultiplayerAuthority())return;
+		if (!IsMultiplayerAuthority() || loadingTime >= 0){
+			loadingTime -= (float) delta;
+			return;
+		}
 
 		Move(delta);
 

@@ -1,5 +1,8 @@
 using Godot;
 using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Threading.Tasks;
 
 public partial class MainMenu : Control
 {
@@ -10,7 +13,7 @@ public partial class MainMenu : Control
     private int _port = 8910;
 
     // Called when the node enters the scene tree for the first time.
-    public override void _Ready()
+    public override async void _Ready()
     {
         _portInput = GetNode<SpinBox>("%port");
         _address = GetNode<LineEdit>("%address");
@@ -27,7 +30,7 @@ public partial class MainMenu : Control
                 _address.Text = IP.ResolveHostname(OS.GetEnvironment("COMPUTERNAME"), IP.Type.Ipv4);
                 break;
             case "macOS":
-                _address.Text = IP.ResolveHostname(OS.GetEnvironment("HOSTNAME"), IP.Type.Ipv4);
+                _address.Text = GetLocalIPAddress();
                 break;
         }
 
@@ -36,6 +39,36 @@ public partial class MainMenu : Control
         GetNode<Button>("%host button").Pressed += _onHostButtonPressed;
         GetNode<Button>("%join button").Pressed += _onJoinButtonPressed;
         GetNode<Button>("%quit button").Pressed += _onQuitButtonPressed;
+
+        if (Constants.DEBUG_MODE){
+            
+            debugStart();
+
+        }
+
+    }
+
+    public async Task debugStart(){
+        
+        await ToSignal(GetTree().CreateTimer(1), "timeout");
+
+        _onJoinButtonPressed();
+    }
+
+    public static string GetLocalIPAddress()
+    {
+        //other code didn't work, gave up.
+        return "10.135.16.136";
+
+        var host = Dns.GetHostEntry(Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+        throw new Exception("No network adapters with an IPv4 address in the system!");
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -9,6 +9,7 @@ public partial class Lobby : Node
 	public PackedScene SurviorScene;
     [Export]
     public PackedScene BossScene;
+	
 
     public override void _Ready()
 	{
@@ -37,6 +38,17 @@ public partial class Lobby : Node
 											.OrderBy(x => random.Next())
 											.ToList();
 
+		GD.Print("Survior:");
+		foreach (Vector3 vector in survivorSpawnPositions){
+			GD.Print(vector);
+		}
+		GD.Print("Boss:");
+		foreach (Vector3 vector in bossSpawnPositions){
+			GD.Print(vector);
+		}
+
+
+
 
 
         switch (gameStartRequest.gameMode)
@@ -50,8 +62,9 @@ public partial class Lobby : Node
 
 				foreach (PlayerConfiguration config in gameStartRequest.playerConfigurations)
 				{
-					GD.Print(config.wantsToBeBoss);
-					CreatePlayer(config.wantsToBeBoss, config.wantsToBeBoss ? PopFront<Vector3>(bossSpawnPositions) : PopFront<Vector3>(survivorSpawnPositions), config.id);
+					Vector3 newPos = config.wantsToBeBoss ? PopFront<Vector3>(bossSpawnPositions) : PopFront<Vector3>(survivorSpawnPositions);
+					GD.Print(config.wantsToBeBoss ? "boss" : "survivor", " ", newPos);
+					CreatePlayer(config.wantsToBeBoss, newPos, config.id);
 				}
 
                 break;

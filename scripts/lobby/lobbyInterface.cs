@@ -187,7 +187,6 @@ public partial class lobbyInterface : Control
         Globals.freeMouse = false;
 
         Visible = false;
-        GD.Print("resume");
 
         Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
     }

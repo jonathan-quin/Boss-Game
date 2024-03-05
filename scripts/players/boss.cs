@@ -16,6 +16,8 @@ public partial class boss : CharacterBody3D
 
 	public static boss currentBoss;
 
+	public float loadingTime = 1.0f;
+
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
 		currentBoss = this;
@@ -45,7 +47,10 @@ public partial class boss : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
-		if (!IsMultiplayerAuthority())return;
+		if (!IsMultiplayerAuthority() || loadingTime >= 0 ){
+			loadingTime -= (float) delta;
+			return;
+		}
 
 		Move(delta);
 

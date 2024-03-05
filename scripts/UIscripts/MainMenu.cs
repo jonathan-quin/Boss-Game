@@ -3,7 +3,7 @@ using System;
 
 public partial class MainMenu : Control
 {
-	[Export] private PackedScene _gameScene;
+	[Export] private String _gameScene;
 	private SpinBox _portInput;
 	private LineEdit _address;
 	private Label _message;
@@ -61,7 +61,7 @@ public partial class MainMenu : Control
 	private void ConnectedToServer()
 	{
 		GD.Print("connected as client");
-		GetTree().ChangeSceneToPacked(_gameScene);
+		GetTree().ChangeSceneToFile(_gameScene);
 	}
 
 	private void FailedToConnect()
@@ -87,6 +87,6 @@ public partial class MainMenu : Control
 
 		Multiplayer.MultiplayerPeer = peer;
 
-		GetTree().ChangeSceneToPacked(_gameScene);
+		GetTree().ChangeSceneToFile(_gameScene);
 	}
 }

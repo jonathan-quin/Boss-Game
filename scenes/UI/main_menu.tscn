@@ -59,15 +59,18 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [node name="host button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Host
 "
 
 [node name="join button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Join"
 
 [node name="quit button" type="Button" parent="CenterContainer/Panel/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Quit"
 

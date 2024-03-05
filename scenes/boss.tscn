@@ -39,7 +39,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845512, 0)
 
 [node name="head" type="Node3D" parent="neck"]
 
-[node name="Camera" type="Camera3D" parent="neck/head"]
+[node name="Camera" type="Camera3D" parent="neck/head" groups=["camera"]]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4.64898)
 

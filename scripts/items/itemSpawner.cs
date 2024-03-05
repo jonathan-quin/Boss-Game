@@ -20,18 +20,9 @@ public partial class itemSpawner : Node3D, GameStartInterface
 
     }
 
-    bool placedItem = false;
-
-    // Called when the node enters the scene tree for the first time.
-    public override void _Process(double delta)
-    {
-        
-    }
-
     public void start()
     {
-        if (!placedItem && IsMultiplayerAuthority() && Globals.objectHolder != null){
-			placedItem = true;
+        if (IsMultiplayerAuthority() && Globals.objectHolder != null){
 
 			//GD.Print(pathToItem);
 

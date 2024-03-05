@@ -18,6 +18,11 @@ public partial class Lobby : Node
 
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
+
+		endGame();
+
+		Globals.gameInProgress = true;
+
 		var spawnPoints = GetTree().GetNodesInGroup("spawnPoint");
 
         Random random = new Random();
@@ -70,7 +75,9 @@ public partial class Lobby : Node
 
 		lobbyInterface.instance.open();
 
-	}
+        Globals.gameInProgress = false;
+
+    }
 
 	public static T PopFront<T>(List<T> list)
     {

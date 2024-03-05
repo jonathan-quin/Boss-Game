@@ -13,18 +13,17 @@ public partial class lobbyInterface : Control
 
     public Lobby lobby;
 
-	public bool gameInProgress = false;
-
 	public PauseMenu pauseMenu;
 
 	public static lobbyInterface instance;
 
-	public void _EnterTree(){
+	public override void _EnterTree(){
 		instance = this;
 	}
 
 	public override void _Ready()
 	{
+
         lobby = GetParent() as Lobby;
 		playerContainer = GetNode<Container>("%playerVboxContainer");
 
@@ -52,6 +51,7 @@ public partial class lobbyInterface : Control
 		else{
 			Multiplayer.ServerDisconnected += ServerDisconnected;
 			startGameButton.Disabled = true;
+			forceEndGameButton.Disabled = true;
 		}
 	}
 
@@ -68,10 +68,19 @@ public partial class lobbyInterface : Control
 
 	}
 
-	public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
+    public override void _PhysicsProcess(double delta)
+    {
+		HandlePauseInputs();
+		startGameButton.Disabled = Globals.gameInProgress;
+    }
+
+    public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
 
 	public void StartGame()
 	{
+
+
+
 		List<PlayerConfiguration> configList = new List<PlayerConfiguration>();
 
 		foreach (lobbyPlayer player in lobbyPlayers)
@@ -124,7 +133,10 @@ public partial class lobbyInterface : Control
 	/// 
 	/// 
 	/// </summary>
-	public void HandleMouseModeInputs(){
+	public void HandlePauseInputs(){
+
+
+
 		if (Input.IsActionJustPressed("pause")){
 			Globals.freeMouse = !Globals.freeMouse;
 
@@ -134,14 +146,28 @@ public partial class lobbyInterface : Control
 				Visible = false;
 			}
 
-			Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
+			
 		}
-	}
+
+        if (!Globals.freeMouse)
+        {
+            var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");
+            if (gameStartNodes.Count <= 0)
+            {
+                open();
+            }
+        }
+
+
+        Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+
+    }
 
 	public void resume(){
 		Globals.freeMouse = false;
 
 		Visible = false;
+		GD.Print("resume");
 			
 		Input.MouseMode = Globals.freeMouse ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured; 
 	}

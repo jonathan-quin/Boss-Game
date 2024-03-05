@@ -14,8 +14,6 @@ public partial class Survivor : CharacterBody3D
 
 	const float GRAVITY = 10f;
 
-	bool freeMouse = true;
-
 	public ItemHolder itemHolder;
 	ItemPickupCast itemPickupCast;
 
@@ -61,6 +59,8 @@ public partial class Survivor : CharacterBody3D
 		{
 			camera.ClearCurrent();
 		}
+
+		lobbyInterface.instance.resume();
 
 
 	}
@@ -117,7 +117,7 @@ public partial class Survivor : CharacterBody3D
 	public override void _Input(InputEvent @event)
 	{
 		//don't move camera if mouse is captive or we're not the authority
-		if (!IsMultiplayerAuthority() || freeMouse){return;}
+		if (!IsMultiplayerAuthority() || Globals.freeMouse){return;}
 		
 		if (@event is InputEventMouseMotion){
 			

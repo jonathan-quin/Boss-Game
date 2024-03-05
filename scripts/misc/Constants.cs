@@ -15,8 +15,7 @@ public partial class Constants : Node
 
     private static int jsonCount = 0;
 
-    public static string nameTag;
-    public static bool isBoss;
+   
 
     
 

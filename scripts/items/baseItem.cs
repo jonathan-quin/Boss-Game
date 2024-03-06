@@ -15,7 +15,7 @@ public partial class baseItem : RigidBody3D
 	public override void _EnterTree()
 	{
 
-		Constants.loadDataFromName(this, Name);
+		//Constants.loadDataFromName(this, Name);
 
         
         SetMultiplayerAuthority((int)targetMultiplayerAuthority);
@@ -103,11 +103,11 @@ public partial class baseItem : RigidBody3D
 		newItem.targetMultiplayerAuthority = (int)survivorID;
 		GD.Print("the survivor id should be: ",survivorID);
 
-		newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
+		//newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
 
-
-        Globals.objectHolder.AddChild(newItem);
-		//Globals.multiplayerSpawner.Spawn(newItem);
+		
+        //Globals.objectHolder.AddChild(newItem);
+		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position"));
 
 		newItem.GlobalPosition = GlobalPosition;
 		newItem.GlobalRotation = GlobalRotation;

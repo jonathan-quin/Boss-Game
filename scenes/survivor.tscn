@@ -1,9 +1,8 @@
-[gd_scene load_steps=13 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=12 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
-[ext_resource type="AudioStream" uid="uid://ni0o1fod7snx" path="res://placeholders/Goblin Pain 001.wav" id="5_m5q2n"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
@@ -27,9 +26,6 @@ properties/2/replication_mode = 1
 properties/3/path = NodePath("nameTag:text")
 properties/3/spawn = true
 properties/3/replication_mode = 1
-properties/4/path = NodePath("walkingSound:playing")
-properties/4/spawn = true
-properties/4/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_ohyin"]
 
@@ -100,8 +96,3 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86486, 0)
 billboard = 1
 text = "Player name"
-
-[node name="walkingSound" type="AudioStreamPlayer3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.988788, 0)
-stream = ExtResource("5_m5q2n")

@@ -14,7 +14,7 @@ public partial class Lobby : Node
     public override void _Ready()
 	{
         Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
-        Globals.multiplayerSpawner = GetNode<MultiplayerSpawner>("%MultiplayerSpawner");
+        Globals.multiplayerSpawner = GetNode<CustomMultiplayerSpawner>("%MultiplayerSpawner");
     }
 
 	public void StartGame(gameStartRequest gameStartRequest)

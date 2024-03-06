@@ -7,7 +7,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 {
     public override void _EnterTree()
     {
-        
+        Globals.multiplayerSpawner = this;
 		Callable newSpawnFunction = Callable.From<Godot.Collections.Dictionary,Node>( loadDataFromName);
 		SpawnFunction = newSpawnFunction;
     }
@@ -31,7 +31,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             {
               
                 var value = property.GetValue(obj);
-                nodeData[propertyName] = (Variant)value; 
+                nodeData[propertyName] = ConvertToVariant(value,property,true); 
             }
             else
             {
@@ -39,7 +39,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 if (field != null)
                 {
                     var value = field.GetValue(obj);
-                    nodeData[propertyName] = Variant.From<Godot.GodotObject>(value);
+                    nodeData[propertyName] = ConvertToVariant(value, field);
                 }
                 else
                 {
@@ -53,14 +53,45 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         return nodeData;
     }
 
+
+    public static Variant ConvertToVariant(object value, object property, bool isProperty = false)
+    {
+
+        object variableType = isProperty ? ((PropertyInfo)property).PropertyType : ((FieldInfo)property).FieldType;
+
+        if (variableType == typeof(bool))
+        {
+            return Variant.From<bool>((bool)value);
+        }
+        if (variableType == typeof(Vector3))
+        {
+            return Variant.From<Vector3>((Vector3)value);
+        }
+        if (variableType == typeof(string))
+        {
+            return Variant.From<string>((string)value);
+        }
+        if (variableType == typeof(int))
+        {
+            return Variant.From<int>((int)value);
+        }
+
+
+        throw new ArgumentException();
+    } 
+
 	public static Node loadDataFromName(Godot.Collections.Dictionary nodeData)
 	{
-
+        GD.Print("loading data!");
 
 
         Node obj = GD.Load<PackedScene>(nodeData[PATHKEY].ToString()).Instantiate();
 
+        GD.Print("node ",obj);
+
         nodeData.Remove(PATHKEY);
+
+        GD.Print(nodeData);
 
         foreach (var entry in nodeData)
         {
@@ -86,6 +117,8 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 }
             }
         }
+
+        GD.Print("all that worked");
 
         return obj;
     }

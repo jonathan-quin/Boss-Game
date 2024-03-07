@@ -105,12 +105,13 @@ public partial class baseItem : RigidBody3D
 
 		//newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
 
-		
-        //Globals.objectHolder.AddChild(newItem);
-		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position"));
+		newItem.Position = Position;
+		newItem.Rotation = Rotation;
 
-		newItem.GlobalPosition = GlobalPosition;
-		newItem.GlobalRotation = GlobalRotation;
+        //Globals.objectHolder.AddChild(newItem);
+		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position","Rotation"));
+
+		
 
 		
 

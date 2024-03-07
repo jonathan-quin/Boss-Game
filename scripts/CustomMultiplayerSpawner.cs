@@ -80,6 +80,30 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         throw new ArgumentException();
     } 
 
+    public static object ConvertFromVariant(Variant variant, object property, bool isProperty = false)
+{
+    object variableType = isProperty ? ((PropertyInfo)property).PropertyType : ((FieldInfo)property).FieldType;
+
+    if (variableType == typeof(bool))
+    {
+        return variant.AsBool();
+    }
+    if (variableType == typeof(Vector3))
+    {
+        return variant.AsVector3();
+    }
+    if (variableType == typeof(string))
+    {
+        return variant.AsString();
+    }
+    if (variableType == typeof(int))
+    {
+        return (int)variant.AsInt64();
+    }
+
+    throw new ArgumentException();
+}
+
 	public static Node loadDataFromName(Godot.Collections.Dictionary nodeData)
 	{
         GD.Print("loading data!");
@@ -99,8 +123,8 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             if (property != null)
             {
                 Type propertyType = property.PropertyType;
-                object value = entry.Value;
-                property.SetValue(obj, value);
+                Variant value = entry.Value;
+                property.SetValue(obj, ConvertFromVariant(value,property,true));
             }
             else
             {
@@ -108,8 +132,8 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 if (field != null)
                 {
                     Type fieldType = field.FieldType;
-                    object value = entry.Value;
-                    field.SetValue(obj, value);
+                    Variant value = entry.Value;
+                    field.SetValue(obj, ConvertFromVariant(value,field,false));
                 }
                 else
                 {

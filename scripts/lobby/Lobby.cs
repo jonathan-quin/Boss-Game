@@ -7,15 +7,14 @@ public partial class Lobby : Node
 {
 	[Export]
 	public PackedScene SurviorScene;
-    [Export]
-    public PackedScene BossScene;
-	
+	[Export]
+	public PackedScene BossScene;
 
-    public override void _Ready()
+	public override void _Ready()
 	{
-        Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
-        Globals.multiplayerSpawner = GetNode<MultiplayerSpawner>("%MultiplayerSpawner");
-    }
+		Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
+		Globals.multiplayerSpawner = GetNode<MultiplayerSpawner>("%MultiplayerSpawner");
+	}
 
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
@@ -26,13 +25,13 @@ public partial class Lobby : Node
 
 		var spawnPoints = GetTree().GetNodesInGroup("spawnPoint");
 
-        Random random = new Random();
-        List<Vector3> survivorSpawnPositions = spawnPoints
+		Random random = new Random();
+		List<Vector3> survivorSpawnPositions = spawnPoints
 											.Where(s => (s as spawnPoint).spawnType == spawnPoint.SpawnType.SURVIVOR)
 											.Select(s => (s as spawnPoint).Position)
 											.OrderBy(x => random.Next())
 											.ToList();
-        List<Vector3> bossSpawnPositions = spawnPoints
+		List<Vector3> bossSpawnPositions = spawnPoints
 											.Where(s => (s as spawnPoint).spawnType == spawnPoint.SpawnType.BOSS)
 											.Select(s => (s as spawnPoint).Position)
 											.OrderBy(x => random.Next())
@@ -51,12 +50,12 @@ public partial class Lobby : Node
 
 
 
-        switch (gameStartRequest.gameMode)
+		switch (gameStartRequest.gameMode)
 		{
 			case gameStartRequest.GameMode.HOST_BOSS:
 				break;
 
-            case gameStartRequest.GameMode.REQUEST_BOSS:
+			case gameStartRequest.GameMode.REQUEST_BOSS:
 
 				GD.Print("requesting boss");
 
@@ -67,8 +66,8 @@ public partial class Lobby : Node
 					CreatePlayer(config.wantsToBeBoss, newPos, config.id);
 				}
 
-                break;
-        }
+				break;
+		}
 
 		var gameStartNodes = GetTree().GetNodesInGroup("callOnGameStart");
 
@@ -88,28 +87,28 @@ public partial class Lobby : Node
 
 		lobbyInterface.instance.open();
 
-        Globals.gameInProgress = false;
+		Globals.gameInProgress = false;
 
-    }
+	}
 
 	public static T PopFront<T>(List<T> list)
-    {
-        if (list.Count == 0)
-        {
-            throw new InvalidOperationException("List is empty.");
-        }
+	{
+		if (list.Count == 0)
+		{
+			throw new InvalidOperationException("List is empty.");
+		}
 
-        T poppedElement = list[0];
-        list.RemoveAt(0);
-        return poppedElement;
-    }
+		T poppedElement = list[0];
+		list.RemoveAt(0);
+		return poppedElement;
+	}
 
-    /**
+	/**
 	Used only by server
 	Spawns a player. The MultiplayerSpawner will automatically replicate the instance on all clients.
 	**/
-    public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
-    {
+	public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
+	{
 		GD.Print("made a player");
 	
 		var player = (isBoss ? BossScene : SurviorScene ).Instantiate() as Node3D;

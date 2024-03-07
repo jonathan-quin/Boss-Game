@@ -18,8 +18,8 @@ public partial class Survivor : CharacterBody3D
 	public float loadingTime = 1.0f;
 
 	public ItemHolder itemHolder;
-    public Label3D nameTag;
-    ItemPickupCast itemPickupCast;
+	public Label3D nameTag;
+	ItemPickupCast itemPickupCast;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
@@ -54,11 +54,11 @@ public partial class Survivor : CharacterBody3D
 		itemPickupCast = GetNode<ItemPickupCast>("%ItemPickupCast");
 		itemPickupCast.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
-        nameTag = GetNode<Label3D>("%nameTag");
+		nameTag = GetNode<Label3D>("%nameTag");
 		nameTag.Text = Globals.nameTagText;
 
 
-        if (IsMultiplayerAuthority()){
+		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%headMesh").Visible = false;
 		} else
@@ -87,9 +87,9 @@ public partial class Survivor : CharacterBody3D
 
 
 	public void Move(double delta){
-		if (! IsOnFloor()){
+		//if (! IsOnFloor()){
 			Velocity = Velocity + (Vector3.Down * (float)(GRAVITY * delta));
-		}
+		//}
 
 		//Handle Jump
 		if (Input.IsActionJustPressed("jump") && IsOnFloor()){
@@ -115,6 +115,12 @@ public partial class Survivor : CharacterBody3D
 							Velocity.Y,
 							(float)Mathf.Lerp(Velocity.Z,direction.Z,DEACCEL * delta)
 							);
+		}
+		
+		if (IsOnFloor() && Velocity.DistanceTo(Vector3.Zero) > 0.2 && !GetNode<AudioStreamPlayer3D>("%walkingSound").Playing)
+		{
+			GetNode<SoundSyncer>("%walkingSound").PlayRPC();
+			GD.Print("Debug, ", Multiplayer.GetUniqueId());
 		}
 		
 		MoveAndSlide();

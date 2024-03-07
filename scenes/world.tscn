@@ -282,15 +282,12 @@ size = Vector3(1.06195, 4.76491, 4.28954)
 
 [node name="ItemSpawner" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
 
 [node name="ItemSpawner2" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
 
 [node name="ItemSpawner3" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
-pathToItem = "res://scenes/items/TorchItem.tscn"
 
 [node name="player spawners" type="Node3D" parent="."]
 

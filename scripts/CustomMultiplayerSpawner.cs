@@ -22,6 +22,8 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 
         //Dictionary<string, object> nodeData = new Dictionary<string, object>();
 
+        GD.Print("STARTING");
+
         nodeData[PATHKEY] = path;
 
         foreach (string propertyName in properties)
@@ -31,7 +33,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             {
               
                 var value = property.GetValue(obj);
-                nodeData[propertyName] = ToVariant(value); 
+                nodeData[propertyName] = ToVariant(value,property,true); 
             }
             else
             {
@@ -39,7 +41,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 if (field != null)
                 {
                     var value = field.GetValue(obj);
-                    nodeData[propertyName] = ToVariant(value);
+                    nodeData[propertyName] = ToVariant(value,field,false);
                 }
                 else
                 {
@@ -55,20 +57,25 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 
     private static readonly Dictionary<Type, (Func<object, Variant> ToVariant, Func<Variant, object> FromVariant)> TypeMap = new Dictionary<Type, (Func<object, Variant>, Func<Variant, object>)>()
     {
-        { typeof(bool), (value => Variant.From<bool>((bool)value), variant => (object)variant.AsBool()) },
-        { typeof(Vector3), (value => Variant.From<Vector3>((Vector3)value), variant => (object)variant.AsVector3()) },
-        { typeof(string), (value => Variant.From<string>((string)value), variant => (object)variant.AsString()) },
-        { typeof(int), (value => Variant.From<int>((int)value), variant => (object)variant.AsInt32()) }
+        { typeof(bool), (value => Variant.From<bool>((bool)value), variant => variant.AsBool()) },
+        { typeof(Vector3), (value => Variant.From<Vector3>((Vector3)value), variant => variant.AsVector3()) },
+        { typeof(string), (value => Variant.From<string>((string)value), variant => variant.AsString()) },
+        { typeof(int), (value => Variant.From<int>((int)value), variant => variant.AsInt32()) }
     };
 
-    public static Variant ToVariant<T>(T value)
+    public static Variant ToVariant(object value, object field,bool isProperty)
     {
-        Type valueType = typeof(T);
+        Type targetType =  !isProperty ? ((FieldInfo) field).FieldType : ((PropertyInfo) field).PropertyType;
 
-        if (TypeMap.TryGetValue(valueType, out var conversionFuncs))
+        GD.Print(targetType);
+
+        if (TypeMap.ContainsKey(targetType))
         {
-            return conversionFuncs.ToVariant(value);
+            GD.Print("Yes we have that");
+            return TypeMap[targetType].ToVariant(value);
         }
+
+        GD.Print(value);
 
         throw new ArgumentException();
     }
@@ -81,7 +88,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 
         if (TypeMap.TryGetValue(targetType, out var conversionFuncs))
         {
-            return (object)conversionFuncs.FromVariant(variant);
+            return conversionFuncs.FromVariant(variant);
         }
 
         throw new ArgumentException();
@@ -107,7 +114,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             {
                 Type propertyType = property.PropertyType;
                 Variant value = entry.Value;
-                property.SetValue(obj, FromVariant(value,property,false) );
+                property.SetValue(obj, FromVariant(value,property,true) );
             }
             else
             {
@@ -116,7 +123,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 {
                     Type fieldType = field.FieldType;
                     Variant value = entry.Value;
-                    field.SetValue(obj, FromVariant(value,field,true));
+                    field.SetValue(obj, FromVariant(value,field,false));
                 }
                 else
                 {

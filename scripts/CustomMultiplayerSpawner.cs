@@ -61,6 +61,8 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         { typeof(Vector3), (value => Variant.From<Vector3>((Vector3)value), variant => variant.AsVector3()) },
         { typeof(string), (value => Variant.From<string>((string)value), variant => variant.AsString()) },
         { typeof(int), (value => Variant.From<int>((int)value), variant => variant.AsInt32()) }
+        { typeof(Transform3D), (value => Variant.From<Transform3D>((Transform3D)value), variant => variant.AsTransform3D()) }
+        
     };
 
     public static Variant ToVariant(object value, object field,bool isProperty)

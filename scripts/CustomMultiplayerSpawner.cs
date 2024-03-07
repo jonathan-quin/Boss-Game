@@ -31,7 +31,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             {
               
                 var value = property.GetValue(obj);
-                nodeData[propertyName] = ConvertToVariant(value,property,true); 
+                nodeData[propertyName] = ToVariant(value); 
             }
             else
             {
@@ -39,7 +39,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 if (field != null)
                 {
                     var value = field.GetValue(obj);
-                    nodeData[propertyName] = ConvertToVariant(value, field);
+                    nodeData[propertyName] = ToVariant(value);
                 }
                 else
                 {
@@ -53,56 +53,39 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         return nodeData;
     }
 
-
-    public static Variant ConvertToVariant(object value, object property, bool isProperty = false)
+    private static readonly Dictionary<Type, (Func<object, Variant> ToVariant, Func<Variant, object> FromVariant)> TypeMap = new Dictionary<Type, (Func<object, Variant>, Func<Variant, object>)>()
     {
+        { typeof(bool), (value => Variant.From<bool>((bool)value), variant => (object)variant.AsBool()) },
+        { typeof(Vector3), (value => Variant.From<Vector3>((Vector3)value), variant => (object)variant.AsVector3()) },
+        { typeof(string), (value => Variant.From<string>((string)value), variant => (object)variant.AsString()) },
+        { typeof(int), (value => Variant.From<int>((int)value), variant => (object)variant.AsInt32()) }
+    };
 
-        object variableType = isProperty ? ((PropertyInfo)property).PropertyType : ((FieldInfo)property).FieldType;
+    public static Variant ToVariant<T>(T value)
+    {
+        Type valueType = typeof(T);
 
-        if (variableType == typeof(bool))
+        if (TypeMap.TryGetValue(valueType, out var conversionFuncs))
         {
-            return Variant.From<bool>((bool)value);
+            return conversionFuncs.ToVariant(value);
         }
-        if (variableType == typeof(Vector3))
-        {
-            return Variant.From<Vector3>((Vector3)value);
-        }
-        if (variableType == typeof(string))
-        {
-            return Variant.From<string>((string)value);
-        }
-        if (variableType == typeof(int))
-        {
-            return Variant.From<int>((int)value);
-        }
-
 
         throw new ArgumentException();
-    } 
-
-    public static object ConvertFromVariant(Variant variant, object property, bool isProperty = false)
-{
-    object variableType = isProperty ? ((PropertyInfo)property).PropertyType : ((FieldInfo)property).FieldType;
-
-    if (variableType == typeof(bool))
-    {
-        return variant.AsBool();
-    }
-    if (variableType == typeof(Vector3))
-    {
-        return variant.AsVector3();
-    }
-    if (variableType == typeof(string))
-    {
-        return variant.AsString();
-    }
-    if (variableType == typeof(int))
-    {
-        return (int)variant.AsInt64();
     }
 
-    throw new ArgumentException();
-}
+    public static object FromVariant(Variant variant,object field,bool isProperty)
+    {
+
+
+        Type targetType =  !isProperty ? ((FieldInfo) field).FieldType : ((PropertyInfo) field).PropertyType;
+
+        if (TypeMap.TryGetValue(targetType, out var conversionFuncs))
+        {
+            return (object)conversionFuncs.FromVariant(variant);
+        }
+
+        throw new ArgumentException();
+    }
 
 	public static Node loadDataFromName(Godot.Collections.Dictionary nodeData)
 	{
@@ -124,7 +107,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             {
                 Type propertyType = property.PropertyType;
                 Variant value = entry.Value;
-                property.SetValue(obj, ConvertFromVariant(value,property,true));
+                property.SetValue(obj, FromVariant(value,property,false) );
             }
             else
             {
@@ -133,7 +116,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
                 {
                     Type fieldType = field.FieldType;
                     Variant value = entry.Value;
-                    field.SetValue(obj, ConvertFromVariant(value,field,false));
+                    field.SetValue(obj, FromVariant(value,field,true));
                 }
                 else
                 {

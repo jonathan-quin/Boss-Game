@@ -72,6 +72,7 @@ public partial class Survivor : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+		
 		if (!IsMultiplayerAuthority())return;
 
 		Move(delta);
@@ -110,11 +111,11 @@ public partial class Survivor : CharacterBody3D
 							(float)Mathf.Lerp(Velocity.Z,direction.Z,DEACCEL * delta)
 							);
 		}
-
-		if (IsOnFloor() && Velocity.X != 0 && Velocity.Y != 0 && !GetNode<AudioStreamPlayer3D>("%walkingSound").Playing)
+		
+		if (IsOnFloor() && Velocity.DistanceTo(Vector3.Zero) > 0.2 && !GetNode<AudioStreamPlayer3D>("%walkingSound").Playing)
 		{
-			GetNode<AudioStreamPlayer3D>("%walkingSound").Play();
-			GD.Print("Debug");
+			GetNode<SoundSyncer>("%walkingSound").PlayRPC();
+			GD.Print("Debug, ", Multiplayer.GetUniqueId());
 		}
 		
 		MoveAndSlide();

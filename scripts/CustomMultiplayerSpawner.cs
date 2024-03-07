@@ -60,7 +60,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         { typeof(bool), (value => Variant.From<bool>((bool)value), variant => variant.AsBool()) },
         { typeof(Vector3), (value => Variant.From<Vector3>((Vector3)value), variant => variant.AsVector3()) },
         { typeof(string), (value => Variant.From<string>((string)value), variant => variant.AsString()) },
-        { typeof(int), (value => Variant.From<int>((int)value), variant => variant.AsInt32()) }
+        { typeof(int), (value => Variant.From<int>((int)value), variant => variant.AsInt32()) },
         { typeof(Transform3D), (value => Variant.From<Transform3D>((Transform3D)value), variant => variant.AsTransform3D()) }
         
     };

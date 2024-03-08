@@ -31,20 +31,20 @@ public partial class Spectator : CharacterBody3D
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 input_dir = Input.GetVector("left", "right", "forward", "backward");
 		//we set the forward direction to where the body is facing.
-		Vector3 direction = (GetNode<Node3D>("Camera3D").Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
+		Vector3 direction = (GetNode<Node3D>("Camera3D").GlobalTransform.Basis * new Vector3(input_dir.X, Input.GetAxis("jump","crouch"), input_dir.Y)).Normalized() * SPEED;
 		if (direction != Vector3.Zero){
 			// Y is up and down, so we don't want to change it.
 			
 			Velocity = new Vector3(
 							(float)Mathf.Lerp(Velocity.X,direction.X,ACCEL * delta),
-							Velocity.Y,
+							(float)Mathf.Lerp(Velocity.Y,direction.Y,ACCEL * delta),
 							(float)Mathf.Lerp(Velocity.Z,direction.Z,ACCEL * delta)
 							);
 		}
 		else {
 			Velocity = new Vector3(
 							(float)Mathf.Lerp(Velocity.X,direction.X,DEACCEL * delta),
-							Velocity.Y,
+							(float)Mathf.Lerp(Velocity.Y,direction.Y,ACCEL * delta),
 							(float)Mathf.Lerp(Velocity.Z,direction.Z,DEACCEL * delta)
 							);
 		}

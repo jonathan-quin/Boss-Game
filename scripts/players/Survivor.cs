@@ -160,6 +160,9 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
     public double health { get => _health; set => _health = value; }
 	public bool dead { get => _dead; set => _dead = value; }
 
+	[Export]
+	public string spectatorPath = "";
+
 	
 	public TakeDamageInterface.TypeOfEntity _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS;
 	public TakeDamageInterface.TypeOfEntity typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
@@ -171,7 +174,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 			RpcId(GetMultiplayerAuthority(),"TakeDamage");
 			return;
 		}
-		
+
         health -= amount;
 
 		if (health <= 0){
@@ -189,6 +192,19 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		if (!Multiplayer.IsServer()) {
 			RpcId(Constants.SERVER_HOST_ID,"Die");
 		}else{
+
+			Spectator spectator = GD.Load<Spectator>(spectatorPath);
+
+			Node3D head = GetNode<Node3D>("neck/head");
+
+			spectator.Transform = head.GlobalTransform;
+
+			spectator.targetAuthority = GetMultiplayerAuthority();
+
+			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,spectatorPath,"targetAuthority", "Transform"));
+			
+
+
 			QueueFree();
 		}
 

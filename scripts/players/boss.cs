@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class boss : CharacterBody3D
+public partial class boss : CharacterBody3D, TakeDamageInterface 
 {
 
 	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
@@ -138,6 +138,58 @@ public partial class boss : CharacterBody3D
 			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y, head.Rotation.Z); 
 
 		}
+	}
+
+
+	double _health = 100;
+	bool _dead = false;
+    public double health { get => _health; set => _health = value; }
+	public bool dead { get => _dead; set => _dead = value; }
+	public TakeDamageInterface.TypeOfEntity _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS;
+	public TakeDamageInterface.TypeOfEntity typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void TakeDamage(double amount)
+    {
+		if (Multiplayer.IsServer()) {
+			RpcId(GetMultiplayerAuthority(),"TakeDamage");
+			return;
+		}
+		
+        health -= amount;
+
+		if (health <= 0){
+			Die();
+		}
+
+    }
+
+	[Export]
+	public string spectatorPath = "";
+
+	/// <summary>
+	/// Tells the server's instance of the client to queue free
+	/// </summary>
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void Die(){
+		
+		if (!Multiplayer.IsServer()) {
+			RpcId(Constants.SERVER_HOST_ID,"Die");
+		}else{
+
+			Spectator spectator = GD.Load<Spectator>(spectatorPath);
+
+			spectator.Transform = neck.GlobalTransform;
+
+			spectator.targetAuthority = GetMultiplayerAuthority();
+
+			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,spectatorPath,"targetAuthority", "Transform"));
+			
+
+
+			QueueFree();
+		}
+
 	}
 		
 

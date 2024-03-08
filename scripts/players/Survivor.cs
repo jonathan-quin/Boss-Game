@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class Survivor : CharacterBody3D
+public partial class Survivor : CharacterBody3D , TakeDamageInterface
 {
 
 	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
@@ -122,8 +122,7 @@ public partial class Survivor : CharacterBody3D
 
 	const double SENSITIVITY = 0.0015f;
 
-
-	public override void _Input(InputEvent @event)
+    public override void _Input(InputEvent @event)
 	{
 		//don't move camera if mouse is captive or we're not the authority
 		if (!IsMultiplayerAuthority() || Globals.freeMouse){return;}
@@ -154,7 +153,37 @@ public partial class Survivor : CharacterBody3D
 	{
 		return itemHolder;
 	}
+
+	
+	double _health = 100;
+	bool _dead = false;
+    public double health { get => _health; set => _health = value; }
+	public bool dead { get => _dead; set => _dead = value; }
+
+    public void TakeDamage(double amount)
+    {
+        health -= amount;
+
+		if (health <= 0){
+			Die();
+		}
+
+    }
+
+	/// <summary>
+	/// Tells the server's instance of the client to queue free
+	/// </summary>
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void Die(){
 		
+		if (!Multiplayer.IsServer()) {
+			RpcId(Constants.SERVER_HOST_ID,"Die");
+		}else{
+			QueueFree();
+		}
+
+	}
+
 
 
 }

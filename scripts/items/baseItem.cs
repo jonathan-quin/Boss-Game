@@ -172,19 +172,21 @@ public partial class baseItem : RigidBody3D
 		RpcId(Constants.SERVER_HOST_ID,"createDamageArea");
     }
 
+
+	//only called on server
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void createDamageArea(){
-		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damgageAreaPath).Instantiate() as damageArea;
+		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
 
 		damageArea.Transform = Transform;
 		damageArea.Position += Transform.Basis.Z * -0.5f;
 
 		damageArea.damage = damageDealt;
-		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS;
+		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
 		
 
         //Globals.objectHolder.AddChild(newItem);
-		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damgageAreaPath,"Transform3D","damage","targetEntity"));
+		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
 
 	}
 

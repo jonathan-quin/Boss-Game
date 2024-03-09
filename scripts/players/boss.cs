@@ -145,8 +145,8 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	bool _dead = false;
     public double health { get => _health; set => _health = value; }
 	public bool dead { get => _dead; set => _dead = value; }
-	public TakeDamageInterface.TypeOfEntity _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS;
-	public TakeDamageInterface.TypeOfEntity typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
+	public int _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
+	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void TakeDamage(double amount)

@@ -18,7 +18,7 @@ public partial class Constants : Node
     public static bool DEBUG_MODE = true;
 
     public class paths {
-        public static string damgageAreaPath = "res://scenes/damageArea.tscn"; 
+        public static string damageAreaPath = "res://scenes/damageArea.tscn"; 
         public static string spectatorPath = "res://scenes/spectator.tscn";
     }
 

@@ -12,7 +12,7 @@ public partial class damageArea : Node3D
 
 
 	public Area3D area3D;
-	public TakeDamageInterface.TypeOfEntity targetEntity = TakeDamageInterface.TypeOfEntity.PLAYER;
+	public int targetEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
 
 	public double damage = 20;
 

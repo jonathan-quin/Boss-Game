@@ -161,8 +161,8 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	public bool dead { get => _dead; set => _dead = value; }
 
 	
-	public TakeDamageInterface.TypeOfEntity _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS;
-	public TakeDamageInterface.TypeOfEntity typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
+	public int _typeOfEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
+	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void TakeDamage(double amount)

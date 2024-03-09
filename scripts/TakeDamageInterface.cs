@@ -4,9 +4,9 @@ using System;
 public partial interface TakeDamageInterface
 {
 
-	public enum TypeOfEntity {PLAYER,BOSS}
+	public enum TypeOfEntity {SURVIVOR,BOSS}
 
-	public TypeOfEntity typeOfEntity {get;set;}
+	public int typeOfEntity {get;set;}
 
 	public double health {get;set;}
 	public bool dead {get;set;}

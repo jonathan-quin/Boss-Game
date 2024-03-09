@@ -61,6 +61,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         { typeof(Vector3), (value => Variant.From<Vector3>((Vector3)value), variant => variant.AsVector3()) },
         { typeof(string), (value => Variant.From<string>((string)value), variant => variant.AsString()) },
         { typeof(int), (value => Variant.From<int>((int)value), variant => variant.AsInt32()) },
+        { typeof(double), (value => Variant.From<double>((double)value), variant => variant.AsDouble()) },
         { typeof(Transform3D), (value => Variant.From<Transform3D>((Transform3D)value), variant => variant.AsTransform3D()) }
         
     };
@@ -100,17 +101,23 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 	{
         GD.Print("loading data!");
 
+        GD.Print(nodeData);
 
-        Node obj = GD.Load<PackedScene>(nodeData[PATHKEY].ToString()).Instantiate();
+        string path = nodeData[Variant.From<string>(PATHKEY)].AsString().ToString();
+        GD.Print("path: ", path);
+        
+        Node obj = GD.Load<PackedScene>(path).Instantiate();
 
         GD.Print("node ",obj);
 
-        nodeData.Remove(PATHKEY);
 
-        GD.Print(nodeData);
+       
 
         foreach (var entry in nodeData)
         {
+
+            if (entry.Key.ToString() == PATHKEY) continue;
+
             PropertyInfo property = obj.GetType().GetProperty(entry.Key.ToString());
             if (property != null)
             {
@@ -134,7 +141,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             }
         }
 
-        GD.Print("all that worked");
+        GD.Print("Loading Data completed");
 
         return obj;
     }

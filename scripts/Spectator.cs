@@ -4,9 +4,11 @@ using System;
 public partial class Spectator : CharacterBody3D
 {
 
-	const float SPEED = 5.0f;
+	const float SPEED = 15.0f;
 	const float ACCEL = 6.0f;
 	const float DEACCEL = 8.0f;
+
+	public Camera3D camera;
 
 	//this is set before enter tree is called.
 	public int targetAuthority = -1;
@@ -14,9 +16,20 @@ public partial class Spectator : CharacterBody3D
 		SetMultiplayerAuthority(targetAuthority);
 	}
 
-	public override void _PhysicsProcess(double delta)
+    public override void _Ready()
+    {
+        base._Ready();
+		camera = GetNode<Camera3D>("Camera3D");
+
+		if (IsMultiplayerAuthority()){
+			camera.Current = true;
+		}
+		
+    }
+
+    public override void _PhysicsProcess(double delta)
 	{
-		if (!IsMultiplayerAuthority() || !Globals.freeMouse){
+		if (!IsMultiplayerAuthority()){
 			return;
 		}
 
@@ -31,7 +44,10 @@ public partial class Spectator : CharacterBody3D
 		// Get the input direction and handle the movement/deceleration.
 		Vector2 input_dir = Input.GetVector("left", "right", "forward", "backward");
 		//we set the forward direction to where the body is facing.
-		Vector3 direction = (GetNode<Node3D>("Camera3D").GlobalTransform.Basis * new Vector3(input_dir.X, Input.GetAxis("jump","crouch"), input_dir.Y)).Normalized() * SPEED;
+		Vector3 direction = (GetNode<Node3D>("Camera3D").GlobalTransform.Basis * new Vector3(input_dir.X, -Input.GetAxis("jump","crouch"), input_dir.Y)).Normalized() * SPEED;
+
+		if (Globals.freeMouse) direction = Vector3.Zero;
+
 		if (direction != Vector3.Zero){
 			// Y is up and down, so we don't want to change it.
 			

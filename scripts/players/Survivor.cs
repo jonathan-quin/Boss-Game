@@ -167,15 +167,16 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void TakeDamage(double amount)
     {
-		if (Multiplayer.IsServer()) {
+		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
 			RpcId(GetMultiplayerAuthority(),"TakeDamage");
 			return;
 		}
 
         health -= amount;
 
-		if (health <= 0){
-			Die();
+		if (health <= 0 && !dead){
+			GD.Print("dying!");
+			dead = true;
 		}
 
     }
@@ -190,7 +191,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 			RpcId(Constants.SERVER_HOST_ID,"Die");
 		}else{
 
-			Spectator spectator = GD.Load<Spectator>(Constants.paths.spectatorPath);
+			Spectator spectator = GD.Load<PackedScene>(Constants.paths.spectatorPath).Instantiate() as Spectator;
 
 			Node3D head = GetNode<Node3D>("neck/head");
 

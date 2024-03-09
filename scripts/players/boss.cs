@@ -151,14 +151,18 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void TakeDamage(double amount)
     {
-		if (Multiplayer.IsServer()) {
+		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
+			GD.Print("Redirecting to server");
 			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
 			return;
 		}
 		
         health -= amount;
+		GD.Print("taking damage");
 
-		if (health <= 0){
+		if (health <= 0 && !dead){
+			GD.Print("dying!");
+			dead = true;
 			Die();
 		}
 
@@ -171,10 +175,13 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	public void Die(){
 		
 		if (!Multiplayer.IsServer()) {
+			GD.Print("redirecting die to server");
 			RpcId(Constants.SERVER_HOST_ID,"Die");
 		}else{
 
-			Spectator spectator = GD.Load<Spectator>(Constants.paths.spectatorPath);
+			GD.Print("making spectator on server");
+
+			Spectator spectator = GD.Load<PackedScene>(Constants.paths.spectatorPath).Instantiate() as Spectator;
 
 			spectator.Transform = neck.GlobalTransform;
 
@@ -182,7 +189,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 
 			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,Constants.paths.spectatorPath,"targetAuthority", "Transform"));
 			
-
+			camera.Current = false;
 
 			QueueFree();
 		}

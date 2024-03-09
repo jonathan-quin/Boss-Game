@@ -184,9 +184,9 @@ public partial class baseItem : RigidBody3D
 		damageArea.damage = damageDealt;
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
 		
-
-        //Globals.objectHolder.AddChild(newItem);
-		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
+		//damage areas only need to exist on the server
+        Globals.objectHolder.AddChild(damageArea);
+		//Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
 
 	}
 

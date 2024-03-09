@@ -152,7 +152,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
     public void TakeDamage(double amount)
     {
 		if (Multiplayer.IsServer()) {
-			RpcId(GetMultiplayerAuthority(),"TakeDamage");
+			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
 			return;
 		}
 		

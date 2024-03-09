@@ -100,6 +100,9 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		Vector2 input_dir = Input.GetVector("left", "right", "forward", "backward");
 		//we set the forward direction to where the body is facing.
 		Vector3 direction = (Basis * new Vector3(input_dir.X, 0, input_dir.Y)).Normalized() * SPEED;
+
+		if (Globals.freeMouse) direction = Vector3.Zero;
+
 		if (direction != Vector3.Zero){
 			// Y is up and down, so we don't want to change it.
 			

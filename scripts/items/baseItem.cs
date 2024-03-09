@@ -168,6 +168,12 @@ public partial class baseItem : RigidBody3D
     {
         GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
 
+		
+		RpcId(Constants.SERVER_HOST_ID,"createDamageArea");
+    }
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void createDamageArea(){
 		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damgageAreaPath).Instantiate() as damageArea;
 
 		damageArea.Transform = Transform;
@@ -180,6 +186,7 @@ public partial class baseItem : RigidBody3D
         //Globals.objectHolder.AddChild(newItem);
 		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damgageAreaPath,"Transform3D","damage","targetEntity"));
 
+	}
 
-    }
+
 }

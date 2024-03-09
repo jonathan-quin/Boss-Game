@@ -164,9 +164,6 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 
     }
 
-	[Export]
-	public string spectatorPath = "";
-
 	/// <summary>
 	/// Tells the server's instance of the client to queue free
 	/// </summary>
@@ -177,13 +174,13 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 			RpcId(Constants.SERVER_HOST_ID,"Die");
 		}else{
 
-			Spectator spectator = GD.Load<Spectator>(spectatorPath);
+			Spectator spectator = GD.Load<Spectator>(Constants.paths.spectatorPath);
 
 			spectator.Transform = neck.GlobalTransform;
 
 			spectator.targetAuthority = GetMultiplayerAuthority();
 
-			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,spectatorPath,"targetAuthority", "Transform"));
+			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,Constants.paths.spectatorPath,"targetAuthority", "Transform"));
 			
 
 

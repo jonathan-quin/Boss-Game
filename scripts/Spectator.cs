@@ -9,7 +9,7 @@ public partial class Spectator : CharacterBody3D
 	const float DEACCEL = 8.0f;
 
 	//this is set before enter tree is called.
-	int targetAuthority = -1;
+	public int targetAuthority = -1;
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(targetAuthority);
 	}

@@ -7,6 +7,9 @@ public partial class baseItem : RigidBody3D
 	[Export]
 	public String pathToSelf;
 
+	[Export]
+	public double damageDealt = 5;
+
 	public bool shouldShimmer = false;
 	public bool heldByPlayer = false;
 
@@ -164,5 +167,19 @@ public partial class baseItem : RigidBody3D
     public virtual void Use()
     {
         GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+
+		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damgageAreaPath).Instantiate() as damageArea;
+
+		damageArea.Transform = Transform;
+		damageArea.Position += Transform.Basis.Z * -0.5f;
+
+		damageArea.damage = damageDealt;
+		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS;
+		
+
+        //Globals.objectHolder.AddChild(newItem);
+		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damgageAreaPath,"Transform3D","damage","targetEntity"));
+
+
     }
 }

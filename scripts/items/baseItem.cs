@@ -17,11 +17,11 @@ public partial class baseItem : RigidBody3D
 
 		Constants.loadDataFromName(this, Name);
 
-        
-        SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-        //GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
+		
+		SetMultiplayerAuthority((int)targetMultiplayerAuthority);
+		//GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
 
-        if (!heldByPlayer)
+		if (!heldByPlayer)
 		{
 			
 
@@ -67,7 +67,7 @@ public partial class baseItem : RigidBody3D
 
 		}
 
-        
+		
 
 		//GD.Print(Time.GetTicksMsec());
 
@@ -106,7 +106,7 @@ public partial class baseItem : RigidBody3D
 		newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
 
 
-        Globals.objectHolder.AddChild(newItem);
+		Globals.objectHolder.AddChild(newItem);
 		//Globals.multiplayerSpawner.Spawn(newItem);
 
 		newItem.GlobalPosition = GlobalPosition;
@@ -116,18 +116,18 @@ public partial class baseItem : RigidBody3D
 
 		QueueFree();
 
-        
+		
 	}
 
 
 
 	
 
-        /// <summary>
-        /// tells the server to throw and delete the item
-        /// </summary>
-        /// <param name="startTransform">The global transform from which to start</param>
-        public void throwSelf(Transform3D startTransform){
+		/// <summary>
+		/// tells the server to throw and delete the item
+		/// </summary>
+		/// <param name="startTransform">The global transform from which to start</param>
+		public void throwSelf(Transform3D startTransform){
 		RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
 	}
 
@@ -160,8 +160,8 @@ public partial class baseItem : RigidBody3D
 		QueueFree();
 	}
 
-    public virtual void Use()
-    {
-        GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
-    }
+	public virtual void Use()
+	{
+		GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+	}
 }

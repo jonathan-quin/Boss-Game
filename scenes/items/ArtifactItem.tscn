@@ -139,7 +139,7 @@ _data = {
 "swing": SubResource("Animation_2h8dj")
 }
 
-[node name="ArtifactItem" type="RigidBody3D" groups=["deleteOnGameEnd"]]
+[node name="ArtifactItem" type="RigidBody3D" groups=["artifact", "deleteOnGameEnd"]]
 collision_layer = 17
 freeze = true
 script = ExtResource("1_kqiva")

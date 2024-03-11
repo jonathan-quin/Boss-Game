@@ -1,0 +1,77 @@
+[gd_scene load_steps=11 format=3 uid="uid://davvew4eor4w7"]
+
+[ext_resource type="Script" path="res://scripts/Holder.cs" id="1_0lt25"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wc4ge"]
+albedo_color = Color(1, 0.321569, 0.25098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_q10gu"]
+material = SubResource("StandardMaterial3D_wc4ge")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3jfj"]
+albedo_color = Color(1, 0.321569, 0.25098, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lmxmr"]
+material = SubResource("StandardMaterial3D_f3jfj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6ln3i"]
+albedo_color = Color(5.82382e-06, 0.640757, 0.294204, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_pjhen"]
+material = SubResource("StandardMaterial3D_6ln3i")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ykbps"]
+size = Vector3(1, 0.225464, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2y6w4"]
+size = Vector3(1, 0.0560913, 1)
+
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_dxxtc"]
+
+[node name="Artifact Holder" type="StaticBody3D"]
+script = ExtResource("1_0lt25")
+
+[node name="Holder Mesh" type="Node3D" parent="."]
+
+[node name="HolderSurface" type="MeshInstance3D" parent="Holder Mesh"]
+transform = Transform3D(1, 0, 0, 0, 0.131229, 0.805163, 0, -0.178163, 0.593054, 0, 0, 0)
+mesh = SubResource("BoxMesh_q10gu")
+
+[node name="Leg01" type="MeshInstance3D" parent="Holder Mesh"]
+transform = Transform3D(0.0828427, 0, 0, 0, 0.825232, 0, 0, 0, 0.0884537, 0.423329, -0.0372384, 0.278429)
+mesh = SubResource("BoxMesh_lmxmr")
+
+[node name="Leg02" type="MeshInstance3D" parent="Holder Mesh"]
+transform = Transform3D(0.0828427, 0, 0, 0, 0.825232, 0, 0, 0, 0.0884537, -0.426914, -0.0372384, 0.278429)
+mesh = SubResource("BoxMesh_lmxmr")
+
+[node name="Artifact Meshes" type="Node3D" parent="."]
+
+[node name="Artifact01" type="MeshInstance3D" parent="Artifact Meshes"]
+unique_name_in_owner = true
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0.206984, 0.207315, -0.00158286)
+mesh = SubResource("SphereMesh_pjhen")
+
+[node name="Artifact02" type="MeshInstance3D" parent="Artifact Meshes"]
+unique_name_in_owner = true
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.226844, 0.207315, -0.00158286)
+mesh = SubResource("SphereMesh_pjhen")
+
+[node name="Artifact03" type="MeshInstance3D" parent="Artifact Meshes"]
+unique_name_in_owner = true
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, -0.0112265, -0.126013, -0.219989)
+mesh = SubResource("SphereMesh_pjhen")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.593419, 0.804894, 0, -0.804894, 0.593419, 0, 3.62247e-05, -4.91291e-05)
+shape = SubResource("BoxShape3D_ykbps")
+
+[node name="Artifact Detection Field" type="Area3D" parent="."]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Artifact Detection Field"]
+transform = Transform3D(1, 0, 0, 0, 0.593419, 0.804894, 0, -0.804894, 0.593419, 0, 0.084518, -0.114637)
+shape = SubResource("BoxShape3D_2y6w4")
+
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
+replication_config = SubResource("SceneReplicationConfig_dxxtc")

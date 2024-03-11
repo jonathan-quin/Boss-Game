@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=11 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="Script" path="res://scripts/lobby/Lobby.cs" id="1_4koul"]
 [ext_resource type="PackedScene" uid="uid://cwcgao5u40ash" path="res://scenes/boss.tscn" id="2_to6qp"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
 [ext_resource type="PackedScene" uid="uid://bq413aocpru1k" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
+[ext_resource type="PackedScene" uid="uid://davvew4eor4w7" path="res://scenes/artifact_holder.tscn" id="6_ss7lx"]
 [ext_resource type="PackedScene" uid="uid://nio6aeten03o" path="res://scenes/UI/lobby_interface.tscn" id="8_xgb1f"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
@@ -278,11 +279,11 @@ size = Vector3(1.06195, 4.76491, 4.28954)
 
 [node name="ItemSpawner" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
+pathToItem = "res://scenes/items/ArtifactItem.tscn"
 
 [node name="ItemSpawner2" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 14.6968)
-pathToItem = "res://scenes/items/TorchItem.tscn"
+pathToItem = "res://scenes/items/ArtifactItem.tscn"
 
 [node name="ItemSpawner3" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
@@ -320,6 +321,9 @@ spawnType = 0
 
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true
+
+[node name="Artifact Holder" parent="." instance=ExtResource("6_ss7lx")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.99503, -0.283107, 15.03)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true

@@ -286,7 +286,7 @@ pathToItem = "res://scenes/items/TorchItem.tscn"
 
 [node name="ItemSpawner3" parent="item spawners" instance=ExtResource("3_qooul")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
-pathToItem = "res://scenes/items/Artifact.tscn"
+pathToItem = "res://scenes/items/ArtifactItem.tscn"
 
 [node name="player spawners" type="Node3D" parent="."]
 
@@ -323,7 +323,7 @@ unique_name_in_owner = true
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true
-_spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/KnifeItem.tscn", "res://scenes/items/TorchItem.tscn", "res://scenes/boss.tscn")
+_spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/KnifeItem.tscn", "res://scenes/items/TorchItem.tscn", "res://scenes/boss.tscn", "res://scenes/items/ArtifactItem.tscn")
 spawn_path = NodePath("../PlayerSpawnRoot")
 
 [node name="map reference" type="Sprite3D" parent="."]

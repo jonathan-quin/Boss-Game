@@ -1,12 +1,12 @@
 [gd_scene load_steps=15 format=3 uid="uid://c6t83f7ukn7gg"]
 
-[ext_resource type="Shader" path="res://scripts/items/item.gdshader" id="1_a0eoj"]
-[ext_resource type="Script" path="res://scripts/items/baseItem.cs" id="1_yltah"]
+[ext_resource type="Script" path="res://scripts/items/baseItem.cs" id="1_kqiva"]
+[ext_resource type="Shader" path="res://scripts/items/item.gdshader" id="2_nb36g"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_saugb"]
 resource_local_to_scene = true
 render_priority = 0
-shader = ExtResource("1_a0eoj")
+shader = ExtResource("2_nb36g")
 shader_parameter/disabled = true
 shader_parameter/shine_color = Color(1, 1, 1, 1)
 shader_parameter/cycle_interval = 37.77
@@ -142,8 +142,8 @@ _data = {
 [node name="ArtifactItem" type="RigidBody3D" groups=["deleteOnGameEnd"]]
 collision_layer = 17
 freeze = true
-script = ExtResource("1_yltah")
-pathToSelf = "res://scenes/items/Artifact.tscn"
+script = ExtResource("1_kqiva")
+pathToSelf = "res://scenes/items/ArtifactItem.tscn"
 
 [node name="mesh" type="Node3D" parent="."]
 

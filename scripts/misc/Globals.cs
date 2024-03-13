@@ -15,5 +15,4 @@ public partial class Globals : Node
 
     //only correct on server
     public static bool gameInProgress = false;
-
 }

@@ -120,7 +120,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 							);
 		}
 		
-		if (IsOnFloor() && Velocity.DistanceTo(Vector3.Zero) > 0.2 && !GetNode<AudioStreamPlayer3D>("%walkingSound").Playing)
+		if (false && IsOnFloor() && Velocity.DistanceTo(Vector3.Zero) > 0.2 && !GetNode<AudioStreamPlayer3D>("%walkingSound").Playing)
 		{
 			GetNode<SoundSyncer>("%walkingSound").PlayRPC();
 			GD.Print("Debug, ", Multiplayer.GetUniqueId());

@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://b72jb7xj8jfq1"]
 
-[ext_resource type="PackedScene" uid="uid://cjdkb05i86uv7" path="res://3D models/survivor Monster rigged for game.glb" id="1_nd51t"]
+[ext_resource type="PackedScene" uid="uid://cjdkb05i86uv7" path="res://3D models/survivor Monster rigged for game.glb" id="1_ncx7w"]
 
-[node name="survivor Monster rigged for game" instance=ExtResource("1_nd51t")]
+[node name="survivor Monster rigged for game" instance=ExtResource("1_ncx7w")]
 
 [node name="Skeleton3D" parent="Armature" index="0"]
 bones/0/rotation = Quaternion(-4.21561e-08, 7.16654e-08, -0.468075, 0.883689)
@@ -40,3 +40,12 @@ bones/22/scale = Vector3(1, 1, 1)
 bones/23/rotation = Quaternion(-0.0234043, -0.000139965, 0.00597934, 0.999708)
 bones/23/scale = Vector3(1, 1, 1)
 bones/24/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+
+[node name="R leg IK" type="SkeletonIK3D" parent="Armature/Skeleton3D" index="1"]
+process_priority = 1
+root_bone = &"R leg base"
+tip_bone = &"R tip"
+target_node = NodePath("../R leg target")
+
+[node name="R leg target" type="Marker3D" parent="Armature/Skeleton3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2541, -5.729, 0.889763)

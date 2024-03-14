@@ -1,17 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=12 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
+[ext_resource type="PackedScene" uid="uid://b72jb7xj8jfq1" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_twvqh"]
-albedo_color = Color(1, 0.415686, 0.466667, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3bsst"]
-material = SubResource("StandardMaterial3D_twvqh")
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pi7n1"]
 properties/0/path = NodePath(".:position")
@@ -47,8 +42,16 @@ script = ExtResource("1_lofjr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_ro0dl")
 
-[node name="body" type="MeshInstance3D" parent="."]
-mesh = SubResource("CapsuleMesh_3bsst")
+[node name="body" type="Node3D" parent="."]
+
+[node name="survivor Monster rigged for game" parent="body" instance=ExtResource("2_wv26e")]
+transform = Transform3D(-1.74846e-08, 1.39515e-16, 0.4, 1.39515e-16, 0.4, -1.39515e-16, -0.4, 1.39515e-16, -1.74846e-08, 0, 1.08272, 0.22049)
+
+[node name="Right arm IK" type="SkeletonIK3D" parent="body/survivor Monster rigged for game/Armature/Skeleton3D" index="3"]
+process_priority = 1
+root_bone = &"R shoulder"
+tip_bone = &"R hand"
+target_node = NodePath("../../../../../neck/head/ItemHolder/rightArmTarget")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_pi7n1")
@@ -64,6 +67,7 @@ unique_name_in_owner = true
 [node name="headMesh" type="MeshInstance3D" parent="neck/head"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.1, -0.3)
+visible = false
 mesh = SubResource("SphereMesh_ohyin")
 
 [node name="leftEye" type="MeshInstance3D" parent="neck/head/headMesh"]
@@ -87,6 +91,8 @@ unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.95105, 0, -1.34537)
 script = ExtResource("4_8ox0w")
 
+[node name="rightArmTarget" type="Marker3D" parent="neck/head/ItemHolder"]
+
 [node name="PlayerUI" parent="." instance=ExtResource("6_okpqg")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
@@ -109,3 +115,5 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtDetect"]
 shape = SubResource("CapsuleShape3D_bpn8i")
+
+[editable path="body/survivor Monster rigged for game"]

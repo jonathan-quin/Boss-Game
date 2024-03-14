@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cwcgao5u40ash"]
+[gd_scene load_steps=8 format=3 uid="uid://cwcgao5u40ash"]
 
 [ext_resource type="Script" path="res://scripts/players/boss.cs" id="1_5a43t"]
 [ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="1_6otgn"]
@@ -6,6 +6,10 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7sjmr"]
 radius = 1.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mcyhw"]
+radius = 1.20699
+height = 5.07035
 
 [sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_pi7n1"]
 properties/0/path = NodePath(".:position")
@@ -26,9 +30,19 @@ properties/3/replication_mode = 1
 [node name="boss" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_5a43t")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="collision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.598991, 0)
 shape = SubResource("SphereShape3D_7sjmr")
+
+[node name="HurtDetect" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, -2.64698e-23, 0, -2.64698e-23, 1, 1.5246e-23, 0, 1.5246e-23, 1, 4.23516e-22, 0, 4.10626e-22)
+collision_layer = 64
+collision_mask = 0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HurtDetect"]
+transform = Transform3D(1, 0, 0, 0, -0.012566, -0.999921, 0, 0.999921, -0.012566, 0, 0.825958, -0.491505)
+shape = SubResource("CapsuleShape3D_mcyhw")
 
 [node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="."]
 replication_config = SubResource("SceneReplicationConfig_pi7n1")

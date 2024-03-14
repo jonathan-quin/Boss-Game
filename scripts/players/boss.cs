@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class boss : CharacterBody3D
+public partial class boss : CharacterBody3D, TakeDamageInterface 
 {
 
 	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
@@ -138,6 +138,62 @@ public partial class boss : CharacterBody3D
 			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y, head.Rotation.Z); 
 
 		}
+	}
+
+
+	double _health = 100;
+	bool _dead = false;
+    public double health { get => _health; set => _health = value; }
+	public bool dead { get => _dead; set => _dead = value; }
+	public int _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
+	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void TakeDamage(double amount)
+    {
+		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
+			GD.Print("Redirecting to server");
+			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
+			return;
+		}
+		
+        health -= amount;
+		GD.Print("taking damage");
+
+		if (health <= 0 && !dead){
+			GD.Print("dying!");
+			dead = true;
+			Die();
+		}
+
+    }
+
+	/// <summary>
+	/// Tells the server's instance of the client to queue free
+	/// </summary>
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void Die(){
+		
+		if (!Multiplayer.IsServer()) {
+			GD.Print("redirecting die to server");
+			RpcId(Constants.SERVER_HOST_ID,"Die");
+		}else{
+
+			GD.Print("making spectator on server");
+
+			Spectator spectator = GD.Load<PackedScene>(Constants.paths.spectatorPath).Instantiate() as Spectator;
+
+			spectator.Transform = neck.GlobalTransform;
+
+			spectator.targetAuthority = GetMultiplayerAuthority();
+
+			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,Constants.paths.spectatorPath,"targetAuthority", "Transform"));
+			
+			camera.Current = false;
+
+			QueueFree();
+		}
+
 	}
 		
 

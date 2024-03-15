@@ -50,12 +50,18 @@ func operate(tree,velocity:Vector3):
 		#print("checking")
 		for leg in allLegs:
 			#print(leg)
-			if leg.stepping and leg != buddy:
-				shouldStep = false
+			
+			#return true if the leg is stepping and not our buddy.
+			if leg.stepping:
+				if buddy == null:
+					shouldStep = false
+				elif leg != buddy:
+					shouldStep = false
 				#break
 		
 		if shouldStep:
-			buddy.step(tree,velocity)
+			if buddy:
+				buddy.step(tree,velocity)
 			step(tree,velocity)
 		#else:
 			#print("can't step")

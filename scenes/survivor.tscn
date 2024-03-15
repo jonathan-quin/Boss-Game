@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=17 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
 [ext_resource type="PackedScene" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
@@ -6,6 +6,8 @@
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
+[ext_resource type="Texture2D" uid="uid://b0bsfaku3r4j4" path="res://placeholders/bloodtemp.png" id="7_tjvn2"]
+[ext_resource type="Script" path="res://scripts/SyncParticles.cs" id="8_m6omr"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ro0dl"]
 
@@ -36,6 +38,17 @@ height = 0.2
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bpn8i"]
 radius = 0.606604
 height = 2.6186
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpbjm"]
+transparency = 1
+albedo_texture = ExtResource("7_tjvn2")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_4d753"]
+material = SubResource("StandardMaterial3D_mpbjm")
 
 [node name="survivor" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_lofjr")
@@ -143,5 +156,25 @@ collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HurtDetect"]
 shape = SubResource("CapsuleShape3D_bpn8i")
+
+[node name="hurtParticles" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.842197, 0)
+emitting = false
+amount = 120
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+mesh = SubResource("BoxMesh_4d753")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 53.18
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+angle_min = -720.0
+angle_max = 720.0
+anim_speed_min = 21.61
+anim_speed_max = 21.61
+script = ExtResource("8_m6omr")
 
 [editable path="body/survivor Monster rigged for game"]

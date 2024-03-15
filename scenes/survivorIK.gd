@@ -12,8 +12,8 @@ func _ready():
 	
 	
 	
-	legs.append(BossLeg.new($"L leg cast",$"L leg target",legs))
-	legs.append(BossLeg.new($"R leg cast",$"R leg target",legs))
+	legs.append(BossLeg.new($"L leg cast",$"L leg target",legs,1,0.5,0.3,3,0.1))
+	legs.append(BossLeg.new($"R leg cast",$"R leg target",legs,1,0.5,0.3,3,0.1))
 	#legs[0].setBuddy(legs[1])
 	
 	

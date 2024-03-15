@@ -54,14 +54,12 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 
 		Move(delta);
 
-		float targetRotation = (float)(new Vector2(Velocity.Z, Velocity.X).Angle() + Mathf.DegToRad(-90.0));
-        float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
-
-        bossMesh.Rotation = new Vector3(0, newRotation , 0);
-
 		
 
-		if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
+
+
+
+        if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
 		{
 			bossMesh.animationPlayer.Play("bite");
 
@@ -72,6 +70,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
     }
 
 
+	Vector3 lastTargetDirection = Vector3.Zero;
 	public void Move(double delta){
 		if (! IsOnFloor()){
 			Velocity = Velocity + (Vector3.Down * (float)(GRAVITY * delta));
@@ -112,7 +111,21 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		}
 		
 		MoveAndSlide();
-	}
+
+		lastTargetDirection = direction;
+
+
+        //rotating the mesh
+        float targetRotation = (float)(new Vector2(lastTargetDirection.Z, lastTargetDirection.X).Angle() + Mathf.DegToRad(-90.0));
+        float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
+
+        bossMesh.Rotation = new Vector3(0, newRotation, 0);
+		GetNode<Node3D>("%HurtDetect").Rotation = bossMesh.Rotation;
+		GetNode<Node3D>("%HurtDetect").RotateY(Mathf.DegToRad(90));
+        
+        
+
+    }
 
 	const double SENSITIVITY = 0.0015f;
 

@@ -17,7 +17,7 @@ public partial class damageArea : Node3D
 	public double damage = 20;
 
     //number of frames the area will exist. Should be more than one so that the area has time to register, move than 2 for safety.
-    public int lifeSpan = 3;
+    public int lifeSpan = 30;
 
     public override void _Ready()
     {

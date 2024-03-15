@@ -178,8 +178,8 @@ public partial class baseItem : RigidBody3D
 	public void createDamageArea(){
 		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
 
-		damageArea.Transform = Transform;
-		damageArea.Position += Transform.Basis.Z * -0.5f;
+		damageArea.Transform = (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform;
+		damageArea.Position += (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform.Basis.Z * -2.5f;
 
 		damageArea.damage = damageDealt;
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();

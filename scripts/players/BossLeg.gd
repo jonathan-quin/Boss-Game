@@ -22,11 +22,19 @@ var allLegs : Array
 
 var targetPosition
 
-func _init(raycast,target,allLegs):
+func _init(raycast,target,allLegs,_stepLength = 3, _stepHeight = 1, _stepDuration = 0.3,_forceStepLength = 6,_forceStepDuration = 0.1):
 	self.raycast = raycast
 	self.target = target
 	self.allLegs = allLegs
 	targetPosition = target.global_position
+	
+	stepLength = _stepLength
+	stepHeight = _stepHeight
+	stepDuration = _stepDuration
+	forceStepLength = _forceStepLength
+	
+	forceStepDuration = _forceStepDuration;
+	
 	pass
 
 func setBuddy(buddy):

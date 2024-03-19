@@ -178,6 +178,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
     {
 		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
 			RpcId(GetMultiplayerAuthority(),"TakeDamage");
+			GetNode<SyncParticles>("%hurtParticles").EmittRPC();
 			return;
 		}
 

@@ -22,7 +22,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 
         //Dictionary<string, object> nodeData = new Dictionary<string, object>();
 
-        GD.Print("STARTING");
+        //GD.Print("STARTING");
 
         nodeData[PATHKEY] = path;
 
@@ -50,7 +50,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             }
         }
 
-        GD.Print(nodeData);
+        //GD.Print(nodeData);
 
         return nodeData;
     }
@@ -70,15 +70,15 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
     {
         Type targetType =  !isProperty ? ((FieldInfo) field).FieldType : ((PropertyInfo) field).PropertyType;
 
-        GD.Print(targetType);
+        //GD.Print(targetType);
 
         if (TypeMap.ContainsKey(targetType))
         {
-            GD.Print("Yes we have that");
+            //GD.Print("Yes we have that");
             return TypeMap[targetType].ToVariant(value);
         }
 
-        GD.Print(value);
+        //GD.Print(value);
 
         throw new ArgumentException();
     }
@@ -101,14 +101,14 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 	{
         GD.Print("loading data!");
 
-        GD.Print(nodeData);
+        //GD.Print(nodeData);
 
         string path = nodeData[Variant.From<string>(PATHKEY)].AsString().ToString();
-        GD.Print("path: ", path);
+        //GD.Print("path: ", path);
         
         Node obj = GD.Load<PackedScene>(path).Instantiate();
 
-        GD.Print("node ",obj);
+        //GD.Print("node ",obj);
 
 
        
@@ -141,7 +141,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
             }
         }
 
-        GD.Print("Loading Data completed");
+        //GD.Print("Loading Data completed");
 
         return obj;
     }

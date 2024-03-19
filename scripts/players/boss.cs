@@ -54,19 +54,44 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 
 		Move(delta);
 
-		
 
 
 
 
-        if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
-		{
-			bossMesh.animationPlayer.Play("bite");
+		handleAttackInputs();
 
-        }else if (!bossMesh.animationPlayer.IsPlaying()){
+
+
+    }
+
+	double damageDealt = 50;
+
+	public void handleAttackInputs()
+	{
+        if (!bossMesh.animationPlayer.IsPlaying())
+        {
             bossMesh.animationPlayer.Play("idle");
         }
 
+        if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
+        {
+            bossMesh.animationPlayer.Play("bite");
+
+            damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
+
+            damageArea.Transform = GlobalTransform;
+            damageArea.Position += GlobalTransform.Basis.Z * -2.5f;
+
+            damageArea.damage = damageDealt;
+            damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
+
+            //damage areas only need to exist on the server
+            Globals.objectHolder.AddChild(damageArea);
+            //Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
+
+
+
+        }
     }
 
 

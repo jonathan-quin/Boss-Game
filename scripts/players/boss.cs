@@ -73,29 +73,37 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
             bossMesh.animationPlayer.Play("idle");
         }
 
-        if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
+        if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse && !(bossMesh.animationPlayer.CurrentAnimation == "bite"))
         {
             bossMesh.animationPlayer.Play("bite");
 
-            damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
-
-            damageArea.Transform = GlobalTransform;
-            damageArea.Position += GlobalTransform.Basis.Z * -2.5f;
-
-            damageArea.damage = damageDealt;
-            damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
-
-            //damage areas only need to exist on the server
-            Globals.objectHolder.AddChild(damageArea);
-            //Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
-
-
-
+			RpcId(Constants.SERVER_HOST_ID,"CreateDamageArea");
         }
     }
 
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void CreateDamageArea()
+    {
+        damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
 
-	Vector3 lastTargetDirection = Vector3.Zero;
+        damageArea.Position = bossMesh.GlobalPosition;
+		damageArea.Rotation = bossMesh.Rotation;
+		damageArea.RotateY(Mathf.DegToRad(-90));
+        damageArea.Position += bossMesh.GlobalTransform.Basis.X * 2.5f;
+
+        damageArea.damage = damageDealt;
+        damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
+
+        //damage areas only need to exist on the server
+        Globals.objectHolder.AddChild(damageArea);
+        //Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
+
+
+
+    }
+
+
+    Vector3 lastTargetDirection = Vector3.Zero;
 	public void Move(double delta){
 		if (! IsOnFloor()){
 			Velocity = Velocity + (Vector3.Down * (float)(GRAVITY * delta));
@@ -137,8 +145,10 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		
 		MoveAndSlide();
 
-		lastTargetDirection = direction;
-
+		if (direction != Vector3.Zero)
+		{
+            lastTargetDirection = direction;
+        }
 
         //rotating the mesh
         float targetRotation = (float)(new Vector2(lastTargetDirection.Z, lastTargetDirection.X).Angle() + Mathf.DegToRad(-90.0));
@@ -192,9 +202,12 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
 			GD.Print("Redirecting to server");
 			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
-			return;
+            
+            return;
 		}
-		
+
+        GetNode<SyncParticles>("%hurtParticles").EmittRPC();
+
         health -= amount;
 		GD.Print("taking damage");
 

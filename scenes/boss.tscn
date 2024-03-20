@@ -1,8 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://cwcgao5u40ash"]
+[gd_scene load_steps=12 format=3 uid="uid://cwcgao5u40ash"]
 
 [ext_resource type="Script" path="res://scripts/players/boss.cs" id="1_5a43t"]
 [ext_resource type="PackedScene" uid="uid://bjjodkbo6jfy4" path="res://scenes/BossMonsterModel.tscn" id="1_6otgn"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="2_pmoxq"]
+[ext_resource type="Texture2D" uid="uid://b0bsfaku3r4j4" path="res://placeholders/bloodtemp.png" id="4_76m4q"]
+[ext_resource type="Script" path="res://scripts/SyncParticles.cs" id="5_41dyj"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7sjmr"]
 radius = 1.2
@@ -29,6 +31,17 @@ properties/4/spawn = true
 properties/4/replication_mode = 1
 
 [sub_resource type="SphereMesh" id="SphereMesh_ohyin"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpbjm"]
+transparency = 1
+albedo_texture = ExtResource("4_76m4q")
+billboard_mode = 3
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="BoxMesh" id="BoxMesh_72plq"]
+material = SubResource("StandardMaterial3D_mpbjm")
 
 [node name="boss" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_5a43t")
@@ -76,3 +89,24 @@ light_energy = 5.0
 shadow_enabled = true
 shadow_reverse_cull_face = true
 omni_range = 40.0
+
+[node name="hurtParticles" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.842197, 0)
+emitting = false
+amount = 50
+lifetime = 0.5
+one_shot = true
+explosiveness = 0.8
+mesh = SubResource("BoxMesh_72plq")
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, 1, 0)
+spread = 53.18
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+angle_min = -720.0
+angle_max = 720.0
+anim_speed_min = 21.61
+anim_speed_max = 21.61
+script = ExtResource("5_41dyj")

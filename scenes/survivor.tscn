@@ -39,7 +39,7 @@ height = 0.2
 radius = 0.606604
 height = 2.6186
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mpbjm"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpg47"]
 transparency = 1
 albedo_texture = ExtResource("7_tjvn2")
 billboard_mode = 3
@@ -48,7 +48,7 @@ particles_anim_v_frames = 1
 particles_anim_loop = false
 
 [sub_resource type="BoxMesh" id="BoxMesh_4d753"]
-material = SubResource("StandardMaterial3D_mpbjm")
+material = SubResource("StandardMaterial3D_rpg47")
 
 [node name="survivor" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
 script = ExtResource("1_lofjr")
@@ -158,9 +158,10 @@ collision_mask = 0
 shape = SubResource("CapsuleShape3D_bpn8i")
 
 [node name="hurtParticles" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.842197, 0)
 emitting = false
-amount = 120
+amount = 50
 lifetime = 0.5
 one_shot = true
 explosiveness = 0.8

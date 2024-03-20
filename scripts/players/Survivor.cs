@@ -177,16 +177,18 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
     public void TakeDamage(double amount)
     {
 		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
-			RpcId(GetMultiplayerAuthority(),"TakeDamage");
-			GetNode<SyncParticles>("%hurtParticles").EmittRPC();
+			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
 			return;
 		}
+
+        GetNode<SyncParticles>("%hurtParticles").EmittRPC();
 
         health -= amount;
 
 		if (health <= 0 && !dead){
 			GD.Print("dying!");
 			dead = true;
+			Die();
 		}
 
     }

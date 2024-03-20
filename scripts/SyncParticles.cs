@@ -3,7 +3,7 @@ using System;
 
 public partial class SyncParticles : CpuParticles3D
 {
-    [Rpc(MultiplayerApi.RpcMode.AnyPeer, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void EmittRPC(int origin = -1)
     {
         if (origin == Multiplayer.GetUniqueId()) return;

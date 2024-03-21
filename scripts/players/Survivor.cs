@@ -60,7 +60,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 
 		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
-			GetNode<Node3D>("%headMesh").Visible = false;
+			GetNode<Node3D>("%survivor Monster rigged for game").Visible = false;
 		} else
 		{
 			camera.ClearCurrent();

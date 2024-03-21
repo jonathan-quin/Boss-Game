@@ -17,7 +17,11 @@ public partial class ItemHolder : Node3D
 
     public override void _Ready()
     {
-        localItemHolder = this;
+        if (IsMultiplayerAuthority())
+        {
+            localItemHolder = this;
+        }
+        
     }
 
     /// <summary>

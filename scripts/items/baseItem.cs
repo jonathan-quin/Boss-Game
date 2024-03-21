@@ -68,6 +68,12 @@ public partial class baseItem : RigidBody3D
 		} else {
 			GetNode<AnimationPlayer>("%LocalAnimationPlayer").Play("RESET");
 
+			if (! IsInstanceValid(ItemHolder.localItemHolder) )
+			{
+				throwSelf(Transform);
+
+            }
+
 		}
 
         
@@ -169,17 +175,17 @@ public partial class baseItem : RigidBody3D
         GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
 
 		
-		RpcId(Constants.SERVER_HOST_ID,"createDamageArea");
+		RpcId(Constants.SERVER_HOST_ID,"createDamageArea", (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform);
     }
 
 
-	//only called on server
+	//only run on server, called anywhere
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-	public void createDamageArea(){
+	public void createDamageArea(Transform3D transform){
 		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
 
-		damageArea.Transform = (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform;
-		damageArea.Position += (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform.Basis.Z * -2.5f;
+		damageArea.Transform = transform;
+		damageArea.Position += transform.Basis.Z * -2.5f;
 
 		damageArea.damage = damageDealt;
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();

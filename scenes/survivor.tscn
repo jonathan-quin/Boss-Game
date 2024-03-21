@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
-[ext_resource type="PackedScene" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
+[ext_resource type="PackedScene" uid="uid://b72jb7xj8jfq1" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
 [ext_resource type="Script" path="res://scenes/survivorIK.gd" id="3_4bhto"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
@@ -59,6 +59,7 @@ shape = SubResource("CapsuleShape3D_ro0dl")
 [node name="body" type="Node3D" parent="."]
 
 [node name="survivor Monster rigged for game" parent="body" instance=ExtResource("2_wv26e")]
+unique_name_in_owner = true
 transform = Transform3D(-1.74846e-08, 1.39515e-16, 0.4, 1.39515e-16, 0.4, -1.39515e-16, -0.4, 1.39515e-16, -1.74846e-08, 0, 1.08272, 0.22049)
 
 [node name="Skeleton3D" parent="body/survivor Monster rigged for game/Armature" index="0"]

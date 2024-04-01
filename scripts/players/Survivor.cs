@@ -131,7 +131,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 
 	const double SENSITIVITY = 0.0015f;
 
-    public override void _Input(InputEvent @event)
+	public override void _Input(InputEvent @event)
 	{
 		//don't move camera if mouse is captive or we're not the authority
 		if (!IsMultiplayerAuthority() || Globals.freeMouse){return;}
@@ -166,7 +166,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	
 	double _health = 100;
 	bool _dead = false;
-    public double health { get => _health; set => _health = value; }
+	public double health { get => _health; set => _health = value; }
 	public bool dead { get => _dead; set => _dead = value; }
 
 	
@@ -174,16 +174,16 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
 
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-    public void TakeDamage(double amount)
-    {
+	public void TakeDamage(double amount)
+	{
 		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
 			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
 			return;
 		}
 
-        GetNode<SyncParticles>("%hurtParticles").EmittRPC();
+		GetNode<SyncParticles>("%hurtParticles").EmittRPC();
 
-        health -= amount;
+		health -= amount;
 
 		if (health <= 0 && !dead){
 			GD.Print("dying!");
@@ -191,7 +191,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 			Die();
 		}
 
-    }
+	}
 
 	/// <summary>
 	/// Tells the server's instance of the client to queue free

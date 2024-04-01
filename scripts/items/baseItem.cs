@@ -92,6 +92,7 @@ public partial class baseItem : RigidBody3D
 
 		ItemHolder playersHolder = ((Survivor)GetParent().FindChild(survivorID.ToString(), false, false)).GetItemHolder();
 		if (!playersHolder.HasSpace()) return;
+		if (IsInGroup("artifact") && playersHolder.HasArtifact()) return;
 
 		claimed = true;
 
@@ -112,7 +113,7 @@ public partial class baseItem : RigidBody3D
 		newItem.Position = Position;
 		newItem.Rotation = Rotation;
 
-        //Globals.objectHolder.AddChild(newItem);
+		//Globals.objectHolder.AddChild(newItem);
 		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position","Rotation"));
 
 		
@@ -165,13 +166,13 @@ public partial class baseItem : RigidBody3D
 		QueueFree();
 	}
 
-    public virtual void Use()
-    {
-        GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+	public virtual void Use()
+	{
+		GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
 
 		
 		RpcId(Constants.SERVER_HOST_ID,"createDamageArea");
-    }
+	}
 
 
 	//only called on server
@@ -186,7 +187,7 @@ public partial class baseItem : RigidBody3D
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
 		
 		//damage areas only need to exist on the server
-        Globals.objectHolder.AddChild(damageArea);
+		Globals.objectHolder.AddChild(damageArea);
 		//Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
 
 	}

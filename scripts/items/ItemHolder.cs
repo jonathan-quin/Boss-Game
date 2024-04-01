@@ -30,6 +30,25 @@ public partial class ItemHolder : Node3D
 	}
 
 	/// <summary>
+	/// Returns whether the player already has an artifact in their inventory
+	/// </summary>
+	/// <returns>Whether the player has an artifact in their inventory</returns>
+	public bool HasArtifact()
+	{
+		bool artifactDetected = false;
+		foreach (Node item in inventory)
+		{
+			if (item.IsInGroup("artifact"))
+			{
+				artifactDetected = true;
+				break;
+			}
+		}
+
+		return artifactDetected;
+	}
+
+	/// <summary>
 	/// only called on the client
 	/// </summary>
 	/// <param name="itemPath"></param>

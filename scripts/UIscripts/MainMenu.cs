@@ -57,8 +57,6 @@ public partial class MainMenu : Control
 
     public static string GetLocalIPAddress()
     {
-        //other code didn't work, gave up.
-        return "10.135.16.136";
 
         var host = Dns.GetHostEntry(Dns.GetHostName());
         foreach (var ip in host.AddressList)
@@ -69,6 +67,8 @@ public partial class MainMenu : Control
             }
         }
         throw new Exception("No network adapters with an IPv4 address in the system!");
+
+
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

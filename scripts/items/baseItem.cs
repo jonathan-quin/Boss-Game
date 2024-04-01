@@ -7,6 +7,9 @@ public partial class baseItem : RigidBody3D
 	[Export]
 	public String pathToSelf;
 
+	[Export]
+	public double damageDealt = 5;
+
 	public bool shouldShimmer = false;
 	public bool heldByPlayer = false;
 
@@ -15,7 +18,7 @@ public partial class baseItem : RigidBody3D
 	public override void _EnterTree()
 	{
 
-		Constants.loadDataFromName(this, Name);
+		//Constants.loadDataFromName(this, Name);
 
 		
 		SetMultiplayerAuthority((int)targetMultiplayerAuthority);
@@ -104,14 +107,15 @@ public partial class baseItem : RigidBody3D
 		newItem.targetMultiplayerAuthority = (int)survivorID;
 		GD.Print("the survivor id should be: ",survivorID);
 
-		newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
+		//newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
 
+		newItem.Position = Position;
+		newItem.Rotation = Rotation;
 
-		Globals.objectHolder.AddChild(newItem);
-		//Globals.multiplayerSpawner.Spawn(newItem);
+        //Globals.objectHolder.AddChild(newItem);
+		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position","Rotation"));
 
-		newItem.GlobalPosition = GlobalPosition;
-		newItem.GlobalRotation = GlobalRotation;
+		
 
 		
 
@@ -161,8 +165,29 @@ public partial class baseItem : RigidBody3D
 		QueueFree();
 	}
 
-	public virtual void Use()
-	{
-		GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+    public virtual void Use()
+    {
+        GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+
+		
+		RpcId(Constants.SERVER_HOST_ID,"createDamageArea");
+    }
+
+
+	//only called on server
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void createDamageArea(){
+		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
+
+		damageArea.Transform = (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform;
+		damageArea.Position += (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform.Basis.Z * -2.5f;
+
+		damageArea.damage = damageDealt;
+		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
+		
+		//damage areas only need to exist on the server
+        Globals.objectHolder.AddChild(damageArea);
+		//Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
+
 	}
 }

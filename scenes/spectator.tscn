@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bph4fdp2t72se"]
+
+[ext_resource type="Script" path="res://scripts/Spectator.cs" id="1_pehoy"]
+
+[node name="Spectator" type="CharacterBody3D" groups=["deleteOnGameEnd"]]
+script = ExtResource("1_pehoy")
+
+[node name="Camera3D" type="Camera3D" parent="."]

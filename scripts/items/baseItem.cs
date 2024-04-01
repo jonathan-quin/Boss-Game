@@ -91,8 +91,8 @@ public partial class baseItem : RigidBody3D
 		if (claimed) return;
 
 		ItemHolder playersHolder = ((Survivor)GetParent().FindChild(survivorID.ToString(), false, false)).GetItemHolder();
-		if (!playersHolder.HasSpace()) return;
-		if (IsInGroup("artifact") && playersHolder.HasArtifact()) return;
+		//if (!playersHolder.HasSpace()) return;
+		//if (IsInGroup("artifact") && playersHolder.HasArtifact()) return;
 
 		claimed = true;
 

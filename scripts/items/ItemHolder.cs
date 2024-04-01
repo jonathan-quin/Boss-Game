@@ -55,10 +55,8 @@ public partial class ItemHolder : Node3D
 	/// <returns></returns>
 	public bool TakeItem(baseItem item)
 	{
-		if (GetChildCount() >= MAX_ITEMS)
-		{
-			return false;
-		}
+		if (!HasSpace()) return false;
+		if (item.IsInGroup("artifact") && HasArtifact()) return false;
 
 		//GD.Print("we get here");
 

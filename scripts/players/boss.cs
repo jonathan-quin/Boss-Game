@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class boss : CharacterBody3D
+public partial class boss : CharacterBody3D, TakeDamageInterface 
 {
 
 	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
@@ -54,24 +54,56 @@ public partial class boss : CharacterBody3D
 
 		Move(delta);
 
-		float targetRotation = (float)(new Vector2(Velocity.Z, Velocity.X).Angle() + Mathf.DegToRad(-90.0));
-        float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
 
-        bossMesh.Rotation = new Vector3(0, newRotation , 0);
 
-		
 
-		if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse)
-		{
-			bossMesh.animationPlayer.Play("bite");
 
-        }else if (!bossMesh.animationPlayer.IsPlaying()){
+		handleAttackInputs();
+
+
+
+    }
+
+	double damageDealt = 50;
+
+	public void handleAttackInputs()
+	{
+        if (!bossMesh.animationPlayer.IsPlaying())
+        {
             bossMesh.animationPlayer.Play("idle");
         }
+
+        if (Input.IsActionJustPressed("leftClick") && !Globals.freeMouse && !(bossMesh.animationPlayer.CurrentAnimation == "bite"))
+        {
+            bossMesh.animationPlayer.Play("bite");
+
+			RpcId(Constants.SERVER_HOST_ID,"CreateDamageArea");
+        }
+    }
+
+    [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void CreateDamageArea()
+    {
+        damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
+
+        damageArea.Position = bossMesh.GlobalPosition;
+		damageArea.Rotation = bossMesh.Rotation;
+		damageArea.RotateY(Mathf.DegToRad(-90));
+        damageArea.Position += bossMesh.GlobalTransform.Basis.X * 2.5f;
+
+        damageArea.damage = damageDealt;
+        damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
+
+        //damage areas only need to exist on the server
+        Globals.objectHolder.AddChild(damageArea);
+        //Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
+
+
 
     }
 
 
+    Vector3 lastTargetDirection = Vector3.Zero;
 	public void Move(double delta){
 		if (! IsOnFloor()){
 			Velocity = Velocity + (Vector3.Down * (float)(GRAVITY * delta));
@@ -112,7 +144,23 @@ public partial class boss : CharacterBody3D
 		}
 		
 		MoveAndSlide();
-	}
+
+		if (direction != Vector3.Zero)
+		{
+            lastTargetDirection = direction;
+        }
+
+        //rotating the mesh
+        float targetRotation = (float)(new Vector2(lastTargetDirection.Z, lastTargetDirection.X).Angle() + Mathf.DegToRad(-90.0));
+        float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
+
+        bossMesh.Rotation = new Vector3(0, newRotation, 0);
+		GetNode<Node3D>("%HurtDetect").Rotation = bossMesh.Rotation;
+		GetNode<Node3D>("%HurtDetect").RotateY(Mathf.DegToRad(90));
+        
+        
+
+    }
 
 	const double SENSITIVITY = 0.0015f;
 
@@ -138,6 +186,65 @@ public partial class boss : CharacterBody3D
 			head.Rotation = new Vector3(Mathf.Clamp(head.Rotation.X, Mathf.DegToRad(-90),Mathf.DegToRad(90)), head.Rotation.Y, head.Rotation.Z); 
 
 		}
+	}
+
+
+	double _health = 100;
+	bool _dead = false;
+    public double health { get => _health; set => _health = value; }
+	public bool dead { get => _dead; set => _dead = value; }
+	public int _typeOfEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
+	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
+
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+    public void TakeDamage(double amount)
+    {
+		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
+			GD.Print("Redirecting to server");
+			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
+            
+            return;
+		}
+
+        GetNode<SyncParticles>("%hurtParticles").EmittRPC();
+
+        health -= amount;
+		GD.Print("taking damage");
+
+		if (health <= 0 && !dead){
+			GD.Print("dying!");
+			dead = true;
+			Die();
+		}
+
+    }
+
+	/// <summary>
+	/// Tells the server's instance of the client to queue free
+	/// </summary>
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void Die(){
+		
+		if (!Multiplayer.IsServer()) {
+			GD.Print("redirecting die to server");
+			RpcId(Constants.SERVER_HOST_ID,"Die");
+		}else{
+
+			GD.Print("making spectator on server");
+
+			Spectator spectator = GD.Load<PackedScene>(Constants.paths.spectatorPath).Instantiate() as Spectator;
+
+			spectator.Transform = neck.GlobalTransform;
+
+			spectator.targetAuthority = GetMultiplayerAuthority();
+
+			Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(spectator,Constants.paths.spectatorPath,"targetAuthority", "Transform"));
+			
+			camera.Current = false;
+
+			QueueFree();
+		}
+
 	}
 		
 

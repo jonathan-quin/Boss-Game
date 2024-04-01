@@ -9,13 +9,24 @@ public partial class ItemHolder : Node3D
 
 	baseItem selectedItem = null;
 	List<baseItem> inventory = new List<baseItem>();
+	public static ItemHolder localItemHolder;
+	
 
 	//includes the hand
-	const int MAX_ITEMS = 3 + 1;
+	[Export] int MAX_ITEMS = 2;
 
 	public override void _Ready()
 	{
-		
+		localItemHolder = this;
+	}
+
+	/// <summary>
+	/// Returns whether this item holder has room for more items
+	/// </summary>
+	/// <returns>Whether the player can hold more items</returns>
+	public bool HasSpace()
+	{
+		return inventory.Count < MAX_ITEMS;
 	}
 
 	/// <summary>

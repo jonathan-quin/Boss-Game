@@ -1,11 +1,12 @@
-[gd_scene load_steps=11 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=12 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="Script" path="res://scripts/lobby/Lobby.cs" id="1_4koul"]
 [ext_resource type="PackedScene" uid="uid://cwcgao5u40ash" path="res://scenes/boss.tscn" id="2_to6qp"]
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="2_ub1dh"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
 [ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
-[ext_resource type="PackedScene" uid="uid://bq413aocpru1k" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
+[ext_resource type="PackedScene" uid="uid://yvvhm2mfs4bu" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
+[ext_resource type="Script" path="res://scripts/CustomMultiplayerSpawner.cs" id="6_81mv8"]
 [ext_resource type="PackedScene" uid="uid://davvew4eor4w7" path="res://scenes/artifact_holder.tscn" id="6_ss7lx"]
 [ext_resource type="PackedScene" uid="uid://nio6aeten03o" path="res://scenes/UI/lobby_interface.tscn" id="8_xgb1f"]
 
@@ -329,6 +330,7 @@ transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.99503, -0.283107, 15.03)
 unique_name_in_owner = true
 _spawnable_scenes = PackedStringArray("res://scenes/survivor.tscn", "res://scenes/items/KnifeItem.tscn", "res://scenes/items/TorchItem.tscn", "res://scenes/boss.tscn", "res://scenes/items/ArtifactItem.tscn")
 spawn_path = NodePath("../PlayerSpawnRoot")
+script = ExtResource("6_81mv8")
 
 [node name="map reference" type="Sprite3D" parent="."]
 transform = Transform3D(13, 0, 0, 0, -5.68248e-07, -13, 0, 13, -5.68248e-07, 2.08165e-12, -1.99, 2.08165e-12)

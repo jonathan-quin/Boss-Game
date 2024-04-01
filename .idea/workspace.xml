@@ -5,11 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e5fb50cf-bd4f-4b12-953b-20ca699637bb" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/scenes/lobbyInterface.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/survivor.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/survivor.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scenes/world.tscn" beforeDir="false" afterPath="$PROJECT_DIR$/scenes/world.tscn" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Constants.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Constants.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/Lobby.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/Lobby.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/items/ItemHolder.cs" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/items/ItemHolder.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,6 +15,10 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
   <component name="ProjectId" id="2d0B53QGRYTYidigGaWlTjXAU8t" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -27,7 +27,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "You-Can't-Hold-That-Much!"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

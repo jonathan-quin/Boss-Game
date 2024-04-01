@@ -9,13 +9,15 @@ public partial class ItemHolder : Node3D
 
 	baseItem selectedItem = null;
 	List<baseItem> inventory = new List<baseItem>();
+	public static ItemHolder localItemHolder;
+	
 
 	//includes the hand
 	[Export] int MAX_ITEMS = 2;
 
 	public override void _Ready()
 	{
-		
+		localItemHolder = this;
 	}
 
 	/// <summary>

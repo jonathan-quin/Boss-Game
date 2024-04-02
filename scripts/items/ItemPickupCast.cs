@@ -33,7 +33,9 @@ public partial class ItemPickupCast : RayCast3D
 
             if (Input.IsActionJustPressed("leftClick"))
 			{
-                lastItemLookedAt.giveToSurvivor();
+
+				if (!lastItemLookedAt.heldByPlayer) lastItemLookedAt.giveToSurvivor();
+
 			}
 
 		}

@@ -17,7 +17,7 @@ public partial class ItemHolder : Node3D
 
 	public override void _Ready()
 	{
-		localItemHolder = this;
+		localItemHolder = ((Survivor)(Globals.objectHolder.FindChild(Multiplayer.GetUniqueId().ToString(), false, false))).GetItemHolder();
 	}
 
 	/// <summary>
@@ -118,7 +118,7 @@ public partial class ItemHolder : Node3D
 		if (Input.IsActionJustPressed("leftClick"))
 		{
 			//GD.Print(selectedItem);
-			selectedItem.Use();
+			selectedItem.Use(Multiplayer.GetUniqueId());
 		}
 
 		if (Input.IsActionJustPressed("drop") && selectedItem.pathToSelf != null)

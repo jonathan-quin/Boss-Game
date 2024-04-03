@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Holder : StaticBody3D
+public partial class Holder : StaticBody3D, GameStartInterface
 {
 	public int ArtifactsContained = 0;
 	private Lobby lobby;
@@ -25,6 +25,11 @@ public partial class Holder : StaticBody3D
 			lobby.endGame();
 			ArtifactsContained = 0;
 		}
+	}
+
+	public void start()
+	{
+		ArtifactsContained = 0;
 	}
 
 	private void _onBodyEnterDetectionField(Node3D body)

@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial interface GameStartInterface 
+public partial interface GameStartInterface
 {
 
 	public abstract void start();

@@ -335,7 +335,7 @@ spawnType = 0
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Artifact Holder" parent="." instance=ExtResource("6_ss7lx")]
+[node name="Artifact Holder" parent="." groups=["callOnGameStart"] instance=ExtResource("6_ss7lx")]
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.99503, -0.283107, 15.03)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

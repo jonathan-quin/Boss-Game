@@ -1,21 +1,25 @@
 using Godot;
 using System;
 
+
 public partial class PlayerUI : Control
 {
 	
 
+	//id is -1 if the is the final destination
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void displayMessage(string message,long id)
 	{
-		GD.Print("we are in the display message code. ", id);
+		GD.Print(GetMultiplayerAuthority(), " is in the display message code. ", id);
 
-		if (GetMultiplayerAuthority() != id)
+		if (id != -1)
 		{
 			GD.Print(GetMultiplayerAuthority(), " recieved a message and redirected to ", id);
-			RpcId(id, "displayMessage", message);
+			RpcId(id, "displayMessage", message,-1);
 			return;
 		}
+
+		GD.Print("running display message ", GetMultiplayerAuthority());
 
 		Tween tween = GetTree().CreateTween();
 
@@ -25,8 +29,8 @@ public partial class PlayerUI : Control
 
 		label.VisibleCharacters = 0;
 
-		tween.TweenProperty(label, "VisibleCharacters", message.Length, 0.5);
-        tween.TweenProperty(label, "VisibleCharacters", 0, 0.5).SetDelay(1.0);
+		tween.TweenProperty(label, "visible_characters", message.Length, 0.5);
+        tween.TweenProperty(label, "visible_characters", 0, 0.5).SetDelay(3.0);
 
 		GD.Print("The messaage is: ", message);
 

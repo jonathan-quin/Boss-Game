@@ -132,6 +132,7 @@ public partial class Lobby : Node
 	{
 		PlayerUI playerUi = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
 
+		GD.Print(lobbyInterface.lobbyPlayers);
 
         foreach (lobbyPlayer lobbyPlayer in lobbyInterface.lobbyPlayers)
 		{

@@ -74,7 +74,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		}
 		else
 		{
-			playerUI.Visible = false;
+			//playerUI.Visible = false;
 		}
 
 	}

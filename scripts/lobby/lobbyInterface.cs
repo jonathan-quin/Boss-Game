@@ -168,6 +168,7 @@ public partial class lobbyInterface : Control
 
         }
 
+        //litterally determining if the game is over by if everything is deleted apparently. Kinda terrible code.
         if (!Globals.freeMouse)
         {
             var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");

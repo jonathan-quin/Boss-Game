@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 public partial class Lobby : Node
 {
@@ -78,7 +79,42 @@ public partial class Lobby : Node
 
 	}
 
-	public void endGame(){
+
+	bool displayingMessage = false;
+    public override async void _Process(double delta)
+    {
+
+		if (!Globals.gameInProgress || displayingMessage || !Multiplayer.IsServer()) return; 
+
+
+        if (Survivor.AllSurvivorsAreDead())
+		{
+			displayingMessage = true;
+
+			sendMessageToAllClients("Boss has won!");
+
+			GetTree().CreateTimer(5.0).Timeout += endGame;
+
+			GD.Print("all survivors are dead.");
+
+		}
+        if (boss.AllBossesAreDead())
+        {
+            displayingMessage = true;
+
+            sendMessageToAllClients("Survivors have won!");
+
+            GetTree().CreateTimer(5.0).Timeout += endGame;
+
+			GD.Print("all bosses are dead.");
+
+        }
+
+
+    }
+
+    public void endGame(){
+		displayingMessage=false;
 
 		var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");
 
@@ -91,6 +127,23 @@ public partial class Lobby : Node
         Globals.gameInProgress = false;
 
     }
+
+	 public void sendMessageToAllClients(string message)
+	 {
+
+		foreach (Survivor survivor in Survivor.survivors.Values)
+		{
+			survivor.playerUI.displayMessage(message);
+        }
+
+        foreach (Survivor survivor in Survivor.survivors.Values)
+        {
+            survivor.playerUI.displayMessage(message);
+        }
+
+    }
+
+
 
 	public static T PopFront<T>(List<T> list)
     {

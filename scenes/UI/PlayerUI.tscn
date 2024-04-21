@@ -39,7 +39,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="winningMessage"]
+[node name="messageLabel" type="Label" parent="winningMessage"]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
@@ -50,5 +51,4 @@ offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 200
-text = "Survivors Win!"
 horizontal_alignment = 1

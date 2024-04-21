@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public partial class boss : CharacterBody3D, TakeDamageInterface 
 {
 
-	public static Dictionary<long,Survivor> survivors = new Dictionary<long,Survivor>();
+	public static Dictionary<long, boss> bosses = new Dictionary<long,boss>();
 
 	const float SPEED = 12.0f;
 	const float ACCEL = 0.7f;
@@ -14,19 +14,48 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 
 	const float GRAVITY = 10f;
 
-	public static boss currentBoss;
 
-	public float loadingTime = 1.0f;
+    public PlayerUI playerUI;
+
+    public float loadingTime = 1.0f;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
-		currentBoss = this;
-	}
+        bosses[GetMultiplayerAuthority()] = this;
+    }
 
-	
-	
-	
-	Camera3D camera;
+    public static boss GetBoss(long authority)
+    {
+
+        foreach (KeyValuePair<long, boss> kvp in bosses)
+        {
+            if (!IsInstanceValid(kvp.Value))
+                bosses.Remove(kvp.Key);
+        }
+
+        if (!bosses.ContainsKey(authority))
+        {
+            return null;
+        }
+
+        return bosses[authority];
+
+    }
+
+    public static bool AllBossesAreDead()
+    {
+        foreach (KeyValuePair<long, boss> kvp in bosses)
+        {
+            if (!IsInstanceValid(kvp.Value))
+                bosses.Remove(kvp.Key);
+        }
+
+        return (bosses.Count == 0);
+
+    }
+
+
+    Camera3D camera;
 	BossMonsterModel bossMesh;
 	Node3D neck;
 
@@ -37,9 +66,16 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
         bossMesh = GetNode<BossMonsterModel>("%bossMonsterRigged");
         neck = GetNode<Node3D>("neck");
 
+        playerUI = GetNode<PlayerUI>("%PlayerUI");
+        playerUI.SetMultiplayerAuthority(GetMultiplayerAuthority());
+
         if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%headMesh").Visible = false;
+		}
+		else
+		{
+			playerUI.Visible = false;
 		}
 
 	}

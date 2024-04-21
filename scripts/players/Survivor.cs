@@ -20,6 +20,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	public ItemHolder itemHolder;
 	public Label3D nameTag;
 	ItemPickupCast itemPickupCast;
+	public PlayerUI playerUI;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
@@ -41,6 +42,18 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		return survivors[authority];
 
 	}
+
+	public static bool AllSurvivorsAreDead()
+	{
+        foreach (KeyValuePair<long, Survivor> kvp in survivors)
+        {
+            if (!IsInstanceValid(kvp.Value))
+                survivors.Remove(kvp.Key);
+        }
+		
+		return (survivors.Count == 0);
+
+    }
 	
 	
 	Camera3D camera;
@@ -56,14 +69,19 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 
 		nameTag = GetNode<Label3D>("%nameTag");
 		nameTag.Text = Globals.nameTagText;
+		
+		playerUI = GetNode<PlayerUI>("%PlayerUI");
+		playerUI.SetMultiplayerAuthority(GetMultiplayerAuthority());
 
 
-		if (IsMultiplayerAuthority()){
+        if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%survivor Monster rigged for game").Visible = false;
+			 
 		} else
 		{
 			camera.ClearCurrent();
+			playerUI.Visible = false;
 		}
 
 		lobbyInterface.instance.resume();

@@ -82,6 +82,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.08165e-12, 0.1, -0.3)
 mesh = SubResource("SphereMesh_ohyin")
 
 [node name="PlayerUI" parent="." instance=ExtResource("2_pmoxq")]
+unique_name_in_owner = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)

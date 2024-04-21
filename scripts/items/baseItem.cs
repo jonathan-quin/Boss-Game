@@ -22,7 +22,7 @@ public partial class baseItem : RigidBody3D
 
         
         SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-        GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
+        GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed, " I am the server: ",Multiplayer.IsServer());
 
         if (!heldByPlayer)
 		{
@@ -68,7 +68,8 @@ public partial class baseItem : RigidBody3D
 		} else {
 			GetNode<AnimationPlayer>("%LocalAnimationPlayer").Play("RESET");
 
-			if (! IsInstanceValid(ItemHolder.localItemHolder) )
+			//in case a player logs off
+			if (IsMultiplayerAuthority() && ! IsInstanceValid(ItemHolder.localItemHolder) )
 			{
 				throwSelf(Transform);
 
@@ -135,13 +136,13 @@ public partial class baseItem : RigidBody3D
         /// </summary>
         /// <param name="startTransform">The global transform from which to start</param>
         public void throwSelf(Transform3D startTransform){
-		RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
-	}
+			RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
+		}
 
 	//called by client; runs on server. Pass in global transform
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void _throwSelf(Transform3D startTransform){
-
+		GD.Print("we are starting the throw code");
 		//GD.Print("instance child");
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 

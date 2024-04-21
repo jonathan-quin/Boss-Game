@@ -85,7 +85,7 @@ public partial class lobbyInterface : Control
 
     }
 
-    public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
+    public static List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
 
     public void StartGame()
     {

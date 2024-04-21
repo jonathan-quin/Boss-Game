@@ -1,11 +1,10 @@
-[gd_scene load_steps=17 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=16 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
 [ext_resource type="PackedScene" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
 [ext_resource type="Script" path="res://scenes/survivorIK.gd" id="3_4bhto"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
-[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
 [ext_resource type="Texture2D" uid="uid://b0bsfaku3r4j4" path="res://placeholders/bloodtemp.png" id="7_tjvn2"]
 [ext_resource type="Script" path="res://scripts/SyncParticles.cs" id="8_m6omr"]
 
@@ -133,9 +132,6 @@ script = ExtResource("4_8ox0w")
 
 [node name="rightArmTarget" type="Marker3D" parent="neck/head/ItemHolder"]
 transform = Transform3D(-0.990139, 0.0124312, 0.139536, -0.140089, -0.0878628, -0.986233, -5.05003e-09, -0.996055, 0.0887379, 0, 0, 0.0488747)
-
-[node name="PlayerUI" parent="." instance=ExtResource("6_okpqg")]
-unique_name_in_owner = true
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)

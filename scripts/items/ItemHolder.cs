@@ -101,7 +101,7 @@ public partial class ItemHolder : Node3D
 
         if (Input.IsActionJustPressed("drop") && selectedItem.pathToSelf != null)
         {
-
+            GD.Print("yeah we droppin");
             throwItem();
             
 
@@ -140,9 +140,9 @@ public partial class ItemHolder : Node3D
         }
 
         itemToThrow.throwSelf(GlobalTransform);
-        
+
         //GD.Print("removed it ",inventory.Count);
-        
+        GD.Print("throw item in itemholder was called");
     }
 
     public void shiftSelection(int amount)

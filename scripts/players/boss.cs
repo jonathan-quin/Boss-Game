@@ -66,8 +66,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
         bossMesh = GetNode<BossMonsterModel>("%bossMonsterRigged");
         neck = GetNode<Node3D>("neck");
 
-        playerUI = GetNode<PlayerUI>("%PlayerUI");
-        playerUI.SetMultiplayerAuthority(GetMultiplayerAuthority());
+		playerUI = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
 
         if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();

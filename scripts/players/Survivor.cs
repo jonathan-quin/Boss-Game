@@ -70,8 +70,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		nameTag = GetNode<Label3D>("%nameTag");
 		nameTag.Text = Globals.nameTagText;
 		
-		playerUI = GetNode<PlayerUI>("%PlayerUI");
-		playerUI.SetMultiplayerAuthority(GetMultiplayerAuthority());
+		playerUI = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
 
 
         if (IsMultiplayerAuthority()){
@@ -81,7 +80,6 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		} else
 		{
 			camera.ClearCurrent();
-			playerUI.Visible = false;
 		}
 
 		lobbyInterface.instance.resume();

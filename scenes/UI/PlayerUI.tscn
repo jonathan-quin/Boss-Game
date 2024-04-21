@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/UI/PlayerUI.cs" id="1_ohyhb"]
 
-[node name="PlayerUI" type="Control"]
+[node name="PlayerUI" type="Control" groups=["playerUi"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

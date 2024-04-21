@@ -6,13 +6,14 @@ public partial class PlayerUI : Control
 	
 
     [Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-    public void displayMessage(string message)
+    public void displayMessage(string message,long id)
 	{
+		GD.Print("we are in the display message code. ", id);
 
-		if (!IsMultiplayerAuthority())
+		if (GetMultiplayerAuthority() != id)
 		{
-			GD.Print(GetMultiplayerAuthority(), " recieved a message and redirected to ");
-			RpcId(GetMultiplayerAuthority(), "displayMessage", message);
+			GD.Print(GetMultiplayerAuthority(), " recieved a message and redirected to ", id);
+			RpcId(id, "displayMessage", message);
 			return;
 		}
 

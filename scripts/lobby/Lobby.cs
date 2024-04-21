@@ -129,17 +129,17 @@ public partial class Lobby : Node
     }
 
 	 public void sendMessageToAllClients(string message)
-	 {
+	{
+		PlayerUI playerUi = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
 
-		foreach (Survivor survivor in Survivor.survivors.Values)
+
+        foreach (lobbyPlayer lobbyPlayer in lobbyInterface.lobbyPlayers)
 		{
-			survivor.playerUI.displayMessage(message);
+            playerUi.displayMessage(message,lobbyPlayer.ID);
         }
 
-        foreach (Survivor survivor in Survivor.survivors.Values)
-        {
-            survivor.playerUI.displayMessage(message);
-        }
+
+
 
     }
 

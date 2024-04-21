@@ -236,7 +236,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
     public void TakeDamage(double amount)
     {
 		if (Multiplayer.IsServer() && !IsMultiplayerAuthority()) {
-			GD.Print("Redirecting to server");
+			//GD.Print("Redirecting to server");
 			RpcId(GetMultiplayerAuthority(),"TakeDamage",amount);
             
             return;
@@ -245,10 +245,10 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
         GetNode<SyncParticles>("%hurtParticles").EmittRPC();
 
         health -= amount;
-		GD.Print("taking damage");
+		//GD.Print("taking damage");
 
 		if (health <= 0 && !dead){
-			GD.Print("dying!");
+			//GD.Print("dying!");
 			dead = true;
 			Die();
 		}
@@ -262,11 +262,11 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	public void Die(){
 		
 		if (!Multiplayer.IsServer()) {
-			GD.Print("redirecting die to server");
+			//GD.Print("redirecting die to server");
 			RpcId(Constants.SERVER_HOST_ID,"Die");
 		}else{
 
-			GD.Print("making spectator on server");
+			//GD.Print("making spectator on server");
 
 			Spectator spectator = GD.Load<PackedScene>(Constants.paths.spectatorPath).Instantiate() as Spectator;
 

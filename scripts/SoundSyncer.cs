@@ -9,7 +9,7 @@ public partial class SoundSyncer : AudioStreamPlayer3D
 	{
 		if (origin == Multiplayer.GetUniqueId()) return;
 		base.Play(offset);
-		GD.Print("Playing");
+		//GD.Print("Playing");
 		if (origin == -1)
 		Rpc( "PlayRPC", offset,Multiplayer.GetUniqueId());
 	}

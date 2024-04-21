@@ -112,7 +112,7 @@ public partial class lobbyInterface : Control
 	**/
     public void CreatePlayer(long id = 1)
     {
-        GD.Print("made a player");
+        //GD.Print("made a player");
 
         var player = lobbyPlayerScene.Instantiate() as lobbyPlayer;// as Survivor;
         player.Name = id.ToString();

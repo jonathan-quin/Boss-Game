@@ -31,7 +31,7 @@ public partial class damageArea : Node3D
 
 		foreach (Node3D body in area3D.GetOverlappingAreas()){
 
-            GD.Print("found someone to hit!");
+            //GD.Print("found someone to hit!");
 
 			TakeDamageInterface damageTaker = body.GetParent() as TakeDamageInterface;
 			

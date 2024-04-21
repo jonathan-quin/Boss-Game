@@ -99,7 +99,7 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 
 	public static Node loadDataFromName(Godot.Collections.Dictionary nodeData)
 	{
-        GD.Print("loading data!");
+        //GD.Print("loading data!");
 
         //GD.Print(nodeData);
 

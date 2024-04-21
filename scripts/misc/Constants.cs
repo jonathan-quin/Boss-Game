@@ -51,7 +51,7 @@ public partial class Constants : Node
         }
 
 		string json_string = JsonSerializer.Serialize(nodeData);
-        GD.Print("just made: ", json_string);
+        //GD.Print("just made: ", json_string);
 
         json_string += endJSON + jsonCount.ToString();
         jsonCount += 1;

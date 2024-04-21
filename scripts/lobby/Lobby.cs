@@ -39,14 +39,14 @@ public partial class Lobby : Node
 											.OrderBy(x => random.Next())
 											.ToList();
 
-		GD.Print("Survior:");
+		/*GD.Print("Survior:");
 		foreach (Vector3 vector in survivorSpawnPositions){
 			GD.Print(vector);
 		}
 		GD.Print("Boss:");
 		foreach (Vector3 vector in bossSpawnPositions){
 			GD.Print(vector);
-		}
+		}*/
 
 
 
@@ -59,12 +59,12 @@ public partial class Lobby : Node
 
             case gameStartRequest.GameMode.REQUEST_BOSS:
 
-				GD.Print("requesting boss");
+				//GD.Print("requesting boss");
 
 				foreach (PlayerConfiguration config in gameStartRequest.playerConfigurations)
 				{
 					Vector3 newPos = config.wantsToBeBoss ? PopFront<Vector3>(bossSpawnPositions) : PopFront<Vector3>(survivorSpawnPositions);
-					GD.Print(config.wantsToBeBoss ? "boss" : "survivor", " ", newPos);
+					//GD.Print(config.wantsToBeBoss ? "boss" : "survivor", " ", newPos);
 					CreatePlayer(config.wantsToBeBoss, newPos, config.id);
 				}
 
@@ -163,7 +163,7 @@ public partial class Lobby : Node
 	**/
     public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
     {
-		GD.Print("made a player");
+		//GD.Print("made a player");
 	
 		var player = (isBoss ? BossScene : SurviorScene ).Instantiate() as Node3D;
 		player.Name = id.ToString();

@@ -22,7 +22,7 @@ public partial class baseItem : RigidBody3D
 
         
         SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-        //GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
+        GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
 
         if (!heldByPlayer)
 		{
@@ -102,7 +102,7 @@ public partial class baseItem : RigidBody3D
 
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 
-		GD.Print(newItem);
+		GD.Print("giving to survivor ",newItem);
 
 
 		newItem.heldByPlayer = true;
@@ -110,7 +110,7 @@ public partial class baseItem : RigidBody3D
 
 
 		newItem.targetMultiplayerAuthority = (int)survivorID;
-		GD.Print("the survivor id should be: ",survivorID);
+		//GD.Print("the survivor id should be: ",survivorID);
 
 		//newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
 
@@ -120,9 +120,6 @@ public partial class baseItem : RigidBody3D
         //Globals.objectHolder.AddChild(newItem);
 		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position","Rotation"));
 
-		
-
-		
 
 		QueueFree();
 

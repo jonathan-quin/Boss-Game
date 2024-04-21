@@ -22,7 +22,7 @@ public partial class baseItem : RigidBody3D
 
         
         SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-        GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed, " I am the server: ",Multiplayer.IsServer());
+        //GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed, " I am the server: ",Multiplayer.IsServer());
 
         if (!heldByPlayer)
 		{
@@ -103,7 +103,7 @@ public partial class baseItem : RigidBody3D
 
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 
-		GD.Print("giving to survivor ",newItem);
+		//GD.Print("giving to survivor ",newItem);
 
 
 		newItem.heldByPlayer = true;
@@ -142,7 +142,7 @@ public partial class baseItem : RigidBody3D
 	//called by client; runs on server. Pass in global transform
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void _throwSelf(Transform3D startTransform){
-		GD.Print("we are starting the throw code");
+		//GD.Print("we are starting the throw code");
 		//GD.Print("instance child");
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 

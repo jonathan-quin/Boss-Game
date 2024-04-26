@@ -1,6 +1,8 @@
 extends RigidBody3D
 
 
+#This class is for the silly background in the main menu.
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	

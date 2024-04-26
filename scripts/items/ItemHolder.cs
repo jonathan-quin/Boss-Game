@@ -126,7 +126,9 @@ public partial class ItemHolder : Node3D
     }
 
 
-
+    /// <summary>
+    /// Tells the item to destroy itself and make a new item that does not have a parent.
+    /// </summary>
     public void throwItem(){
        
        baseItem itemToThrow = selectedItem;

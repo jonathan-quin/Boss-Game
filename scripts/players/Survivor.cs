@@ -189,6 +189,11 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	public int _typeOfEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
 	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
 
+
+	/// <summary>
+	/// Take damage is only called from the server, since damage areas only exist on the server. When run on the client, it decreases health and displays particles.
+	/// </summary>
+	/// <param name="amount"></param>
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
     public void TakeDamage(double amount)
     {

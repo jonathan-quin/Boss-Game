@@ -3,7 +3,11 @@ using System;
 
 public partial class SoundSyncer : AudioStreamPlayer3D
 {
-	
+	/// <summary>
+	/// Calling this function on any client calls it on all other clients.
+	/// </summary>
+	/// <param name="offset"></param>
+	/// <param name="origin"></param>
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void PlayRPC(float offset = 0.0f,int origin = -1)
 	{

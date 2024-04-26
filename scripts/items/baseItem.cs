@@ -15,6 +15,9 @@ public partial class baseItem : RigidBody3D
 
 	public int targetMultiplayerAuthority = (int)Constants.SERVER_HOST_ID;
 
+	/// <summary>
+	/// Sets the multiplayer authority to the target authority.
+	/// </summary>
 	public override void _EnterTree()
 	{
 
@@ -45,13 +48,12 @@ public partial class baseItem : RigidBody3D
 		
 	}
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	
+	/// <summary>
+	/// Sets the shine animation and makes sure that the player who owns the item still exists. If they don't, it throws the item.
+	/// </summary>
+	/// <param name="delta"></param>
 	public override void _Process(double delta)
 	{
 
@@ -177,7 +179,7 @@ public partial class baseItem : RigidBody3D
     }
 
 
-	//only run on server, called anywhere
+	//only run on server, called anywhere. Damage areas only exist on the server.
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void createDamageArea(Transform3D transform){
 		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;

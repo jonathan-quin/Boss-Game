@@ -20,6 +20,10 @@ public partial class itemSpawner : Node3D, GameStartInterface
 
     }
 
+    /// <summary>
+    /// This function from gamestartinterface is called by the server at the start of the game.
+    /// It is only run on the server.
+    /// </summary>
     public void start()
     {
         if (IsMultiplayerAuthority() && Globals.objectHolder != null){

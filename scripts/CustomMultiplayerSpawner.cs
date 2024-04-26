@@ -15,6 +15,21 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
 
   private const string PATHKEY = "PATHKEY";
 
+    /// <summary>
+    /// Creates a variant that can be sent over the network and unpacked.
+    /// 
+    /// Can be used like:
+    /// 
+    /// Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToNewItem,"property", "field","other field","other property"));
+    /// 
+    /// This will create an identical item on every client.
+    /// 
+    /// </summary>
+    /// <param name="obj">The object to create the request from.</param>
+    /// <param name="path">The path to recreate the object with load(path).instanciate()</param>
+    /// <param name="properties">The names of the properties of the object that need to be saved.</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
   public static Variant createSpawnRequest(object obj,string path, params string[] properties)
 	{
 
@@ -55,6 +70,9 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         return nodeData;
     }
 
+    /// <summary>
+    /// Explains to createSpawnRequest how to convert C# types into variants and vice versa.
+    /// </summary>
     private static readonly Dictionary<Type, (Func<object, Variant> ToVariant, Func<Variant, object> FromVariant)> TypeMap = new Dictionary<Type, (Func<object, Variant>, Func<Variant, object>)>()
     {
         { typeof(bool), (value => Variant.From<bool>((bool)value), variant => variant.AsBool()) },
@@ -97,6 +115,12 @@ public partial class CustomMultiplayerSpawner : MultiplayerSpawner
         throw new ArgumentException();
     }
 
+    /// <summary>
+    /// Takes the data made by create spawn request and unpacks it.
+    /// </summary>
+    /// <param name="nodeData"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
 	public static Node loadDataFromName(Godot.Collections.Dictionary nodeData)
 	{
         //GD.Print("loading data!");

@@ -18,6 +18,14 @@ public partial class Lobby : Node
         Globals.multiplayerSpawner = GetNode<CustomMultiplayerSpawner>("%MultiplayerSpawner");
     }
 
+
+	/// <summary>
+	/// Uses the game start request to start the correct game. This function calls endgame to clear everything. 
+	/// 
+	/// This is only called by the lobby interface of the Host. Only the host should call this function.
+	/// </summary>
+	/// <param name="gameStartRequest"></param>
+	
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
 
@@ -73,6 +81,7 @@ public partial class Lobby : Node
 
 		var gameStartNodes = GetTree().GetNodesInGroup("callOnGameStart");
 
+		//Game objects need to have the game start interface and be in the callOnGameStart group in order to be set off. Using ready instead causes problems.
 		foreach (GameStartInterface obj in gameStartNodes){
 			obj.start();
 		}
@@ -81,6 +90,11 @@ public partial class Lobby : Node
 
 
 	bool displayingMessage = false;
+	/// <summary>
+	/// Checks every frame the game is running if any category of player is all dead. 
+	/// It determines if survivors are dead by whether they have instances or not. This only works because players are deleted when they die.
+	/// </summary>
+	/// <param name="delta"></param>
     public override async void _Process(double delta)
     {
 
@@ -93,6 +107,7 @@ public partial class Lobby : Node
 
 			sendMessageToAllClients("Boss has won!");
 
+			//The timer is to wait for the message to go through before ending the game.
 			GetTree().CreateTimer(5.0).Timeout += endGame;
 
 			GD.Print("all survivors are dead.");
@@ -113,6 +128,15 @@ public partial class Lobby : Node
 
     }
 
+	/// <summary>
+	/// Ends the game. 
+	/// Clients don't keep track of whether or not the game is in progress, 
+	/// so the clients only know the game is over because their player has been deleted.
+	/// 
+	/// This also deletes every object in the "deleteOnGameEnd" group. Objects not in this group will persist.
+	/// 
+	/// This function is called at the beginning of start game to ensure all game end objects are gone.
+	/// </summary>
     public void endGame(){
 		displayingMessage=false;
 
@@ -128,6 +152,10 @@ public partial class Lobby : Node
 
     }
 
+	/// <summary>
+	/// Has the instance of the player ui on this client tell every other playui and itself to display a message.
+	/// </summary>
+	/// <param name="message"></param>
 	 public void sendMessageToAllClients(string message)
 	{
 		PlayerUI playerUi = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
@@ -138,14 +166,10 @@ public partial class Lobby : Node
 		{
             playerUi.displayMessage(message,lobbyPlayer.ID);
         }
-
-
-
-
     }
 
 
-
+	//Helper function. Might be moved to a different class later.
 	public static T PopFront<T>(List<T> list)
     {
         if (list.Count == 0)

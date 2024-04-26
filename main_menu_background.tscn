@@ -1,14 +1,17 @@
-[gd_scene load_steps=6 format=3 uid="uid://bkgat41krk63u"]
+[gd_scene load_steps=8 format=3 uid="uid://bkgat41krk63u"]
 
 [ext_resource type="PackedScene" uid="uid://b7j1fbnyxyvm5" path="res://3D models/bossMonsterRigged.glb" id="1_sw8tx"]
 [ext_resource type="Script" path="res://scripts/misc/orbitOrigin.gd" id="2_v2w7a"]
 [ext_resource type="Texture2D" uid="uid://45nb0ijr4yxh" path="res://placeholders/hammerdownload.jpg" id="3_16gjj"]
+[ext_resource type="AudioStream" uid="uid://cdvgmgina8udb" path="res://misc/giornos-theme-but-only-the-best-part-is-in_vwd15lya_lyb0-online-audio-converter.mp3" id="4_l8qsg"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0ih8a"]
 bounce = 0.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qio8p"]
 radius = 1.86843
+
+[sub_resource type="Environment" id="Environment_3om3j"]
 
 [node name="Main Menu Background" type="Node3D"]
 
@@ -26,6 +29,10 @@ script = ExtResource("2_v2w7a")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="thingy"]
 shape = SubResource("SphereShape3D_qio8p")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="thingy"]
+light_energy = 16.0
+omni_range = 27.54
 
 [node name="thingy2" type="RigidBody3D" parent="."]
 physics_material_override = SubResource("PhysicsMaterial_0ih8a")
@@ -162,3 +169,10 @@ shape = SubResource("SphereShape3D_qio8p")
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(136.832, 0, 0, 0, 136.832, 0, 0, 0, 1, 0, 0, -52.5262)
 texture = ExtResource("3_16gjj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_l8qsg")
+autoplay = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3om3j")

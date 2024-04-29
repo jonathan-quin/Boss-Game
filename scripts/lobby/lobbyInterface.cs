@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 public partial class lobbyInterface : Control
 {
+
+    /// <summary>
+    /// This class handles connecting to the server and telling the lobby to start the game.
+    /// It has a list of controll nodes that represent the players in the server. 
+    /// Each control node can only be changed by the player who owns it.
+    /// </summary>
+
     [Export]
     public PackedScene lobbyPlayerScene;
 
@@ -87,6 +94,10 @@ public partial class lobbyInterface : Control
 
     public static List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
 
+
+    /// <summary>
+    /// Tells the lobby to start the game based off of the information the players have given from their lobbyPlayer nodes.
+    /// </summary>
     public void StartGame()
     {
 

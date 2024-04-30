@@ -1,0 +1,178 @@
+[gd_scene load_steps=8 format=3 uid="uid://bkgat41krk63u"]
+
+[ext_resource type="PackedScene" uid="uid://b7j1fbnyxyvm5" path="res://3D models/bossMonsterRigged.glb" id="1_sw8tx"]
+[ext_resource type="Script" path="res://scripts/misc/orbitOrigin.gd" id="2_v2w7a"]
+[ext_resource type="Texture2D" uid="uid://45nb0ijr4yxh" path="res://placeholders/hammerdownload.jpg" id="3_16gjj"]
+[ext_resource type="AudioStream" uid="uid://cdvgmgina8udb" path="res://misc/giornos-theme-but-only-the-best-part-is-in_vwd15lya_lyb0-online-audio-converter.mp3" id="4_l8qsg"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0ih8a"]
+bounce = 0.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qio8p"]
+radius = 1.86843
+
+[sub_resource type="Environment" id="Environment_3om3j"]
+
+[node name="Main Menu Background" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.7013)
+
+[node name="thingy" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="thingy"]
+light_energy = 16.0
+omni_range = 27.54
+
+[node name="thingy2" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy2" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy2"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy3" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy3" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy3"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy4" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy4" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy4"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy5" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy5" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy5"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy6" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy6" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy6"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy7" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy7" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy7"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy8" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy8" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy8"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy9" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy9" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy9"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy10" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy10" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy10"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy11" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy11" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy11"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="thingy12" type="RigidBody3D" parent="."]
+physics_material_override = SubResource("PhysicsMaterial_0ih8a")
+gravity_scale = 0.0
+linear_damp = 2.0
+angular_damp = 2.0
+script = ExtResource("2_v2w7a")
+
+[node name="bossMonsterRigged" parent="thingy12" instance=ExtResource("1_sw8tx")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="thingy12"]
+shape = SubResource("SphereShape3D_qio8p")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(136.832, 0, 0, 0, 136.832, 0, 0, 0, 1, 0, 0, -52.5262)
+texture = ExtResource("3_16gjj")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_l8qsg")
+autoplay = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3om3j")

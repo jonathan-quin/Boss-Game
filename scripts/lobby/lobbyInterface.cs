@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 public partial class lobbyInterface : Control
 {
+
+    /// <summary>
+    /// This class handles connecting to the server and telling the lobby to start the game.
+    /// It has a list of controll nodes that represent the players in the server. 
+    /// Each control node can only be changed by the player who owns it.
+    /// </summary>
+
     [Export]
     public PackedScene lobbyPlayerScene;
 
@@ -85,8 +92,12 @@ public partial class lobbyInterface : Control
 
     }
 
-    public List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
+    public static List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();
 
+
+    /// <summary>
+    /// Tells the lobby to start the game based off of the information the players have given from their lobbyPlayer nodes.
+    /// </summary>
     public void StartGame()
     {
 
@@ -112,7 +123,7 @@ public partial class lobbyInterface : Control
 	**/
     public void CreatePlayer(long id = 1)
     {
-        GD.Print("made a player");
+        //GD.Print("made a player");
 
         var player = lobbyPlayerScene.Instantiate() as lobbyPlayer;// as Survivor;
         player.Name = id.ToString();
@@ -168,6 +179,7 @@ public partial class lobbyInterface : Control
 
         }
 
+        //litterally determining if the game is over by if everything is deleted apparently. Kinda terrible code.
         if (!Globals.freeMouse)
         {
             var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");

@@ -20,6 +20,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	public ItemHolder itemHolder;
 	public Label3D nameTag;
 	ItemPickupCast itemPickupCast;
+	public PlayerUI playerUI;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
@@ -41,6 +42,18 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		return survivors[authority];
 
 	}
+
+	public static bool AllSurvivorsAreDead()
+	{
+        foreach (KeyValuePair<long, Survivor> kvp in survivors)
+        {
+            if (!IsInstanceValid(kvp.Value))
+                survivors.Remove(kvp.Key);
+        }
+		
+		return (survivors.Count == 0);
+
+    }
 	
 	
 	Camera3D camera;
@@ -56,11 +69,14 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 
 		nameTag = GetNode<Label3D>("%nameTag");
 		nameTag.Text = Globals.nameTagText;
+		
+		playerUI = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
 
 
-		if (IsMultiplayerAuthority()){
+        if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
-			GetNode<Node3D>("%headMesh").Visible = false;
+			GetNode<Node3D>("%survivor Monster rigged for game").Visible = false;
+			 
 		} else
 		{
 			camera.ClearCurrent();
@@ -123,7 +139,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		if (false && IsOnFloor() && Velocity.DistanceTo(Vector3.Zero) > 0.2 && !GetNode<AudioStreamPlayer3D>("%walkingSound").Playing)
 		{
 			GetNode<SoundSyncer>("%walkingSound").PlayRPC();
-			GD.Print("Debug, ", Multiplayer.GetUniqueId());
+			//GD.Print("Debug, ", Multiplayer.GetUniqueId());
 		}
 		
 		MoveAndSlide();
@@ -173,6 +189,11 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	public int _typeOfEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
 	public int typeOfEntity { get => _typeOfEntity; set => _typeOfEntity = value; }
 
+
+	/// <summary>
+	/// Take damage is only called from the server, since damage areas only exist on the server. When run on the client, it decreases health and displays particles.
+	/// </summary>
+	/// <param name="amount"></param>
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void TakeDamage(double amount)
 	{
@@ -186,7 +207,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		health -= amount;
 
 		if (health <= 0 && !dead){
-			GD.Print("dying!");
+			//GD.Print("dying!");
 			dead = true;
 			Die();
 		}

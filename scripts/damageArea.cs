@@ -25,13 +25,19 @@ public partial class damageArea : Node3D
 
     }
 
+    /// <summary>
+    /// searches for something to damage. This object is intended to exist only on the server.
+    /// </summary>
+    /// <param name="delta"></param>
     public override void _Process(double delta)
     {
         base._Process(delta);
 
+        //Since it's searching for a hitbox instead of an object, it grabs the parent of whatever it collides with.
+        //hitboxes should be children of the thing that takes damage.
 		foreach (Node3D body in area3D.GetOverlappingAreas()){
 
-            GD.Print("found someone to hit!");
+            //GD.Print("found someone to hit!");
 
 			TakeDamageInterface damageTaker = body.GetParent() as TakeDamageInterface;
 			

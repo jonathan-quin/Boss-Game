@@ -15,16 +15,19 @@ public partial class baseItem : RigidBody3D
 
 	public int targetMultiplayerAuthority = (int)Constants.SERVER_HOST_ID;
 
+	/// <summary>
+	/// Sets the multiplayer authority to the target authority.
+	/// </summary>
 	public override void _EnterTree()
 	{
 
 		//Constants.loadDataFromName(this, Name);
 
-		
-		SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-		//GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed);
+        
+        SetMultiplayerAuthority((int)targetMultiplayerAuthority);
+        //GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed, " I am the server: ",Multiplayer.IsServer());
 
-		if (!heldByPlayer)
+        if (!heldByPlayer)
 		{
 			
 
@@ -45,13 +48,12 @@ public partial class baseItem : RigidBody3D
 		
 	}
 
-	// Called when the node enters the scene tree for the first time.
-	public override void _Ready()
-	{
-		
-	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
+	
+	/// <summary>
+	/// Sets the shine animation and makes sure that the player who owns the item still exists. If they don't, it throws the item.
+	/// </summary>
+	/// <param name="delta"></param>
 	public override void _Process(double delta)
 	{
 
@@ -68,9 +70,16 @@ public partial class baseItem : RigidBody3D
 		} else {
 			GetNode<AnimationPlayer>("%LocalAnimationPlayer").Play("RESET");
 
+			//in case a player logs off
+			if (IsMultiplayerAuthority() && ! IsInstanceValid(ItemHolder.localItemHolder) )
+			{
+				throwSelf(Transform);
+
+            }
+
 		}
 
-		
+        
 
 		//GD.Print(Time.GetTicksMsec());
 
@@ -90,15 +99,13 @@ public partial class baseItem : RigidBody3D
 	public void _giveToSurvivorStep1(long survivorID){
 		if (claimed) return;
 
-		ItemHolder playersHolder = ((Survivor)GetParent().FindChild(survivorID.ToString(), false, false)).GetItemHolder();
-		//if (!playersHolder.HasSpace()) return;
-		//if (IsInGroup("artifact") && playersHolder.HasArtifact()) return;
+		//if player has all it's items, return
 
 		claimed = true;
 
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 
-		GD.Print(newItem);
+		//GD.Print("giving to survivor ",newItem);
 
 
 		newItem.heldByPlayer = true;
@@ -106,41 +113,38 @@ public partial class baseItem : RigidBody3D
 
 
 		newItem.targetMultiplayerAuthority = (int)survivorID;
-		GD.Print("the survivor id should be: ",survivorID);
+		//GD.Print("the survivor id should be: ",survivorID);
 
 		//newItem.Name = Constants.createName(newItem, "targetMultiplayerAuthority", "heldByPlayer");
 
 		newItem.Position = Position;
 		newItem.Rotation = Rotation;
 
-		//Globals.objectHolder.AddChild(newItem);
+        //Globals.objectHolder.AddChild(newItem);
 		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position","Rotation"));
 
-		
-
-		
 
 		QueueFree();
 
-		
+        
 	}
 
 
 
 	
 
-		/// <summary>
-		/// tells the server to throw and delete the item
-		/// </summary>
-		/// <param name="startTransform">The global transform from which to start</param>
-		public void throwSelf(Transform3D startTransform){
-		RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
-	}
+        /// <summary>
+        /// tells the server to throw and delete the item
+        /// </summary>
+        /// <param name="startTransform">The global transform from which to start</param>
+        public void throwSelf(Transform3D startTransform){
+			RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
+		}
 
 	//called by client; runs on server. Pass in global transform
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void _throwSelf(Transform3D startTransform){
-
+		//GD.Print("we are starting the throw code");
 		//GD.Print("instance child");
 		baseItem newItem = GD.Load<PackedScene>(pathToSelf).Instantiate() as baseItem;
 
@@ -166,30 +170,31 @@ public partial class baseItem : RigidBody3D
 		QueueFree();
 	}
 
-	public virtual void Use(long playerID)
-	{
-		GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+    public virtual void Use()
+    {
+        GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
 
 		
-		RpcId(Constants.SERVER_HOST_ID,"createDamageArea", playerID);
-	}
+		RpcId(Constants.SERVER_HOST_ID,"createDamageArea", (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform);
+    }
 
 
-	//only called on server
+	//only run on server, called anywhere. Damage areas only exist on the server.
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
-	public void createDamageArea(long playerID){
-		ItemHolder localItemHolder = ((Survivor)(Globals.objectHolder.FindChild(playerID.ToString(), false, false))).GetItemHolder();
+	public void createDamageArea(Transform3D transform){
 		damageArea damageArea = GD.Load<PackedScene>(Constants.paths.damageAreaPath).Instantiate() as damageArea;
 
-		damageArea.Transform = (localItemHolder.GetParent() as Node3D).GlobalTransform;
-		damageArea.Position += (localItemHolder.GetParent() as Node3D).GlobalTransform.Basis.Z * -2.5f;
+		damageArea.Transform = transform;
+		damageArea.Position += transform.Basis.Z * -2.5f;
 
 		damageArea.damage = damageDealt;
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
 		
 		//damage areas only need to exist on the server
-		Globals.objectHolder.AddChild(damageArea);
+        Globals.objectHolder.AddChild(damageArea);
 		//Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
 
 	}
+
+
 }

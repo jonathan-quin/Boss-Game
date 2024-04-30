@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/CustomMultiplayerSpawner.cs" id="6_81mv8"]
 [ext_resource type="PackedScene" uid="uid://davvew4eor4w7" path="res://scenes/artifact_holder.tscn" id="6_ss7lx"]
 [ext_resource type="PackedScene" uid="uid://nio6aeten03o" path="res://scenes/UI/lobby_interface.tscn" id="8_xgb1f"]
+[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="9_gmxkm"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1
@@ -349,5 +350,7 @@ transform = Transform3D(13, 0, 0, 0, -5.68248e-07, -13, 0, 13, -5.68248e-07, 2.0
 visible = false
 flip_h = true
 texture = ExtResource("3_8xo3k")
+
+[node name="PlayerUI" parent="." instance=ExtResource("9_gmxkm")]
 
 [node name="lobbyInterface" parent="." instance=ExtResource("8_xgb1f")]

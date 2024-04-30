@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://c6t83f7ukn7gg"]
+[gd_scene load_steps=16 format=3 uid="uid://c6t83f7ukn7gg"]
 
 [ext_resource type="Script" path="res://scripts/items/baseItem.cs" id="1_kqiva"]
 [ext_resource type="Shader" path="res://scripts/items/item.gdshader" id="2_nb36g"]
+[ext_resource type="AudioStream" uid="uid://ocmges4341ex" path="res://sounds/ItemDrop.mp3" id="3_3l56i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_saugb"]
 resource_local_to_scene = true
@@ -168,3 +169,6 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_0pjs7")
 }
+
+[node name="ItemDrop" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_3l56i")

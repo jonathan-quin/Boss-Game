@@ -1,7 +1,7 @@
 [gd_scene load_steps=20 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
-[ext_resource type="PackedScene" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
+[ext_resource type="PackedScene" uid="uid://b72jb7xj8jfq1" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
 [ext_resource type="Script" path="res://scenes/survivorIK.gd" id="3_4bhto"]
 [ext_resource type="Script" path="res://scripts/items/ItemPickupCast.cs" id="3_cxv40"]
 [ext_resource type="AudioStream" uid="uid://br58upv3ia8e0" path="res://sounds/SurvivorStep02.mp3" id="4_7gull"]
@@ -105,7 +105,7 @@ collision_mask = 2
 replication_config = SubResource("SceneReplicationConfig_pi7n1")
 
 [node name="neck" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.845512, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.67767, 0)
 
 [node name="head" type="Node3D" parent="neck"]
 

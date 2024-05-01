@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://cu1wyf1b77s11"]
+
+[ext_resource type="Script" path="res://scripts/island.cs" id="1_s6ac5"]
+[ext_resource type="PackedScene" uid="uid://c1tfe6qsuuat1" path="res://scenes/bridge.tscn" id="2_goe73"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_r7d30"]
+resource_local_to_scene = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vealr"]
+resource_local_to_scene = true
+albedo_color = Color(1, 0.223529, 1, 1)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_vlift"]
+height = 0.269374
+radius = 1.00467
+
+[node name="Island" type="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 2.15027, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_s6ac5")
+Bridge = ExtResource("2_goe73")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 0.25, 0, 0, 0, 2, 0, 0, 0)
+mesh = SubResource("BoxMesh_r7d30")
+surface_material_override/0 = SubResource("StandardMaterial3D_vealr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_vlift")

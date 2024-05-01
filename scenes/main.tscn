@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://btsq08bbnlypq"]
+
+[ext_resource type="Script" path="res://scripts/main.cs" id="1_rnkkq"]
+[ext_resource type="PackedScene" uid="uid://cu1wyf1b77s11" path="res://scenes/island.tscn" id="2_ikn37"]
+[ext_resource type="PackedScene" uid="uid://cexnlg14g271k" path="res://scenes/map_generator.tscn" id="3_vp641"]
+[ext_resource type="PackedScene" uid="uid://d1r1uwl86qa56" path="res://scenes/guy.tscn" id="5_6qygd"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qj15y"]
+albedo_color = Color(0.694118, 0.694118, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_uai4q"]
+material = SubResource("StandardMaterial3D_qj15y")
+text = "Center
+"
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_rnkkq")
+Island = ExtResource("2_ikn37")
+
+[node name="MapGenerator" parent="." instance=ExtResource("3_vp641")]
+
+[node name="GUY" parent="." instance=ExtResource("5_6qygd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 106.849, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 3.03162, 0)
+layers = 2
+mesh = SubResource("TextMesh_uai4q")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cexnlg14g271k"]
+
+[ext_resource type="Script" path="res://scripts/DaniMapGenerator.cs" id="1_jvlf1"]
+
+[node name="MapGenerator" type="Node2D"]
+script = ExtResource("1_jvlf1")

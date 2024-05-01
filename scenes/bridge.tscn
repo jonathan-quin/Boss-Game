@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=3 uid="uid://c1tfe6qsuuat1"]
+
+[ext_resource type="Script" path="res://scripts/BlockingWall.cs" id="1_w3xbq"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_o8x78"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k1o6d"]
+size = Vector3(0.10144, 2.00106, 0.751846)
+
+[node name="Bridge" type="Node3D"]
+
+[node name="LeftWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 1, 0.75)
+mesh = SubResource("BoxMesh_o8x78")
+
+[node name="UpperWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 0.5, 0, 0, 0, 1, 0, 1.75, 0)
+mesh = SubResource("BoxMesh_o8x78")
+skeleton = NodePath("")
+
+[node name="RightWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 1, -0.75)
+mesh = SubResource("BoxMesh_o8x78")
+skeleton = NodePath("")
+
+[node name="BlockingWall" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.1, 0, 0, 0, 2, 0, 0, 0, 0.75, 0, 1, 0)
+mesh = SubResource("BoxMesh_o8x78")
+skeleton = NodePath("")
+script = ExtResource("1_w3xbq")
+
+[node name="Wall3" type="StaticBody3D" parent="BlockingWall"]
+transform = Transform3D(10, 0, 0, 0, 0.5, 0, 0, 0, 1.33333, 0, -0.5, -2.00423)
+
+[node name="Collide" type="CollisionShape3D" parent="BlockingWall/Wall3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10352e-05, 1.00026, 1.49785)
+shape = SubResource("BoxShape3D_k1o6d")
+
+[node name="Wall" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10352e-05, 1.00026, 0.749626)
+shape = SubResource("BoxShape3D_k1o6d")
+
+[node name="Wall2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.50318)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.10352e-05, 1.00026, 0.749626)
+shape = SubResource("BoxShape3D_k1o6d")

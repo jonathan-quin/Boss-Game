@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1r1uwl86qa56"]
+
+[ext_resource type="Script" path="res://scripts/Guy.cs" id="1_83jer"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8il4n"]
+radius = 0.217
+height = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_i3q2d"]
+radius = 0.217131
+
+[node name="GUY" type="CharacterBody3D"]
+script = ExtResource("1_83jer")
+
+[node name="SHAPE" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.311435, 0)
+mesh = SubResource("SphereMesh_8il4n")
+
+[node name="COLLIDE" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0074383, 0.310984, 0.0112717)
+shape = SubResource("SphereShape3D_i3q2d")
+
+[node name="Main" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.336292, 0)
+cull_mask = 1048573
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]

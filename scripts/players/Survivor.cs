@@ -45,15 +45,15 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 
 	public static bool AllSurvivorsAreDead()
 	{
-        foreach (KeyValuePair<long, Survivor> kvp in survivors)
-        {
-            if (!IsInstanceValid(kvp.Value))
-                survivors.Remove(kvp.Key);
-        }
+		foreach (KeyValuePair<long, Survivor> kvp in survivors)
+		{
+			if (!IsInstanceValid(kvp.Value))
+				survivors.Remove(kvp.Key);
+		}
 		
 		return (survivors.Count == 0);
 
-    }
+	}
 	
 	
 	Camera3D camera;
@@ -73,7 +73,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 		playerUI = (PlayerUI)GetTree().GetFirstNodeInGroup("playerUi");
 
 
-        if (IsMultiplayerAuthority()){
+		if (IsMultiplayerAuthority()){
 			camera.MakeCurrent();
 			GetNode<Node3D>("%survivor Monster rigged for game").Visible = false;
 			 

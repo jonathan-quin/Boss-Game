@@ -20,7 +20,13 @@ public partial class BreadthFirstBoard
   }
 
 
-    public BreadthFirstBoard(){   
+    public BreadthFirstBoard(int seed){   
+        Globals.Seed = seed;
+        map = new List<Room>();
+    }
+
+    public BreadthFirstBoard()
+    {
         map = new List<Room>();
     }
 

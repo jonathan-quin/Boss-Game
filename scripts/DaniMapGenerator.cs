@@ -9,7 +9,7 @@ public partial class DaniMapGenerator : Node2D
 	public override void _Ready()
 	{
 		GD.Print("Press space to continue!");
-		board = new BreadthFirstBoard();
+		board = new BreadthFirstBoard(GD.RandRange(-2147483647, 2147483647));
 		board.fillBoardEmpty();
 		GD.Print(board);
 	}

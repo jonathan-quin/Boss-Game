@@ -8,15 +8,15 @@ public partial class Lobby : Node
 {
 	[Export]
 	public PackedScene SurviorScene;
-    [Export]
-    public PackedScene BossScene;
+	[Export]
+	public PackedScene BossScene;
 	
 
-    public override void _Ready()
+	public override void _Ready()
 	{
-        Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
-        Globals.multiplayerSpawner = GetNode<CustomMultiplayerSpawner>("%MultiplayerSpawner");
-    }
+		Globals.objectHolder = GetNode<Node3D>("%PlayerSpawnRoot");
+		Globals.multiplayerSpawner = GetNode<CustomMultiplayerSpawner>("%MultiplayerSpawner");
+	}
 
 
 	/// <summary>
@@ -35,13 +35,13 @@ public partial class Lobby : Node
 
 		var spawnPoints = GetTree().GetNodesInGroup("spawnPoint");
 
-        Random random = new Random();
-        List<Vector3> survivorSpawnPositions = spawnPoints
+		Random random = new Random();
+		List<Vector3> survivorSpawnPositions = spawnPoints
 											.Where(s => (s as spawnPoint).spawnType == spawnPoint.SpawnType.SURVIVOR)
 											.Select(s => (s as spawnPoint).Position)
 											.OrderBy(x => random.Next())
 											.ToList();
-        List<Vector3> bossSpawnPositions = spawnPoints
+		List<Vector3> bossSpawnPositions = spawnPoints
 											.Where(s => (s as spawnPoint).spawnType == spawnPoint.SpawnType.BOSS)
 											.Select(s => (s as spawnPoint).Position)
 											.OrderBy(x => random.Next())
@@ -60,12 +60,12 @@ public partial class Lobby : Node
 
 
 
-        switch (gameStartRequest.gameMode)
+		switch (gameStartRequest.gameMode)
 		{
 			case gameStartRequest.GameMode.HOST_BOSS:
 				break;
 
-            case gameStartRequest.GameMode.REQUEST_BOSS:
+			case gameStartRequest.GameMode.REQUEST_BOSS:
 
 				//GD.Print("requesting boss");
 
@@ -76,8 +76,8 @@ public partial class Lobby : Node
 					CreatePlayer(config.wantsToBeBoss, newPos, config.id);
 				}
 
-                break;
-        }
+				break;
+		}
 
 		var gameStartNodes = GetTree().GetNodesInGroup("callOnGameStart");
 
@@ -95,13 +95,13 @@ public partial class Lobby : Node
 	/// It determines if survivors are dead by whether they have instances or not. This only works because players are deleted when they die.
 	/// </summary>
 	/// <param name="delta"></param>
-    public override async void _Process(double delta)
-    {
+	public override async void _Process(double delta)
+	{
 
 		if (!Globals.gameInProgress || displayingMessage || !Multiplayer.IsServer()) return; 
 
 
-        if (Survivor.AllSurvivorsAreDead())
+		if (Survivor.AllSurvivorsAreDead())
 		{
 			displayingMessage = true;
 
@@ -113,20 +113,20 @@ public partial class Lobby : Node
 			GD.Print("all survivors are dead.");
 
 		}
-        if (boss.AllBossesAreDead())
-        {
-            displayingMessage = true;
+		if (boss.AllBossesAreDead())
+		{
+			displayingMessage = true;
 
-            sendMessageToAllClients("Survivors have won!");
+			sendMessageToAllClients("Survivors have won!");
 
-            GetTree().CreateTimer(5.0).Timeout += endGame;
+			GetTree().CreateTimer(5.0).Timeout += endGame;
 
 			GD.Print("all bosses are dead.");
 
-        }
+		}
 
 
-    }
+	}
 
 	/// <summary>
 	/// Ends the game. 
@@ -137,7 +137,7 @@ public partial class Lobby : Node
 	/// 
 	/// This function is called at the beginning of start game to ensure all game end objects are gone.
 	/// </summary>
-    public void endGame(){
+	public void endGame(){
 		displayingMessage=false;
 
 		var gameStartNodes = GetTree().GetNodesInGroup("deleteOnGameEnd");
@@ -148,9 +148,9 @@ public partial class Lobby : Node
 
 		lobbyInterface.instance.open();
 
-        Globals.gameInProgress = false;
+		Globals.gameInProgress = false;
 
-    }
+	}
 
 	/// <summary>
 	/// Has the instance of the player ui on this client tell every other playui and itself to display a message.
@@ -162,32 +162,32 @@ public partial class Lobby : Node
 
 		GD.Print(lobbyInterface.lobbyPlayers);
 
-        foreach (lobbyPlayer lobbyPlayer in lobbyInterface.lobbyPlayers)
+		foreach (lobbyPlayer lobbyPlayer in lobbyInterface.lobbyPlayers)
 		{
-            playerUi.displayMessage(message,lobbyPlayer.ID);
-        }
-    }
+			playerUi.displayMessage(message,lobbyPlayer.ID);
+		}
+	}
 
 
 	//Helper function. Might be moved to a different class later.
 	public static T PopFront<T>(List<T> list)
-    {
-        if (list.Count == 0)
-        {
-            throw new InvalidOperationException("List is empty.");
-        }
+	{
+		if (list.Count == 0)
+		{
+			throw new InvalidOperationException("List is empty.");
+		}
 
-        T poppedElement = list[0];
-        list.RemoveAt(0);
-        return poppedElement;
-    }
+		T poppedElement = list[0];
+		list.RemoveAt(0);
+		return poppedElement;
+	}
 
-    /**
+	/**
 	Used only by server
 	Spawns a player. The MultiplayerSpawner will automatically replicate the instance on all clients.
 	**/
-    public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
-    {
+	public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
+	{
 		//GD.Print("made a player");
 	
 		var player = (isBoss ? BossScene : SurviorScene ).Instantiate() as Node3D;

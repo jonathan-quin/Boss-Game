@@ -16,7 +16,7 @@ public partial class main : Node3D
 	public override void _Ready()
 	{
 		GD.Print("Press space to continue!");
-		board = new BreadthFirstBoard();
+		board = new BreadthFirstBoard(2007988800/*GD.RandRange(2000000000, 2147483647)*/);
 		board.fillBoardEmpty();
 		GD.Print(board);
 		
@@ -41,9 +41,9 @@ public partial class main : Node3D
 	{
 	}
 
-    public override void _Input(InputEvent @event)
-    {
-        if(@event.IsActionPressed("generate"))
+	public override void _Input(InputEvent @event)
+	{
+		if(@event.IsActionPressed("generate"))
 		{
 			foreach(Node3D node in islands){
 				node.QueueFree();
@@ -59,6 +59,6 @@ public partial class main : Node3D
 			}
 			
 		}
-    }
+	}
 
 }

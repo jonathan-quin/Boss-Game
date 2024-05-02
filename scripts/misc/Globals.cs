@@ -13,6 +13,8 @@ public partial class Globals : Node
     public static string nameTagText;
     public static bool isBoss;
 
+    public static int Seed;
+
     //only correct on server
     public static bool gameInProgress = false;
 }

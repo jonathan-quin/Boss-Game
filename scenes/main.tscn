@@ -18,6 +18,7 @@ script = ExtResource("1_rnkkq")
 Island = ExtResource("2_ikn37")
 
 [node name="MapGenerator" parent="." instance=ExtResource("3_vp641")]
+script = null
 
 [node name="GUY" parent="." instance=ExtResource("5_6qygd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 106.849, 0)

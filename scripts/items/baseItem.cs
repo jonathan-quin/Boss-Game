@@ -23,11 +23,11 @@ public partial class baseItem : RigidBody3D
 
 		//Constants.loadDataFromName(this, Name);
 
-        
-        SetMultiplayerAuthority((int)targetMultiplayerAuthority);
-        //GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed, " I am the server: ",Multiplayer.IsServer());
+		
+		SetMultiplayerAuthority((int)targetMultiplayerAuthority);
+		//GD.Print("enter tree authority is ", GetMultiplayerAuthority(), " HBP ",heldByPlayer," claimed ",claimed, " I am the server: ",Multiplayer.IsServer());
 
-        if (!heldByPlayer)
+		if (!heldByPlayer)
 		{
 			
 
@@ -75,11 +75,11 @@ public partial class baseItem : RigidBody3D
 			{
 				throwSelf(Transform);
 
-            }
+			}
 
 		}
 
-        
+		
 
 		//GD.Print(Time.GetTicksMsec());
 
@@ -120,24 +120,24 @@ public partial class baseItem : RigidBody3D
 		newItem.Position = Position;
 		newItem.Rotation = Rotation;
 
-        //Globals.objectHolder.AddChild(newItem);
+		//Globals.objectHolder.AddChild(newItem);
 		Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(newItem,pathToSelf,"targetMultiplayerAuthority", "heldByPlayer","Position","Rotation"));
 
 
 		QueueFree();
 
-        
+		
 	}
 
 
 
 	
 
-        /// <summary>
-        /// tells the server to throw and delete the item
-        /// </summary>
-        /// <param name="startTransform">The global transform from which to start</param>
-        public void throwSelf(Transform3D startTransform){
+		/// <summary>
+		/// tells the server to throw and delete the item
+		/// </summary>
+		/// <param name="startTransform">The global transform from which to start</param>
+		public void throwSelf(Transform3D startTransform){
 			RpcId(Constants.SERVER_HOST_ID, "_throwSelf", startTransform);
 		}
 
@@ -170,13 +170,13 @@ public partial class baseItem : RigidBody3D
 		QueueFree();
 	}
 
-    public virtual void Use()
-    {
-        GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
+	public virtual void Use()
+	{
+		GetNode<AnimationPlayer>("%SyncedAnimationPlayer").Play("swing");
 
 		
 		RpcId(Constants.SERVER_HOST_ID,"createDamageArea", (ItemHolder.localItemHolder.GetParent() as Node3D).GlobalTransform);
-    }
+	}
 
 
 	//only run on server, called anywhere. Damage areas only exist on the server.
@@ -191,7 +191,7 @@ public partial class baseItem : RigidBody3D
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.BOSS.GetHashCode();
 		
 		//damage areas only need to exist on the server
-        Globals.objectHolder.AddChild(damageArea);
+		Globals.objectHolder.AddChild(damageArea);
 		//Globals.multiplayerSpawner.Spawn(CustomMultiplayerSpawner.createSpawnRequest(damageArea,Constants.paths.damageAreaPath,"Transform","damage","targetEntity"));
 
 	}

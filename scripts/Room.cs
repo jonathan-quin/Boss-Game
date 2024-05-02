@@ -106,7 +106,7 @@ public partial class Room
         //GD.Print(newRoom, " This is after step 1");
 
         //add extra connections
-        Random rand = new Random();
+        Random rand = new Random(/*Globals.Seed*/);
 
         for (int i = 0; i <newRoom.doors.Length; i++)
         {

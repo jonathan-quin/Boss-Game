@@ -5,6 +5,8 @@ using System.Linq;
 
 public partial class Room
 {
+
+    public static Random rand = new Random(/*Globals.Seed*/);
     public static int[] ALL_OPEN = { 1, 1, 1, 1 };
     public static int[] ALL_CLOSED = { 0, 0, 0, 0 };
 
@@ -106,7 +108,7 @@ public partial class Room
         //GD.Print(newRoom, " This is after step 1");
 
         //add extra connections
-        Random rand = new Random(/*Globals.Seed*/);
+        
 
         for (int i = 0; i <newRoom.doors.Length; i++)
         {

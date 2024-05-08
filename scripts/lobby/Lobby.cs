@@ -64,6 +64,9 @@ public partial class Lobby : Node
 		{
 			case gameStartRequest.GameMode.HOST_BOSS:
 				break;
+			
+			case gameStartRequest.GameMode.RAND:
+				break;
 
 			case gameStartRequest.GameMode.REQUEST_BOSS:
 
@@ -85,6 +88,8 @@ public partial class Lobby : Node
 		foreach (GameStartInterface obj in gameStartNodes){
 			obj.start();
 		}
+
+		mapMaker.instance.generate(Globals.seed);
 
 	}
 

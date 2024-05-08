@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://davvew4eor4w7" path="res://scenes/artifact_holder.tscn" id="6_ss7lx"]
 [ext_resource type="PackedScene" uid="uid://nio6aeten03o" path="res://scenes/UI/lobby_interface.tscn" id="8_xgb1f"]
 [ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="9_gmxkm"]
-[ext_resource type="PackedScene" uid="uid://btsq08bbnlypq" path="res://scenes/main.tscn" id="11_2v1bs"]
+[ext_resource type="PackedScene" uid="uid://btsq08bbnlypq" path="res://scenes/mapGenerator.tscn" id="11_2v1bs"]
 
 [sub_resource type="Environment" id="Environment_4l018"]
 ambient_light_source = 1

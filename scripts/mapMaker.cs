@@ -2,10 +2,11 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public partial class main : Node3D
+public partial class mapMaker : Node3D
 {
 	// Called when the node enters the scene tree for the first time.
-
+	
+	public static mapMaker instance;
 
 	BreadthFirstBoard board;
 	public List<Node3D> islands = new List<Node3D>();
@@ -15,11 +16,9 @@ public partial class main : Node3D
 
 	public override void _Ready()
 	{
-		GD.Print("Press space to continue!");
-		board = new BreadthFirstBoard(2007988800/*GD.RandRange(2000000000, 2147483647)*/);
+		instance = this;
+		board = new BreadthFirstBoard();
 		board.fillBoardEmpty();
-		GD.Print(board);
-		
 	}
 
 	public void GenerateIsland(Vector3 position, int[] doors){
@@ -36,29 +35,25 @@ public partial class main : Node3D
 		AddChild(island);
 	}
 
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
+	public void generateOnAllClients(int seed){
+		Rpc("generate",seed);
 	}
 
-	public override void _Input(InputEvent @event)
-	{
-		if(@event.IsActionPressed("generate"))
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void generate(int seed){
+		foreach(Node3D node in islands){
+			node.QueueFree();
+		}
+		islands.Clear();
+
+		Room.rand = new Random(seed);
+		board.MakeNewBoard(0.8,0.05);
+		
+		for(int i = 0; i < board.map.Count; i++)
 		{
-			foreach(Node3D node in islands){
-				node.QueueFree();
-			}
-			islands.Clear();
-
-			if(Input.IsActionJustPressed("generate")){
-			board.MakeNewBoard(0.8,0.05);
-		}
-			for(int i = 0; i < board.map.Count; i++)
-			{
-				GenerateIsland(new Vector3(board.map[i].position.X * 2, 0, board.map[i].position.Y * 2), board.map[i].doors);
-			}
-			
+			GenerateIsland(new Vector3(board.map[i].position.X * 2, 0, board.map[i].position.Y * 2), board.map[i].doors);
 		}
 	}
+
 
 }

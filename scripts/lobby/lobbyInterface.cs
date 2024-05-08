@@ -18,6 +18,8 @@ public partial class lobbyInterface : Control
     public Button startGameButton;
     public Button forceEndGameButton;
 
+    public SpinBox seedBox;
+
     public Lobby lobby;
 
     public PauseMenu pauseMenu;
@@ -31,6 +33,7 @@ public partial class lobbyInterface : Control
 
     public override void _Ready()
     {
+        this.SetMultiplayerAuthority((int)Constants.SERVER_HOST_ID);
 
         lobby = GetParent() as Lobby;
         playerContainer = GetNode<Container>("%playerVboxContainer");
@@ -44,6 +47,9 @@ public partial class lobbyInterface : Control
         forceEndGameButton = GetNode<Button>("%forceEndGame");
         forceEndGameButton.Pressed += lobby.endGame;
 
+        seedBox = GetNode<SpinBox>("%seedBox");
+        Random random= new Random();
+        seedBox.value = random.Next(0,10000);
 
         //all players have these signals connected for debugging
         Multiplayer.ConnectedToServer += ConnectedToServer;
@@ -90,6 +96,7 @@ public partial class lobbyInterface : Control
             startGameButton.Disabled = Globals.gameInProgress;
         }
 
+        Globals.seed = seedBox.value;
     }
 
     public static List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();

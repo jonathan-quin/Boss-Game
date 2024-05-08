@@ -1,7 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://btsq08bbnlypq"]
+[gd_scene load_steps=4 format=3 uid="uid://btsq08bbnlypq"]
 
-[ext_resource type="Script" path="res://scripts/main.cs" id="1_rnkkq"]
-[ext_resource type="PackedScene" uid="uid://cu1wyf1b77s11" path="res://scenes/island.tscn" id="2_ikn37"]
+[ext_resource type="Script" path="res://scripts/mapMaker.cs" id="1_f3xd1"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qj15y"]
 albedo_color = Color(0.694118, 0.694118, 0, 1)
@@ -12,8 +11,7 @@ text = "Center
 "
 
 [node name="Main" type="Node3D"]
-script = ExtResource("1_rnkkq")
-Island = ExtResource("2_ikn37")
+script = ExtResource("1_f3xd1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(10, 0, 0, 0, -4.37114e-07, 10, 0, -10, -4.37114e-07, 0, 3.03162, 0)

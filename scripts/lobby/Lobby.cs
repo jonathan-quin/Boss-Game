@@ -198,7 +198,7 @@ public partial class Lobby : Node
 	**/
 	public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
 	{
-		GD.Print("made a player ",isBoss," ",);
+		GD.Print("made a player ",isBoss," ");
 	
 		var player = (isBoss ? BossScene : SurviorScene ).Instantiate() as Node3D;
 		player.Name = id.ToString();

@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cu1wyf1b77s11"]
+[gd_scene load_steps=8 format=3 uid="uid://cu1wyf1b77s11"]
 
 [ext_resource type="Script" path="res://scripts/island.cs" id="1_s6ac5"]
 [ext_resource type="PackedScene" uid="uid://c1tfe6qsuuat1" path="res://scenes/bridge.tscn" id="2_goe73"]
+[ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_ukwpl"]
+[ext_resource type="PackedScene" uid="uid://yvvhm2mfs4bu" path="res://scenes/spawnPoint.tscn" id="4_omdsf"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_r7d30"]
 resource_local_to_scene = true
@@ -26,3 +28,15 @@ surface_material_override/0 = SubResource("StandardMaterial3D_vealr")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_uj6y7")
+
+[node name="ItemSpawner" parent="." instance=ExtResource("3_ukwpl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.287139, 0)
+pathToItem = PackedStringArray("res://scenes/items/ArtifactItem.tscn", "res://scenes/items/KnifeItem.tscn", "res://scenes/items/TorchItem.tscn")
+chanceToCreateItemOutOfOne = 0.1
+
+[node name="spawnPoint" parent="." instance=ExtResource("4_omdsf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.285317, 0)
+
+[node name="spawnPoint2" parent="." instance=ExtResource("4_omdsf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.285317, 0)
+spawnType = 0

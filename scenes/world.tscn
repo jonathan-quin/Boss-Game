@@ -1,11 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://c2s751ht1xoxv"]
+[gd_scene load_steps=11 format=3 uid="uid://c2s751ht1xoxv"]
 
 [ext_resource type="Script" path="res://scripts/lobby/Lobby.cs" id="1_4koul"]
 [ext_resource type="PackedScene" uid="uid://cwcgao5u40ash" path="res://scenes/boss.tscn" id="2_to6qp"]
 [ext_resource type="PackedScene" uid="uid://bf4q3p0st5kda" path="res://scenes/survivor.tscn" id="2_ub1dh"]
 [ext_resource type="Texture2D" uid="uid://ddxocifvemdoc" path="res://placeholders/Screenshot 2024-02-23 084138.png" id="3_8xo3k"]
-[ext_resource type="PackedScene" uid="uid://cmpi2sjp2micf" path="res://scenes/items/itemSpawner.tscn" id="3_qooul"]
-[ext_resource type="PackedScene" uid="uid://yvvhm2mfs4bu" path="res://scenes/spawnPoint.tscn" id="5_yfy6t"]
 [ext_resource type="Script" path="res://scripts/CustomMultiplayerSpawner.cs" id="6_81mv8"]
 [ext_resource type="PackedScene" uid="uid://davvew4eor4w7" path="res://scenes/artifact_holder.tscn" id="6_ss7lx"]
 [ext_resource type="PackedScene" uid="uid://nio6aeten03o" path="res://scenes/UI/lobby_interface.tscn" id="8_xgb1f"]
@@ -27,67 +25,11 @@ BossScene = ExtResource("2_to6qp")
 [node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
 environment = SubResource("Environment_4l018")
 
-[node name="item spawners" type="Node3D" parent="."]
-
-[node name="ItemSpawner" parent="item spawners" instance=ExtResource("3_qooul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
-
-[node name="ItemSpawner2" parent="item spawners" instance=ExtResource("3_qooul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 14.6968)
-pathToItem = "res://scenes/items/KnifeItem.tscn"
-
-[node name="ItemSpawner3" parent="item spawners" instance=ExtResource("3_qooul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78094, 0, 10.8597)
-pathToItem = "res://scenes/items/TorchItem.tscn"
-
-[node name="ItemSpawner4" parent="item spawners" instance=ExtResource("3_qooul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.1907, 0, 14.6968)
-pathToItem = "res://scenes/items/ArtifactItem.tscn"
-
-[node name="ItemSpawner5" parent="item spawners" instance=ExtResource("3_qooul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9716, 0, 14.6968)
-pathToItem = "res://scenes/items/ArtifactItem.tscn"
-
-[node name="ItemSpawner6" parent="item spawners" instance=ExtResource("3_qooul")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.9716, 0, 10.8597)
-pathToItem = "res://scenes/items/ArtifactItem.tscn"
-
-[node name="player spawners" type="Node3D" parent="."]
-
-[node name="spawnPoint" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8954, 0, 4.80305)
-
-[node name="spawnPoint6" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.8954, 0, 10.7209)
-
-[node name="spawnPoint7" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5542, 0, 10.7209)
-
-[node name="spawnPoint8" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5542, 0, 4.75881)
-
-[node name="spawnPoint2" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959954, 0, 4.80305)
-spawnType = 0
-
-[node name="spawnPoint5" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26424, 0, 12.419)
-spawnType = 0
-
-[node name="spawnPoint3" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959954, 0, 0.36762)
-spawnType = 0
-
-[node name="spawnPoint4" parent="player spawners" instance=ExtResource("5_yfy6t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.959954, 0, 9.02341)
-spawnType = 0
-
 [node name="PlayerSpawnRoot" type="Node3D" parent="."]
 unique_name_in_owner = true
 
 [node name="Artifact Holder" parent="." groups=["callOnGameStart"] instance=ExtResource("6_ss7lx")]
-transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 7.99503, -0.283107, 15.03)
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -16.6908, 0)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
 unique_name_in_owner = true

@@ -29,25 +29,29 @@ public partial class Lobby : Node
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
 		
-		mapMaker.instance.generateOnAllClients(Globals.Seed);
+		
 
 		endGame();
+
+		mapMaker.instance.generateOnAllClients(Globals.Seed);
 
 		Globals.gameInProgress = true;
 
 		var spawnPoints = GetTree().GetNodesInGroup("spawnPoint");
 
 		Random random = new Random();
-		List<Vector3> survivorSpawnPositions = spawnPoints
+		/*List<Vector3> survivorSpawnPositions = spawnPoints
 											.Where(s => (s as spawnPoint).spawnType == spawnPoint.SpawnType.SURVIVOR)
-											.Select(s => (s as spawnPoint).Position)
+											.Select(s => (s as spawnPoint).GlobalPosition)
 											.OrderBy(x => random.Next())
 											.ToList();
 		List<Vector3> bossSpawnPositions = spawnPoints
 											.Where(s => (s as spawnPoint).spawnType == spawnPoint.SpawnType.BOSS)
-											.Select(s => (s as spawnPoint).Position)
+											.Select(s => (s as spawnPoint).GlobalPosition)
 											.OrderBy(x => random.Next())
-											.ToList();
+											.ToList();*/
+
+		List<Vector3> spawnPointsPositions = spawnPoints.Select(s => (s as spawnPoint).GlobalPosition).OrderBy(x => random.Next()).ToList();
 
 		/*GD.Print("Survior:");
 		foreach (Vector3 vector in survivorSpawnPositions){
@@ -76,7 +80,7 @@ public partial class Lobby : Node
 
 				foreach (PlayerConfiguration config in gameStartRequest.playerConfigurations)
 				{
-					Vector3 newPos = config.wantsToBeBoss ? PopFront<Vector3>(bossSpawnPositions) : PopFront<Vector3>(survivorSpawnPositions);
+					Vector3 newPos = PopFront<Vector3>(spawnPointsPositions);//config.wantsToBeBoss ? PopFront<Vector3>(bossSpawnPositions) : PopFront<Vector3>(survivorSpawnPositions);
 					//GD.Print(config.wantsToBeBoss ? "boss" : "survivor", " ", newPos);
 					CreatePlayer(config.wantsToBeBoss, newPos, config.id);
 				}
@@ -194,14 +198,14 @@ public partial class Lobby : Node
 	**/
 	public void CreatePlayer(bool isBoss, Vector3 spawnPosition, long id = 1 )
 	{
-		//GD.Print("made a player");
+		GD.Print("made a player ",isBoss," ",);
 	
 		var player = (isBoss ? BossScene : SurviorScene ).Instantiate() as Node3D;
 		player.Name = id.ToString();
-		
-		player.Position = spawnPosition;
-		
+
 		Globals.objectHolder.AddChild(player);
+
+		player.GlobalPosition = spawnPosition;
 	}
 	
 	

@@ -224,7 +224,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	}
 
 
-	double _health = 1000;
+	double _health = 10000;
 	bool _dead = false;
 	public double health { get => _health; set => _health = value; }
 	public bool dead { get => _dead; set => _dead = value; }

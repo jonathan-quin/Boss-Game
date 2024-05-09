@@ -99,7 +99,7 @@ public partial class Lobby : Node
 	}
 
 
-	bool displayingMessage = false;
+	public bool displayingMessage = false;
 	/// <summary>
 	/// Checks every frame the game is running if any category of player is all dead. 
 	/// It determines if survivors are dead by whether they have instances or not. This only works because players are deleted when they die.

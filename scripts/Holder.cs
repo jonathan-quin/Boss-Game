@@ -22,7 +22,10 @@ public partial class Holder : StaticBody3D, GameStartInterface
 
 		if (ArtifactsContained >= 3)
 		{
-			lobby.endGame();
+			foreach (long Boss in boss.bosses.Keys)
+			{
+				boss.bosses[Boss].Die();
+			}
 			ArtifactsContained = 0;
 		}
 	}

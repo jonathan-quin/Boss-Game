@@ -145,6 +145,7 @@ collision_layer = 17
 freeze = true
 script = ExtResource("1_kqiva")
 pathToSelf = "res://scenes/items/ArtifactItem.tscn"
+damageDealt = 0.0
 
 [node name="mesh" type="Node3D" parent="."]
 

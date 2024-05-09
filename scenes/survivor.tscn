@@ -151,7 +151,7 @@ stream = ExtResource("6_s78t8")
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)
 light_energy = 5.0
-omni_range = 40.0
+omni_range = 20.0
 omni_shadow_mode = 0
 
 [node name="nameTag" type="Label3D" parent="."]

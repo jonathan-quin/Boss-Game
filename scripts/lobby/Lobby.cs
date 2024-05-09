@@ -28,6 +28,8 @@ public partial class Lobby : Node
 	
 	public void StartGame(gameStartRequest gameStartRequest)
 	{
+		
+		mapMaker.instance.generateOnAllClients(Globals.Seed);
 
 		endGame();
 
@@ -65,7 +67,7 @@ public partial class Lobby : Node
 			case gameStartRequest.GameMode.HOST_BOSS:
 				break;
 			
-			case gameStartRequest.GameMode.RAND:
+			case gameStartRequest.GameMode.RANDOM_BOSS:
 				break;
 
 			case gameStartRequest.GameMode.REQUEST_BOSS:
@@ -89,8 +91,7 @@ public partial class Lobby : Node
 			obj.start();
 		}
 
-		mapMaker.instance.generate(Globals.seed);
-
+		
 	}
 
 

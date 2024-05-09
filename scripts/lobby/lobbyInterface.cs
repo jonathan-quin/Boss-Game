@@ -49,7 +49,7 @@ public partial class lobbyInterface : Control
 
         seedBox = GetNode<SpinBox>("%seedBox");
         Random random= new Random();
-        seedBox.value = random.Next(0,10000);
+        seedBox.Value = random.Next(0,10000);
 
         //all players have these signals connected for debugging
         Multiplayer.ConnectedToServer += ConnectedToServer;
@@ -96,7 +96,7 @@ public partial class lobbyInterface : Control
             startGameButton.Disabled = Globals.gameInProgress;
         }
 
-        Globals.seed = seedBox.value;
+        Globals.Seed = (int)seedBox.Value;
     }
 
     public static List<lobbyPlayer> lobbyPlayers = new List<lobbyPlayer>();

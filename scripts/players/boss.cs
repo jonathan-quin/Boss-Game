@@ -8,7 +8,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	public static Dictionary<long, boss> bosses = new Dictionary<long,boss>();
 
 	const float SPEED = 12.0f;
-	const float ACCEL = 0.7f;
+	const float ACCEL = 1.4f;
 	const float DEACCEL = 1.0f;
 	const float JUMP_VELOCITY = 3f;
 
@@ -124,7 +124,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		damageArea.Position = bossMesh.GlobalPosition;
 		damageArea.Rotation = bossMesh.Rotation;
 		damageArea.RotateY(Mathf.DegToRad(-90));
-		damageArea.Position += bossMesh.GlobalTransform.Basis.X * 2.5f;
+		damageArea.Position += bossMesh.GlobalTransform.Basis.X * 1.7f;
 
 		damageArea.damage = damageDealt;
 		damageArea.targetEntity = TakeDamageInterface.TypeOfEntity.SURVIVOR.GetHashCode();
@@ -180,13 +180,13 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		
 		MoveAndSlide();
 
-		if (direction != Vector3.Zero)
-		{
-			lastTargetDirection = direction;
-		}
+		//if (direction != Vector3.Zero)
+		//{
+		//	lastTargetDirection = direction;
+		//}
 
 		//rotating the mesh
-		float targetRotation = (float)(new Vector2(lastTargetDirection.Z, lastTargetDirection.X).Angle() + Mathf.DegToRad(-90.0));
+		float targetRotation = (float)(camera.GlobalRotation.Y + Mathf.DegToRad(90.0));
 		float newRotation = (float)Mathf.LerpAngle(bossMesh.Rotation.Y, targetRotation, 3 * delta);
 
 		bossMesh.Rotation = new Vector3(0, newRotation, 0);

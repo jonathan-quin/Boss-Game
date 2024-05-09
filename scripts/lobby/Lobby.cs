@@ -122,6 +122,7 @@ public partial class Lobby : Node
 
 			GD.Print("all survivors are dead.");
 
+			GetNode<Holder>("%Artifact Holder").ArtifactsContained = 0;
 		}
 		if (boss.AllBossesAreDead())
 		{
@@ -133,6 +134,7 @@ public partial class Lobby : Node
 
 			GD.Print("all bosses are dead.");
 
+			GetNode<Holder>("%Artifact Holder").ArtifactsContained = 0;
 		}
 
 

@@ -29,6 +29,7 @@ environment = SubResource("Environment_4l018")
 unique_name_in_owner = true
 
 [node name="Artifact Holder" parent="." groups=["callOnGameStart"] instance=ExtResource("6_ss7lx")]
+unique_name_in_owner = true
 transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -16.6908, 0)
 
 [node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]

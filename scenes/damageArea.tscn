@@ -1,15 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://bdas4h5nnam6k"]
+[gd_scene load_steps=3 format=3 uid="uid://bdas4h5nnam6k"]
 
 [ext_resource type="Script" path="res://scripts/damageArea.cs" id="1_frx4f"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gat0e"]
 size = Vector3(0.2, 2.15283, 1.79297)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5kml"]
-albedo_color = Color(1, 0.160784, 1, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_4f12h"]
-material = SubResource("StandardMaterial3D_s5kml")
 
 [node name="DamageArea" type="Node3D"]
 script = ExtResource("1_frx4f")
@@ -21,7 +15,3 @@ collision_mask = 96
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
 transform = Transform3D(10.9566, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00170898, -1.43146)
 shape = SubResource("BoxShape3D_gat0e")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 1.793, 0, 0, -1.27737)
-mesh = SubResource("BoxMesh_4f12h")

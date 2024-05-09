@@ -208,6 +208,16 @@ public partial class Lobby : Node
 		Globals.objectHolder.AddChild(player);
 
 		player.GlobalPosition = spawnPosition;
+
+		if (player is Survivor)
+		{
+			(player as Survivor).Rpc("setLoadingPos",spawnPosition);
+		}
+		if (player is boss)
+		{
+			(player as boss).Rpc("setLoadingPos",spawnPosition);
+		}
+		
 	}
 	
 	

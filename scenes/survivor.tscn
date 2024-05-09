@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bf4q3p0st5kda"]
+[gd_scene load_steps=19 format=3 uid="uid://bf4q3p0st5kda"]
 
 [ext_resource type="Script" path="res://scripts/players/Survivor.cs" id="1_lofjr"]
 [ext_resource type="PackedScene" uid="uid://b72jb7xj8jfq1" path="res://scenes/MESHsurvivor_monster_rigged_for_game.tscn" id="2_wv26e"]
@@ -7,7 +7,6 @@
 [ext_resource type="AudioStream" uid="uid://br58upv3ia8e0" path="res://sounds/SurvivorStep02.mp3" id="4_7gull"]
 [ext_resource type="Script" path="res://scripts/items/ItemHolder.cs" id="4_8ox0w"]
 [ext_resource type="AudioStream" uid="uid://db4ant884w4cb" path="res://sounds/SurvivorStep01.mp3" id="5_yld04"]
-[ext_resource type="PackedScene" uid="uid://c873slsjvcmyv" path="res://scenes/UI/PlayerUI.tscn" id="6_okpqg"]
 [ext_resource type="AudioStream" uid="uid://b4xfmes520s8l" path="res://sounds/Swish.mp3" id="6_s78t8"]
 [ext_resource type="Texture2D" uid="uid://b0bsfaku3r4j4" path="res://placeholders/bloodtemp.png" id="7_tjvn2"]
 [ext_resource type="Script" path="res://scripts/SyncParticles.cs" id="8_m6omr"]
@@ -145,8 +144,6 @@ transform = Transform3D(-0.990139, 0.0124312, 0.139536, -0.140089, -0.0878628, -
 
 [node name="CleaverSwish" type="AudioStreamPlayer3D" parent="neck/head/ItemHolder"]
 stream = ExtResource("6_s78t8")
-
-[node name="PlayerUI" parent="." instance=ExtResource("6_okpqg")]
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.17332, 0)

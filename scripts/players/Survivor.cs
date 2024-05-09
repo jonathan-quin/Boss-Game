@@ -16,6 +16,7 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 
 	//prevents the player from moving until the game has synced with other clients. Every frame is decreased by delta.
 	public float loadingTime = 1.0f;
+	public Vector3 loadingPos = Vector3.Zero;
 
 	public ItemHolder itemHolder;
 	public Label3D nameTag;
@@ -93,14 +94,21 @@ public partial class Survivor : CharacterBody3D , TakeDamageInterface
 	{
 		if (!IsMultiplayerAuthority() || loadingTime >= 0){
 			loadingTime -= (float) delta;
+			GlobalPosition = loadingPos;
 			return;
 		}
 
 		Move(delta);
 
+		Globals.health = (float) health;
 
 	}
-
+	
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void setLoadingPos(Vector3 loadingPos)
+	{
+		this.loadingPos = loadingPos;
+	}
 
 	public void Move(double delta){
 		//if (! IsOnFloor()){

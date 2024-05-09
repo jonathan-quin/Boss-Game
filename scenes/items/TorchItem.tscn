@@ -149,7 +149,6 @@ collision_layer = 17
 freeze = true
 script = ExtResource("1_ximil")
 pathToSelf = "res://scenes/items/TorchItem.tscn"
-damageDealt = 0.0
 
 [node name="mesh" type="Node3D" parent="."]
 

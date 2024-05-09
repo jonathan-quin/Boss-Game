@@ -18,6 +18,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	public PlayerUI playerUI;
 
 	public float loadingTime = 1.0f;
+	public Vector3 loadingPos = Vector3.Zero;
 
 	public override void _EnterTree(){
 		SetMultiplayerAuthority(int.Parse(Name));
@@ -84,6 +85,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	{
 		if (!IsMultiplayerAuthority() || loadingTime >= 0 ){
 			loadingTime -= (float) delta;
+			GlobalPosition = loadingPos;
 			return;
 		}
 
@@ -94,7 +96,8 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 
 
 		handleAttackInputs();
-
+		
+		Globals.health = (float) health;
 
 
 	}
@@ -116,6 +119,12 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 		}
 	}
 
+	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
+	public void setLoadingPos(Vector3 loadingPos)
+	{
+		this.loadingPos = loadingPos;
+	}
+	
 	[Rpc(MultiplayerApi.RpcMode.AnyPeer, CallLocal = true, TransferMode = MultiplayerPeer.TransferModeEnum.Reliable)]
 	public void CreateDamageArea()
 	{
@@ -224,7 +233,7 @@ public partial class boss : CharacterBody3D, TakeDamageInterface
 	}
 
 
-	double _health = 10000;
+	double _health = 100;
 	bool _dead = false;
 	public double health { get => _health; set => _health = value; }
 	public bool dead { get => _dead; set => _dead = value; }
